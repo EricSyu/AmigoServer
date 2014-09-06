@@ -28,13 +28,10 @@ import javax.swing.UIManager;
 public class Server {
 
 	private JFrame frmServer;
-	private JButton btnPositioning, button_1;
 	private JTextField textField;
 	private JTextField textField_1;
-	private JLabel label;
-	private JTextArea textArea_1;
 	static Boolean flag=true, _flag=true, posflag=true, monflag=true, positflag=true, conflag=false, Infoflag=false;
-	int mode=0;
+	int mode=0, speed=0;
 	JButton btnNewButton_3 = new JButton("2");
 	JButton btnNewButton_4 = new JButton("1");
 	JButton btnNewButton_5 = new JButton("0");
@@ -99,7 +96,6 @@ public class Server {
 //		btnPositioning = new JButton("Position");
 //		button_1 = new JButton("Stop");
 		
-		final Locating lct=new Locating(label, textArea_1);
 		final WifiSignal wifisgl=new WifiSignal();
 		
 		Panel panel_3 = new Panel();
@@ -144,8 +140,6 @@ public class Server {
 		final JTextArea textArea_2 = new JTextArea();
 		textArea_2.setBounds(434, 214, 145, 151);
 		panel_3.add(textArea_2);
-		
-		final WifiSignal _wifisgl=new WifiSignal();
 		
 		final Position position=new Position( btnNewButton_5, btnNewButton_4, btnNewButton_3, 
 				btnNewButton_6, btnNewButton_7, btnNewButton_8, btnNewButton_11, 
@@ -533,11 +527,16 @@ public class Server {
 		panel_2.add(btnNewButton_17);
 		
 		JButton btnNewButton_14 = new JButton("\uFF0B");
-		btnNewButton_14.setBounds(171, 403, 45, 23);
+		btnNewButton_14.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+			}
+		});
+		btnNewButton_14.setBounds(160, 403, 56, 23);
 		panel_2.add(btnNewButton_14);
 		
 		JButton button_2 = new JButton("\uFF0D");
-		button_2.setBounds(268, 403, 45, 23);
+		button_2.setBounds(268, 403, 56, 23);
 		panel_2.add(button_2);
 		
 		JTextArea textArea_4 = new JTextArea();

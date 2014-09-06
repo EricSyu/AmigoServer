@@ -31,7 +31,7 @@ public class WifiSignal extends Thread{
 					
 //					System.out.println("WifiInfo:\n"+str);
 					FileWriter fw = new FileWriter("C://CamTest//Positioning.txt");
-					fw.write(str+"\n");
+					fw.write(str+"");
 					fw.flush();
 					fw.close();
 					
