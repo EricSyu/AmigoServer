@@ -1,13 +1,7 @@
-import java.io.BufferedInputStream;
-import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.net.ServerSocket;
 import java.net.Socket;
-
-import javax.swing.JButton;
-import javax.swing.JTextArea;
 
 
 public class MonitorZones extends Thread{
@@ -19,6 +13,7 @@ public class MonitorZones extends Thread{
 		ci=Info;
 	}
 	
+	@Override
 	public void run(){
 		try {
 			
@@ -28,10 +23,8 @@ public class MonitorZones extends Thread{
 				Thread.sleep(500);
 				
 				if(flag){
-//					System.out.println("Ready to connect...");
 					Socket socket=server.accept();
-//					System.out.println("Connecting...");
-//					System.out.println(ci.reach+"---------->"+ci.reach.indexOf("true"));
+					
 					while(ci.reach.indexOf("true")>-1 && core){
 						DataOutputStream out = new DataOutputStream(socket.getOutputStream());
 						

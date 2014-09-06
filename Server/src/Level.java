@@ -14,13 +14,11 @@ public class Level extends Thread{
 	private JTextField textField, textField_1;
 	private JTextArea textArea;
 	BufferedReader in;
-	Socket wclient;
 	static String sum="", _sum="";
 	
-	public Level(JTextField textField0, JTextField textField1, JTextArea textArea0, Socket socket){
+	public Level(JTextField textField0, JTextField textField1, JTextArea textArea0){
 		textField=textField0;
 		textField_1=textField1;
-		wclient=socket;
 		textArea=textArea0;
 	}
 	@Override
@@ -33,9 +31,9 @@ public class Level extends Thread{
 			String[] mac = fstr.split("__");
 			int[] level=new int[mac.length];
 			int text = Integer.parseInt(textField_1.getText());
-			int i, j, flag=0, loop=0;
-			wclient = wifiSocket.accept();
+			int i, j, loop=0;
 			while( text > loop ){
+				Socket wclient = wifiSocket.accept();
 				
 				in = new BufferedReader(new 
 						InputStreamReader(wclient.getInputStream()));
@@ -60,6 +58,7 @@ public class Level extends Thread{
 				_sum+="\r\n";
 				textArea.setText(sum);
 				loop++;
+				wclient.close();
 			}
 			FileWriter fw = new FileWriter("C://CamTest//Wifilevel.txt", false);
 			fw.write(_sum);
@@ -71,7 +70,6 @@ public class Level extends Thread{
 			
 			in.close();
 			wifiSocket.close();
-			wclient.close();
 		} catch (NumberFormatException | IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

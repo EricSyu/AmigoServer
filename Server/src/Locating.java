@@ -1,17 +1,34 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
+
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JTextArea;
 
+//import com.googlecode.javacv.cpp.opencv_core.CvMat;
+//import com.googlecode.javacv.cpp.opencv_legacy.CvEM;
+//import com.googlecode.javacv.cpp.opencv_legacy.CvEMParams;
 
 public class Locating extends Thread{
 	private JTextArea textArea;
 	private JLabel lblNewLabel;
 	static Boolean flag=true;
+//	CvMat matrix;
+//	CvEMParams params;
+	
 	public Locating( JLabel lblNewLabel0, JTextArea textArea0 ){
 		lblNewLabel=lblNewLabel0;
 		textArea=textArea0;
+//		params.covs();
+//		params.means();
+//		params.weights();
+//		params.probs();
+//		params.nclusters(3);
+//		params.cov_mat_type(CvEM.COV_MAT_SPHERICAL);
+//		params.start_step(CvEM.START_AUTO_STEP);
+//		params.term_crit().max_iter(10);    // 限制迭代最高次數
+//		params.term_crit().epsilon(0.1);
+//		params.term_crit().type(getPriority());
 	}
 	@Override
 	public void run(){

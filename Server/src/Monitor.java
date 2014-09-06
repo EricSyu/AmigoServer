@@ -40,7 +40,7 @@ public class Monitor extends Thread{
 	
 	@Override
 	public void run(){
-		SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd-hh-mm-ss");
+		SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd-hh-mm-ss.SSS");
 		
 		try {
 			serverSocket = new ServerSocket(168);
@@ -51,9 +51,9 @@ public class Monitor extends Thread{
 		try {
 			while(true){
 				if(flag) { 
-					System.out.println("Server: Connect");
+//					System.out.println("Server: Connect");
 					Socket client = serverSocket.accept();
-					System.out.println("Server: Connecting...");
+//					System.out.println("Server: Connecting...");
 					
 					Date date=new Date();
 					String time=sdf.format(date);
@@ -70,7 +70,6 @@ public class Monitor extends Thread{
 						// 寫入到電腦裡
 						out.write(buf, 0, len);
 					}
-					
 					
 					File file=new File(file_name+time+".jpeg");
 					BufferedImage image=ImageIO.read(file);
@@ -89,6 +88,5 @@ public class Monitor extends Thread{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		 
 	}
 }

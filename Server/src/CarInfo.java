@@ -1,5 +1,4 @@
 import java.io.BufferedReader;
-import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.ServerSocket;
@@ -32,6 +31,7 @@ public class CarInfo extends Thread{
 		zone7=_zone7;
 		zone8=_zone8;
 	}
+	@Override
 	public void run(){
 		try {
 			
@@ -77,6 +77,7 @@ public class CarInfo extends Thread{
 				}
 				textArea.setText(str[0]+"\nStall: "+_str[0]+"\nReach: "+_str[1]);
 			}
+			Carserver.close();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

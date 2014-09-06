@@ -14,22 +14,28 @@ public class WifiSignal extends Thread{
 	BufferedReader in;
 	BufferedWriter out=null;
 	
+	
 	@Override
 	public void run(){
 		try {
 			
 			ServerSocket wifiSocket=new ServerSocket(861);
-			wificlient=wifiSocket.accept();
+			
 			while(true){
 				while(flag){
+					wificlient=wifiSocket.accept();
+					
 					in = new BufferedReader(new 
 							InputStreamReader(wificlient.getInputStream()));
 					String str = in.readLine();
+					
 //					System.out.println("WifiInfo:\n"+str);
 					FileWriter fw = new FileWriter("C://CamTest//Positioning.txt");
 					fw.write(str+"\n");
 					fw.flush();
 					fw.close();
+					
+//					Thread.sleep(50);
 				}
 			}
 			

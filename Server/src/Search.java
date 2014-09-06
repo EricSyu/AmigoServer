@@ -14,14 +14,12 @@ public class Search extends Thread{
 	private JTextArea textArea;
 	private static String[] record=new String[15];
 	BufferedReader in;
-	Socket wclient;
 	static String sum="";
 	int[] cnt=new int[15];
-	public Search(JTextField textField0, JTextField textField1, JTextArea textArea0, Socket socket){
+	public Search(JTextField textField0, JTextField textField1, JTextArea textArea0){
 		for (int i=0; i<15; i++) cnt[i]=0;
 		textField=textField0;
 		textField_1=textField1;
-		wclient=socket;
 		textArea=textArea0;
 	}
 	@Override
@@ -30,8 +28,9 @@ public class Search extends Thread{
 			ServerSocket wifiSocket=new ServerSocket(Integer.parseInt(textField.getText()));
 			int text = Integer.parseInt(textField_1.getText());
 			int i, j, flag=0, loop=0;
-			wclient = wifiSocket.accept();
+			
 			while( text > loop ){
+				Socket wclient = wifiSocket.accept();
 				
 				in = new BufferedReader(new 
 						InputStreamReader(wclient.getInputStream()));
@@ -65,6 +64,7 @@ public class Search extends Thread{
 				sum+="AP "+str.substring(str.length()-2)+" ["+(loop+1)+"]\n";
 				textArea.setText(sum);
 				loop++;
+				wclient.close();
 			}
 			sum="";
 			String wrt="", _wrt="";
@@ -88,7 +88,6 @@ public class Search extends Thread{
 			in.close();
 			
 			wifiSocket.close();
-			wclient.close();
 		} catch (IOException e) {
 		// TODO Auto-generated catch block
 			e.printStackTrace();
