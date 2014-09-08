@@ -38,8 +38,7 @@ public class Position extends Thread{
 	@Override
 	public void run(){
 		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
-		int i, j, cnt=0;
-		int[] level=new int[6];
+		int i, j, cnt=0, avg=0;
 		
 		CvEM [] gmm_model=new CvEM[9];
 		CvMat[] trainData=new CvMat[9];
@@ -89,35 +88,44 @@ public class Position extends Thread{
 				try{
 					CvMat matTestFeature=CvMat.create(1, 6, opencv_core.CV_32FC1);
 					
-					FileReader posfr = new FileReader("C://CamTest//Positioning.txt");
-					BufferedReader posbr = new BufferedReader(posfr);
-					String _str=posbr.readLine();
-					if( _str.indexOf("SSID")>-1 ){
-						String[] wifi = _str.split("BSSID: ");
-						
-						FileReader macfr = new FileReader("C://CamTest//Wifimac.txt");
-						BufferedReader macbr = new BufferedReader(macfr);
-						String str=macbr.readLine();
-						String[] mac = str.split("__");
-						
-						macbr.close();
-						posbr.close();
-						for( i=0; i<mac.length; i++ ) matTestFeature.put(0, i, -100);
-						
-						for( i=1; i<wifi.length; i++){
-							for( j=0; j<mac.length; j++ ){
-								if( wifi[i].indexOf(mac[j])!=-1 ){
-									matTestFeature.put(0, j, Integer.parseInt(wifi[i].substring(wifi[i].indexOf("level: -")+7, 
-											wifi[i].indexOf("level: -")+10)));
-									level[j]=Integer.parseInt(wifi[i].substring(wifi[i].indexOf("level: -")+7, wifi[i].indexOf("level: -")+10));
-								}
-							}
+					int[] level=new int[]{0, 0, 0, 0, 0, 0};
+					while(avg<10){
+						int[] _level=new int[]{-100, -100, -100, -100, -100, -100};
 								
+						FileReader posfr = new FileReader("C://CamTest//Positioning.txt");
+						BufferedReader posbr = new BufferedReader(posfr);
+						synchronized(posbr){
+							String _str=posbr.readLine();
+							if( _str.indexOf("SSID")>-1 ){
+								String[] wifi = _str.split("BSSID: ");
+								
+								FileReader macfr = new FileReader("C://CamTest//Wifimac.txt");
+								BufferedReader macbr = new BufferedReader(macfr);
+								String str=macbr.readLine();
+								String[] mac = str.split("__");
+								
+								macbr.close();
+								posbr.close();
+								
+								for( i=1; i<wifi.length; i++){
+									for( j=0; j<mac.length; j++ ){
+										if( wifi[i].indexOf(mac[j])!=-1 )
+											_level[j]=Integer.parseInt(wifi[i].substring(
+													wifi[i].indexOf("level: -")+7, wifi[i].indexOf("level: -")+10));
+									}
+								}
+								for( i=0; i<mac.length; i++ ) level[i]+=_level[i];
+								Thread.sleep(50);
+							}
 						}
-						Thread.sleep(100);
+						avg++;
+					}
+					avg=0;
+					for( i=0; i<6; i++ ){ 
+						level[i]/=10;
+						matTestFeature.put(0, i, level[i]);
 					}
 					
-
 					FileReader fr = new FileReader("C://CamTest//Wifimac.txt");
 					BufferedReader br = new BufferedReader(fr);
 					String str=br.readLine();
@@ -248,6 +256,7 @@ public class Position extends Thread{
 						zone8.setBackground(Color.white);
 						break;
 					}
+					Thread.sleep(50);
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

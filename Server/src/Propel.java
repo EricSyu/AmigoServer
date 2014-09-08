@@ -25,7 +25,6 @@ public class Propel extends Thread{
 	@Override
 	public void run(){
 		try {
-			
 			ServerSocket server=new ServerSocket(404);
 			
 			while(core){

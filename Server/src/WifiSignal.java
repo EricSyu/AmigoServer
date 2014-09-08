@@ -24,22 +24,24 @@ public class WifiSignal extends Thread{
 			while(true){
 				while(flag){
 					wificlient=wifiSocket.accept();
-					
 					in = new BufferedReader(new 
-							InputStreamReader(wificlient.getInputStream()));
+								InputStreamReader(wificlient.getInputStream()));
 					String str = in.readLine();
-					
-//					System.out.println("WifiInfo:\n"+str);
+						
 					FileWriter fw = new FileWriter("C://CamTest//Positioning.txt");
-					fw.write(str+"");
-					fw.flush();
-					fw.close();
-					
-//					Thread.sleep(50);
+					synchronized(fw){
+						fw.write(str+"");
+						fw.flush();
+						fw.close();
+						Thread.sleep(50);
+					}
 				}
 			}
 			
 		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
