@@ -22,14 +22,15 @@ public class Setting extends Thread implements MonitorProtocol{
 	public Boolean Searchreceive=false;
 	public String BTSearch="";
 	public int BTMatch=-1, Speed=0;
-	
+	 DataOutputStream  out = null;
+	 static ServerSocket server=null;
 	public void run(){
 		try {
 			ServerSocket server=new ServerSocket(100);
 			while(true){
 				if(BTSwitchopen){
 					Socket socket=server.accept();
-					DataOutputStream out = new DataOutputStream(socket.getOutputStream());
+					out = new DataOutputStream(socket.getOutputStream());
 					out.writeInt(BluetoothSwitch);
 					out.flush();
 					out.writeInt(Open);
@@ -39,7 +40,7 @@ public class Setting extends Thread implements MonitorProtocol{
 					BTSwitchopen=false;
 				}else if(BTSwitchclose){
 					Socket socket=server.accept();
-					DataOutputStream out = new DataOutputStream(socket.getOutputStream());
+					 out = new DataOutputStream(socket.getOutputStream());
 					out.writeInt(BluetoothSwitch);
 					out.flush();
 					out.writeInt(Close);
@@ -49,7 +50,7 @@ public class Setting extends Thread implements MonitorProtocol{
 					BTSwitchclose=false;
 				}else if(BTConnectflag){
 					Socket socket=server.accept();
-					DataOutputStream out = new DataOutputStream(socket.getOutputStream());
+					 out = new DataOutputStream(socket.getOutputStream());
 					out.writeInt(BluetoothSwitch);
 					out.flush();
 					out.writeInt(Connected);
@@ -61,7 +62,7 @@ public class Setting extends Thread implements MonitorProtocol{
 					BTConnectflag=false;
 				}else if(BTSearchflag){
 					Socket socket=server.accept();
-					DataOutputStream out = new DataOutputStream(socket.getOutputStream());
+					 out = new DataOutputStream(socket.getOutputStream());
 					BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 					out.writeInt(BluetoothSwitch);
 					out.flush();
@@ -76,7 +77,7 @@ public class Setting extends Thread implements MonitorProtocol{
 					BTSearchflag=false;
 				}else if(Amigoconnect){
 					Socket socket=server.accept();
-					DataOutputStream out = new DataOutputStream(socket.getOutputStream());
+					 out = new DataOutputStream(socket.getOutputStream());
 					out.writeInt(AmigoConnSwitch);
 					out.flush();
 					out.writeInt(Connected);
@@ -86,7 +87,7 @@ public class Setting extends Thread implements MonitorProtocol{
 					Amigoconnect=false;
 				}else if(Amigounconnect){
 					Socket socket=server.accept();
-					DataOutputStream out = new DataOutputStream(socket.getOutputStream());
+					 out = new DataOutputStream(socket.getOutputStream());
 					out.writeInt(AmigoConnSwitch);
 					out.flush();
 					out.writeInt(Stopped);
@@ -96,7 +97,7 @@ public class Setting extends Thread implements MonitorProtocol{
 					Amigounconnect=false;
 				}else if(Wificonnect){
 					Socket socket=server.accept();
-					DataOutputStream out = new DataOutputStream(socket.getOutputStream());
+					 out = new DataOutputStream(socket.getOutputStream());
 					out.writeInt(WifiposSwitch);
 					out.flush();
 					out.writeInt(Connected);
@@ -106,7 +107,7 @@ public class Setting extends Thread implements MonitorProtocol{
 					Wificonnect=false;
 				}else if(Wifiunconnect){
 					Socket socket=server.accept();
-					DataOutputStream out = new DataOutputStream(socket.getOutputStream());
+					 out = new DataOutputStream(socket.getOutputStream());
 					out.writeInt(WifiposSwitch);
 					out.flush();
 					out.writeInt(Stopped);
@@ -116,7 +117,7 @@ public class Setting extends Thread implements MonitorProtocol{
 					Wifiunconnect=false;
 				}else if(MobileCamcon){
 					Socket socket=server.accept();
-					DataOutputStream out = new DataOutputStream(socket.getOutputStream());
+					 out = new DataOutputStream(socket.getOutputStream());
 					out.writeInt(MobilecamSwitch);
 					out.flush();
 					out.writeInt(Connected);
@@ -126,7 +127,7 @@ public class Setting extends Thread implements MonitorProtocol{
 					MobileCamcon=false;
 				}else if(MobileCamuncon){
 					Socket socket=server.accept();
-					DataOutputStream out = new DataOutputStream(socket.getOutputStream());
+					 out = new DataOutputStream(socket.getOutputStream());
 					out.writeInt(MobilecamSwitch);
 					out.flush();
 					out.writeInt(Stopped);
@@ -136,7 +137,7 @@ public class Setting extends Thread implements MonitorProtocol{
 					MobileCamuncon=false;
 				}else if(Forward){
 					Socket socket=server.accept();
-					DataOutputStream out = new DataOutputStream(socket.getOutputStream());
+					 out = new DataOutputStream(socket.getOutputStream());
 					out.writeInt(Trans);
 					out.flush();
 					out.writeInt(Speed);
@@ -146,7 +147,7 @@ public class Setting extends Thread implements MonitorProtocol{
 					Forward=false;
 				}else if(Turn){
 					Socket socket=server.accept();
-					DataOutputStream out = new DataOutputStream(socket.getOutputStream());
+					out = new DataOutputStream(socket.getOutputStream());
 					out.writeInt(Rotate);
 					out.flush();
 					out.writeInt(Speed);

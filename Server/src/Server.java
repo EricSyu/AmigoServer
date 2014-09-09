@@ -89,31 +89,31 @@ public class Server {
 		
 		JLabel lblNewLabel_4 = new JLabel("AmigoBot Setting___________________________");
 		lblNewLabel_4.setForeground(Color.GRAY);
-		lblNewLabel_4.setFont(new Font("·L³n¥¿¶ÂÅé", Font.BOLD, 25));
+		lblNewLabel_4.setFont(new Font("å¾®è»Ÿæ­£é»‘é«”", Font.BOLD, 25));
 		lblNewLabel_4.setBounds(10, 10, 529, 34);
 		panel_1.add(lblNewLabel_4);
 		
 		JLabel lblNewLabel_5 = new JLabel("Bluetooth :");
 		lblNewLabel_5.setForeground(Color.GRAY);
-		lblNewLabel_5.setFont(new Font("·L³n¥¿¶ÂÅé", Font.BOLD, 20));
+		lblNewLabel_5.setFont(new Font("å¾®è»Ÿæ­£é»‘é«”", Font.BOLD, 20));
 		lblNewLabel_5.setBounds(24, 76, 118, 28);
 		panel_1.add(lblNewLabel_5);
 		
 		JLabel lblNewLabel_6 = new JLabel("AmigoBot :");
 		lblNewLabel_6.setForeground(Color.GRAY);
-		lblNewLabel_6.setFont(new Font("·L³n¥¿¶ÂÅé", Font.BOLD, 20));
+		lblNewLabel_6.setFont(new Font("å¾®è»Ÿæ­£é»‘é«”", Font.BOLD, 20));
 		lblNewLabel_6.setBounds(24, 168, 118, 28);
 		panel_1.add(lblNewLabel_6);
 		
 		JLabel lblNewLabel_7 = new JLabel("Wifi :");
 		lblNewLabel_7.setForeground(Color.GRAY);
-		lblNewLabel_7.setFont(new Font("·L³n¥¿¶ÂÅé", Font.BOLD, 20));
+		lblNewLabel_7.setFont(new Font("å¾®è»Ÿæ­£é»‘é«”", Font.BOLD, 20));
 		lblNewLabel_7.setBounds(24, 222, 118, 28);
 		panel_1.add(lblNewLabel_7);
 		
 		JLabel lblNewLabel_8 = new JLabel("MobileCam :");
 		lblNewLabel_8.setForeground(Color.GRAY);
-		lblNewLabel_8.setFont(new Font("·L³n¥¿¶ÂÅé", Font.BOLD, 20));
+		lblNewLabel_8.setFont(new Font("å¾®è»Ÿæ­£é»‘é«”", Font.BOLD, 20));
 		lblNewLabel_8.setBounds(24, 275, 133, 28);
 		panel_1.add(lblNewLabel_8);
 		
@@ -245,20 +245,20 @@ public class Server {
 		btnNewButton_13.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				if(!conflag){
-					if(mode==0) propel.start();
-					else if(mode==1) mz.start();
-					btnNewButton_13.setText("Connecting...");
-					conflag=true;
-					if(!Infoflag){
-						Infoflag=true;
-					}
-				}else{
-					if(mode==0) Propel.core=false;
-					else if(mode==1) MonitorZones.core=false;
-					btnNewButton_13.setText("Connect");
-					conflag=false;
-				}
+//				if(!conflag){
+//					if(mode==0) propel.start();
+//					else if(mode==1) mz.start();
+//					btnNewButton_13.setText("Connecting...");
+//					conflag=true;
+//					if(!Infoflag){
+//						Infoflag=true;
+//					}
+//				}else{
+//					if(mode==0) Propel.core=false;
+//					else if(mode==1) MonitorZones.core=false;
+//					btnNewButton_13.setText("Connect");
+//					conflag=false;
+//				}
 			}
 		});
 		btnNewButton_13.setBounds(324, 150, 112, 23);
@@ -298,20 +298,24 @@ public class Server {
 		});
 		btnNewButton_12.setBounds(324, 117, 112, 23);
 		panel_3.add(btnNewButton_12);
+		btnNewButton_3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
 		
 		btnNewButton_3.setBackground(Color.WHITE);
 		btnNewButton_3.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				if( mode==0 ){
-					Propel.start=Position.start;
-					Propel.end=2;
-					Propel.flag=true;
-				}else{
-					int[] path=new int[]{2, 3, 8, 7, 6, 5, 0, 1, 4, 2};
-					mz.array=path;
-					MonitorZones.flag=true;
-				}
+//				if( mode==0 ){
+//					Propel.start=Position.start;
+//					Propel.end=2;
+//					Propel.flag=true;
+//				}else{
+//					int[] path=new int[]{2, 3, 8, 7, 6, 5, 0, 1, 4, 2};
+//					mz.array=path;
+//					MonitorZones.flag=true;
+//				}
 			}
 		});
 		btnNewButton_3.setBounds(22, 86, 87, 87);
@@ -322,15 +326,15 @@ public class Server {
 		btnNewButton_4.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				if( mode==0 ){
-					Propel.start=Position.start;
-					Propel.end=1;
-					Propel.flag=true;
-				}else{
-					int[] path=new int[]{1, 0, 5, 6, 7, 8, 3, 2, 4, 1};
-					mz.array=path;
-					MonitorZones.flag=true;
-				}
+//				if( mode==0 ){
+//					Propel.start=Position.start;
+//					Propel.end=1;
+//					Propel.flag=true;
+//				}else{
+//					int[] path=new int[]{1, 0, 5, 6, 7, 8, 3, 2, 4, 1};
+//					mz.array=path;
+//					MonitorZones.flag=true;
+//				}
 			}
 		});
 		btnNewButton_4.setBounds(119, 85, 87, 87);
@@ -341,15 +345,15 @@ public class Server {
 		btnNewButton_5.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				if( mode==0 ){
-					Propel.start=Position.start;
-					Propel.end=0;
-					Propel.flag=true;
-				}else{
-					int[] path=new int[]{0, 5, 6, 7, 8, 3, 2, 4, 1, 0};
-					mz.array=path;
-					MonitorZones.flag=true;
-				}
+//				if( mode==0 ){
+//					Propel.start=Position.start;
+//					Propel.end=0;
+//					Propel.flag=true;
+//				}else{
+//					int[] path=new int[]{0, 5, 6, 7, 8, 3, 2, 4, 1, 0};
+//					mz.array=path;
+//					MonitorZones.flag=true;
+//				}
 			}
 		});
 		btnNewButton_5.setBounds(216, 85, 87, 87);
@@ -360,15 +364,15 @@ public class Server {
 		btnNewButton_6.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				if( mode==0 ){
-					Propel.start=Position.start;
-					Propel.end=3;
-					Propel.flag=true;
-				}else{
-					int[] path=new int[]{3, 8, 7, 6, 5, 0, 1, 2, 4, 3};
-					mz.array=path;
-					MonitorZones.flag=true;
-				}
+//				if( mode==0 ){
+//					Propel.start=Position.start;
+//					Propel.end=3;
+//					Propel.flag=true;
+//				}else{
+//					int[] path=new int[]{3, 8, 7, 6, 5, 0, 1, 2, 4, 3};
+//					mz.array=path;
+//					MonitorZones.flag=true;
+//				}
 			}
 		});
 		btnNewButton_6.setBounds(22, 183, 87, 87);
@@ -379,34 +383,38 @@ public class Server {
 		btnNewButton_7.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				if( mode==0 ){
-					Propel.start=Position.start;
-					Propel.end=4;
-					Propel.flag=true;
-				}else{
-					int[] path=new int[]{4, 7, 6, 5, 0, 1, 2, 3, 8, 4};
-					mz.array=path;
-					MonitorZones.flag=true;
-				}
+//				if( mode==0 ){
+//					Propel.start=Position.start;
+//					Propel.end=4;
+//					Propel.flag=true;
+//				}else{
+//					int[] path=new int[]{4, 7, 6, 5, 0, 1, 2, 3, 8, 4};
+//					mz.array=path;
+//					MonitorZones.flag=true;
+//				}
 			}
 		});
 		btnNewButton_7.setBounds(119, 183, 87, 87);
 		panel_3.add(btnNewButton_7);
+		btnNewButton_8.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
 		
 //		final JButton btnNewButton_8 = new JButton("5");
 		btnNewButton_8.setBackground(Color.WHITE);
 		btnNewButton_8.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				if( mode==0 ){
-					Propel.start=Position.start;
-					Propel.end=5;
-					Propel.flag=true;
-				}else{
-					int[] path=new int[]{5, 0, 1, 4, 2, 3, 8, 7, 6, 5};
-					mz.array=path;
-					MonitorZones.flag=true;
-				}
+//				if( mode==0 ){
+//					Propel.start=Position.start;
+//					Propel.end=5;
+//					Propel.flag=true;
+//				}else{
+//					int[] path=new int[]{5, 0, 1, 4, 2, 3, 8, 7, 6, 5};
+//					mz.array=path;
+//					MonitorZones.flag=true;
+//				}
 			}
 		});
 		btnNewButton_8.setBounds(216, 183, 87, 87);
@@ -417,15 +425,15 @@ public class Server {
 		btnNewButton_9.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				if( mode==0 ){
-					Propel.start=Position.start;
-					Propel.end=8;
-					Propel.flag=true;
-				}else{
-					int[] path=new int[]{8, 7, 6, 5, 0, 1, 4, 2, 3, 8};
-					mz.array=path;
-					MonitorZones.flag=true;
-				}
+//				if( mode==0 ){
+//					Propel.start=Position.start;
+//					Propel.end=8;
+//					Propel.flag=true;
+//				}else{
+//					int[] path=new int[]{8, 7, 6, 5, 0, 1, 4, 2, 3, 8};
+//					mz.array=path;
+//					MonitorZones.flag=true;
+//				}
 			}
 		});
 		btnNewButton_9.setBounds(22, 280, 87, 87);
@@ -436,15 +444,15 @@ public class Server {
 		btnNewButton_10.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				if( mode==0 ){
-					Propel.start=Position.start;
-					Propel.end=7;
-					Propel.flag=true;
-				}else{
-					int[] path=new int[]{7, 6, 5, 0, 1, 4, 2, 3, 8, 7};
-					mz.array=path;
-					MonitorZones.flag=true;
-				}
+//				if( mode==0 ){
+//					Propel.start=Position.start;
+//					Propel.end=7;
+//					Propel.flag=true;
+//				}else{
+//					int[] path=new int[]{7, 6, 5, 0, 1, 4, 2, 3, 8, 7};
+//					mz.array=path;
+//					MonitorZones.flag=true;
+//				}
 			}
 		});
 		btnNewButton_10.setBounds(119, 278, 87, 87);
@@ -455,15 +463,15 @@ public class Server {
 		btnNewButton_11.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				if( mode==0 ){
-					Propel.start=Position.start;
-					Propel.end=6;
-					Propel.flag=true;
-				}else{
-					int[] path=new int[]{6, 5, 0, 1, 4, 2, 3, 8, 7, 6};
-					mz.array=path;
-					MonitorZones.flag=true;
-				}
+//				if( mode==0 ){
+//					Propel.start=Position.start;
+//					Propel.end=6;
+//					Propel.flag=true;
+//				}else{
+//					int[] path=new int[]{6, 5, 0, 1, 4, 2, 3, 8, 7, 6};
+//					mz.array=path;
+//					MonitorZones.flag=true;
+//				}
 			}
 		});
 		btnNewButton_11.setBounds(216, 278, 87, 87);
@@ -484,21 +492,33 @@ public class Server {
 		
 		JLabel lblMode = new JLabel("Mode :");
 		lblMode.setForeground(Color.GRAY);
-		lblMode.setFont(new Font("·L³n¥¿¶ÂÅé", Font.BOLD, 20));
+		lblMode.setFont(new Font("å¾®è»Ÿæ­£é»‘é«”", Font.BOLD, 20));
 		lblMode.setBounds(324, 53, 76, 23);
 		panel_3.add(lblMode);
 		
 		JLabel lblCarInfo = new JLabel("Car Info:");
 		lblCarInfo.setForeground(Color.GRAY);
-		lblCarInfo.setFont(new Font("·L³n¥¿¶ÂÅé", Font.BOLD, 20));
+		lblCarInfo.setFont(new Font("å¾®è»Ÿæ­£é»‘é«”", Font.BOLD, 20));
 		lblCarInfo.setBounds(324, 183, 100, 21);
 		panel_3.add(lblCarInfo);
 		
 		JLabel lblWfiInfo = new JLabel("Wifi Info:");
 		lblWfiInfo.setForeground(Color.GRAY);
-		lblWfiInfo.setFont(new Font("·L³n¥¿¶ÂÅé", Font.BOLD, 20));
+		lblWfiInfo.setFont(new Font("å¾®è»Ÿæ­£é»‘é«”", Font.BOLD, 20));
 		lblWfiInfo.setBounds(434, 183, 100, 21);
 		panel_3.add(lblWfiInfo);
+		
+		JButton btnNewButton_22 = new JButton("New button");
+		btnNewButton_22.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				visualalgo vtest=new visualalgo();
+				vtest.start();
+			}
+		});
+		
+		btnNewButton_22.setBounds(67, 30, 87, 23);
+		panel_3.add(btnNewButton_22);
 		
 		final JLabel lblNewLabel_1 = new JLabel("");
 		lblNewLabel_1.setBounds(36, 50, 517, 309);
@@ -507,7 +527,7 @@ public class Server {
 		final JLabel lblNewLabel_2 = new JLabel("");
 		lblNewLabel_2.setBackground(UIManager.getColor("Button.background"));
 		lblNewLabel_2.setForeground(Color.GRAY);
-		lblNewLabel_2.setFont(new Font("·L³n¥¿¶ÂÅé", Font.BOLD, 20));
+		lblNewLabel_2.setFont(new Font("å¾®è»Ÿæ­£é»‘é«”", Font.BOLD, 20));
 		lblNewLabel_2.setBounds(177, 10, 274, 23);
 		panel_2.add(lblNewLabel_2);
 		
@@ -553,6 +573,10 @@ public class Server {
 		panel_2.add(btnNewButton_2);
 		
 		JButton btnNewButton_15 = new JButton("\u2191");
+		btnNewButton_15.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
 		btnNewButton_15.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent arg0) {
@@ -642,7 +666,7 @@ public class Server {
 		
 		JLabel lblNewLabel_3 = new JLabel("Speed Setting :");
 		lblNewLabel_3.setForeground(Color.GRAY);
-		lblNewLabel_3.setFont(new Font("·L³n¥¿¶ÂÅé", Font.BOLD, 20));
+		lblNewLabel_3.setFont(new Font("å¾®è»Ÿæ­£é»‘é«”", Font.BOLD, 20));
 		lblNewLabel_3.setBounds(171, 369, 154, 23);
 		panel_2.add(lblNewLabel_3);
 		
@@ -665,7 +689,7 @@ public class Server {
 		JLabel lblData = new JLabel("DATA:");
 		lblData.setBounds(22, 81, 58, 21);
 		panel.add(lblData);
-		lblData.setFont(new Font("·L³n¥¿¶ÂÅé", Font.BOLD, 16));
+		lblData.setFont(new Font("å¾®è»Ÿæ­£é»‘é«”", Font.BOLD, 16));
 		
 		textField_1 = new JTextField("250");
 		textField_1.setBounds(78, 84, 96, 21);
@@ -675,7 +699,7 @@ public class Server {
 		JLabel lblNewLabel = new JLabel("PORT:");
 		lblNewLabel.setBounds(22, 48, 53, 23);
 		panel.add(lblNewLabel);
-		lblNewLabel.setFont(new Font("·L³n¥¿¶ÂÅé", Font.BOLD, 16));
+		lblNewLabel.setFont(new Font("å¾®è»Ÿæ­£é»‘é«”", Font.BOLD, 16));
 		
 		textField = new JTextField("861");
 		textField.setBounds(78, 52, 96, 21);
@@ -686,7 +710,7 @@ public class Server {
 		lblSetting.setBounds(10, 10, 292, 28);
 		panel.add(lblSetting);
 		lblSetting.setForeground(Color.GRAY);
-		lblSetting.setFont(new Font("·L³n¥¿¶ÂÅé", Font.BOLD, 20));
+		lblSetting.setFont(new Font("å¾®è»Ÿæ­£é»‘é«”", Font.BOLD, 20));
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(333, 8, 246, 435);

@@ -21,7 +21,8 @@ public class Monitor extends Thread{
 	private JLabel img, cal;
 	static Boolean flag=true;
 //	static Socket client;
-	public static final String file_name = "C:\\CamTest\\monitor\\";
+	public static final String file_name = "D:/CamTest/monitor";
+	public static String getpicname="";
 	static ServerSocket serverSocket;
 	
 	public Monitor( JLabel _img, JLabel calender ){
@@ -63,11 +64,11 @@ public class Monitor extends Thread{
 					byte buf[] = new byte[1024];
 					int len;
 
-					 // Åª¤J±q¤â¾÷ºÝ¶Ç¨Óªº·Ó¤ù
+					 // Åªï¿½Jï¿½qï¿½ï¿½ï¿½ï¿½Ý¶Ç¨Óªï¿½ï¿½Ó¤ï¿½
 					InputStream inputStream = client.getInputStream();
 					
 					while ((len = inputStream.read(buf)) != -1) {
-						// ¼g¤J¨ì¹q¸£¸Ì
+						// ï¿½gï¿½Jï¿½ï¿½qï¿½ï¿½ï¿½ï¿½
 						out.write(buf, 0, len);
 					}
 					
@@ -82,6 +83,7 @@ public class Monitor extends Thread{
 					out.close();
 					inputStream.close();
 					client.close();
+					getpicname=file_name+time+".jpeg";
 				}
 			}
 		} catch (IOException e) {
