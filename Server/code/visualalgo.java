@@ -1,3 +1,4 @@
+package code;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.DatagramPacket;
@@ -12,6 +13,7 @@ public class visualalgo extends Thread implements MonitorProtocol{
 	Socket socket=null;
 	double tang=0;
 	vec tnow=null;
+	@Override
 	public void run(){
 		int[] a={2,3,8};
 		pathgo(a);
@@ -325,6 +327,9 @@ public class visualalgo extends Thread implements MonitorProtocol{
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 	public void forward(int speed) throws IOException{
@@ -354,7 +359,7 @@ public class visualalgo extends Thread implements MonitorProtocol{
 		out.close();
 		socket.close();
 	}
-	public void setrotang(int ang) throws IOException{
+	public void setrotang(int ang) throws IOException, InterruptedException{
 		socket=null;
 		 socket=Setting.server.accept();
 		 out = new DataOutputStream(socket.getOutputStream());
@@ -364,6 +369,7 @@ public class visualalgo extends Thread implements MonitorProtocol{
 		out.flush();
 		out.close();
 		socket.close();
+		Thread.sleep(4000);
 	}
 	public void setgodis(double dis,int speed) throws IOException, InterruptedException{
 		socket=null;
@@ -374,10 +380,10 @@ public class visualalgo extends Thread implements MonitorProtocol{
 		
 		out.writeInt(Trans);
 		out.flush();
-		out.writeInt((int) speed);
+		out.writeInt(speed);
 		out.flush();
 		while(xt<dtime&&fin==false){
-			avoidbum();
+//			avoidbum();
 			xt+=0.1;
 			Thread.sleep(100);
 		}
