@@ -22,10 +22,11 @@ public class Setting extends Thread implements MonitorProtocol{
 	public Boolean Searchreceive=false;
 	public String BTSearch="";
 	public int BTMatch=-1, Speed=0;
+	public static ServerSocket server;
 	
 	public void run(){
 		try {
-			ServerSocket server=new ServerSocket(100);
+			server=new ServerSocket(100);
 			while(true){
 				if(BTSwitchopen){
 					Socket socket=server.accept();
@@ -139,7 +140,7 @@ public class Setting extends Thread implements MonitorProtocol{
 					DataOutputStream out = new DataOutputStream(socket.getOutputStream());
 					out.writeInt(Trans);
 					out.flush();
-					out.writeInt(Speed);
+					out.writeInt(Speed*18/10);
 					out.flush();
 					socket.close();
 					out.close();
@@ -149,7 +150,7 @@ public class Setting extends Thread implements MonitorProtocol{
 					DataOutputStream out = new DataOutputStream(socket.getOutputStream());
 					out.writeInt(Rotate);
 					out.flush();
-					out.writeInt(Speed);
+					out.writeInt(Speed*18/10);
 					out.flush();
 					socket.close();
 					out.close();

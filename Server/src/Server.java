@@ -31,7 +31,8 @@ public class Server {
 	private JTextField textField;
 	private JTextField textField_1;
 	static Boolean flag=true, _flag=true, posflag=true, monflag=true, positflag=true, conflag=false, Infoflag=false;
-	int mode=0, speed=0, BTstatus=0, Amigostatus=0, Wifistatus=0, Camstatus=0;
+	int mode=0, speed=0, Amigostatus=0, Wifistatus=0, Camstatus=0;
+	String BTname="";
 	JButton btnNewButton_3 = new JButton("2");
 	JButton btnNewButton_4 = new JButton("1");
 	JButton btnNewButton_5 = new JButton("0");
@@ -122,7 +123,9 @@ public class Server {
 		panel_2.setLayout(null);
 		
 		JTextArea textArea_1 = new JTextArea();
-		textArea_1.setBounds(324, 76, 198, 251);
+		textArea_1.setFont(new Font("·L³n¥¿¶ÂÅé", Font.BOLD, 13));
+		textArea_1.setBackground(Color.WHITE);
+		textArea_1.setBounds(337, 76, 184, 289);
 		panel_1.add(textArea_1);
 		
 		final JTextArea textArea_4 = new JTextArea();
@@ -133,8 +136,7 @@ public class Server {
 		final Setting set=new Setting();
 		set.start();
 		
-		final Info info=new Info(textArea_1);
-		info.start();
+		final Info info = new Info();
 		
 		final JComboBox comboBox_1 = new JComboBox();
 		comboBox_1.setBounds(24, 114, 118, 28);
@@ -142,44 +144,51 @@ public class Server {
 		
 		final JButton btnNewButton_19 = new JButton("Connect");
 		btnNewButton_19.setEnabled(false);
-		final JButton btnNewButton_18 = new JButton("Open");
+		
+		final JButton btnNewButton_18 = new JButton("Initializing...");
 		btnNewButton_18.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				if(BTstatus==0){
+				if(btnNewButton_18.getText().equals("Open")){
 					set.BTSwitchopen=true;
-					BTstatus++;
-					btnNewButton_18.setText("Search");
-				}else if(BTstatus==1){
-					set.BTSearchflag=true;
-					while(!set.Searchreceive)
+					while(!info.BTstatus.equals("Open")){
 						try {
-							Thread.sleep(10);
+							Thread.sleep(50);
 						} catch (InterruptedException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
+					}
+					btnNewButton_18.setText("Search");
+				}else if(btnNewButton_18.getText().equals("Search")){
+					set.BTSearchflag=true;
+					while(!set.Searchreceive){
+						try {
+							Thread.sleep(50);
+						} catch (InterruptedException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
 					String[] option=set.BTSearch.split("_");
 					comboBox_1.setModel(new DefaultComboBoxModel(option));
-					BTstatus++;
 					btnNewButton_18.setText("Connect");
-				}else if(BTstatus==2){
+				}else if(btnNewButton_18.getText().equals("Connect")){
 					set.BTConnectflag=true;
 					set.BTMatch=comboBox_1.getSelectedIndex();
-					BTstatus++;
 					btnNewButton_18.setText("Close");
 					btnNewButton_19.setEnabled(true);
 					Amigostatus=0;
-				}else if(BTstatus==3){
+				}else if(btnNewButton_18.getText().equals("Close")){
 					set.BTSwitchclose=true;
-					BTstatus=0;
+					comboBox_1.setModel(new DefaultComboBoxModel());
 					btnNewButton_18.setText("Open");
 				}
 			}
 		});
 		btnNewButton_18.setBounds(164, 114, 87, 28);
 		panel_1.add(btnNewButton_18);
-		
+		btnNewButton_18.setEnabled(false);
 		
 		btnNewButton_19.addMouseListener(new MouseAdapter() {
 			@Override
@@ -194,41 +203,42 @@ public class Server {
 		btnNewButton_19.setBounds(164, 168, 87, 28);
 		panel_1.add(btnNewButton_19);
 		
-		final JButton btnNewButton_20 = new JButton("Send");
+		final JButton btnNewButton_20 = new JButton("Initializing...");
 		btnNewButton_20.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				if(Wifistatus==0){
+				if(btnNewButton_20.getText().equals("Send")){
 					set.Wificonnect=true;
-					Wifistatus++;
 					btnNewButton_20.setText("Stop");
-				}else if(Wifistatus==1){
+				}else{
 					set.Wifiunconnect=true;
-					Wifistatus--;
 					btnNewButton_20.setText("Send");
 				}
 			}
 		});
 		btnNewButton_20.setBounds(164, 222, 87, 28);
 		panel_1.add(btnNewButton_20);
+		btnNewButton_20.setEnabled(false);
 		
-		final JButton btnNewButton_21 = new JButton("Connect");
+		final JButton btnNewButton_21 = new JButton("Initializing...");
 		btnNewButton_21.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				if(Camstatus==0){
+				if(btnNewButton_21.getText().equals("Connect")){
 					set.MobileCamcon=true;
-					Camstatus++;
 					btnNewButton_21.setText("Stop");
-				}else if(Camstatus==1){
+				}else{
 					set.MobileCamuncon=true;
-					Camstatus--;
 					btnNewButton_21.setText("Connect");
 				}
 			}
 		});
 		btnNewButton_21.setBounds(164, 275, 87, 28);
 		panel_1.add(btnNewButton_21);
+		btnNewButton_21.setEnabled(false);
+		
+		info.Initial(textArea_1, btnNewButton_18, btnNewButton_19, btnNewButton_20, btnNewButton_21);
+		info.start();
 		
 		Panel panel_3 = new Panel();
 		tabbedPane.addTab("Position & Go", null, panel_3, null);

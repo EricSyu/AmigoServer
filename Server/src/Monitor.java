@@ -21,7 +21,7 @@ public class Monitor extends Thread{
 	private JLabel img, cal;
 	static Boolean flag=true;
 //	static Socket client;
-	public static final String file_name = "C:\\CamTest\\monitor\\";
+	public static final String file_name = "C:/CamTest/monitor/";
 	static ServerSocket serverSocket;
 	
 	public Monitor( JLabel _img, JLabel calender ){
