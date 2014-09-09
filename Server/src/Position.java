@@ -12,7 +12,7 @@ import org.bytedeco.javacpp.opencv_core.CvMat;
 import org.bytedeco.javacpp.opencv_core.Mat;
 import org.bytedeco.javacpp.opencv_legacy.CvEM;
 import org.bytedeco.javacpp.opencv_legacy.CvEMParams;
-import org.opencv.core.Core;
+
 
 
 public class Position extends Thread{
@@ -37,7 +37,7 @@ public class Position extends Thread{
 	}
 	@Override
 	public void run(){
-		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
+	
 		int i, j, cnt=0, avg=0;
 		
 		CvEM [] gmm_model=new CvEM[9];
