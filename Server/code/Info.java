@@ -4,11 +4,11 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.ServerSocket;
 import java.net.Socket;
-
+ 
 import javax.swing.JButton;
 import javax.swing.JTextArea;
-
-
+ 
+ 
 public class Info extends Thread{
 	public JTextArea textArea;
 	public JButton BTbtn, Wifibtn, Cambtn, Amigobtn;
@@ -33,11 +33,9 @@ public class Info extends Thread{
 			
 			while(true){
 				String info="";
-				System.out.println("connec ......");
 				Socket socket=server.accept();
-				System.out.println("connec sucess");
 				BufferedReader brin = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-				System.out.println("debug1");
+				
 				BTstatus=brin.readLine();
 				Amigostatus=brin.readLine();
 				Wifistatus=brin.readLine();
@@ -48,14 +46,23 @@ public class Info extends Thread{
 				y=Integer.parseInt(brin.readLine());
 				theta=Integer.parseInt(brin.readLine());
 				for( i=0; i<8; i++ ) sensor[i]=Integer.parseInt(brin.readLine());
-				System.out.println("debug2");
+				
 				info+="Blustooth: "+BTstatus+"\nAmigostatus: "+Amigostatus+"\nWifistatus: "
 						+Wifistatus+"\nCamstatus: "+Camstatus+"\nMotor: "+Motor+"\nStall: "
 						+stall+"\n("+x+", "+y+")\n"+"Angle: "+theta+"\n";
 				for( i=0; i<8; i++ ) info+="Sensor "+i+": "+sensor[i]+"\n";
 				
+				textArea.setText(info);
+				
 				if(BTstatus.equals("Close")) BTbtn.setText("Open");
-				else if(BTstatus.equals("Open")) BTbtn.setText("Search");
+				else if(BTstatus.equals("Open") && cnt==0){
+					BTbtn.setText("Search");
+					cnt++;
+				}
+				else if(BTstatus.equals("Open") && cnt==1){
+					BTbtn.setText("Connect");
+					cnt--;
+				}
 				else if(BTstatus.equals("Connected")){
 					BTbtn.setText("Close");
 					Amigobtn.setEnabled(true);
@@ -73,7 +80,6 @@ public class Info extends Thread{
 					Wifibtn.setEnabled(true);
 				}
 				
-				textArea.setText(info);
 				Thread.sleep(100);
 				
 				brin.close();
