@@ -45,6 +45,7 @@ public class Server {
 	JButton btnNewButton_9 = new JButton("8");
 	JButton btnNewButton_10 = new JButton("7");
 	JButton btnNewButton_11 = new JButton("6");
+	visualalgo vtest=null;
 	/**
 	 * Launch the application.
 	 */
@@ -93,31 +94,31 @@ public class Server {
 		
 		JLabel lblNewLabel_4 = new JLabel("AmigoBot Setting___________________________");
 		lblNewLabel_4.setForeground(Color.GRAY);
-		lblNewLabel_4.setFont(new Font("微軟正黑體", Font.BOLD, 25));
+		lblNewLabel_4.setFont(new Font("敺株�甇��擃�", Font.BOLD, 25));
 		lblNewLabel_4.setBounds(10, 10, 529, 34);
 		panel_1.add(lblNewLabel_4);
 		
 		JLabel lblNewLabel_5 = new JLabel("Bluetooth :");
 		lblNewLabel_5.setForeground(Color.GRAY);
-		lblNewLabel_5.setFont(new Font("微軟正黑體", Font.BOLD, 20));
+		lblNewLabel_5.setFont(new Font("敺株�甇��擃�", Font.BOLD, 20));
 		lblNewLabel_5.setBounds(24, 76, 118, 28);
 		panel_1.add(lblNewLabel_5);
 		
 		JLabel lblNewLabel_6 = new JLabel("AmigoBot :");
 		lblNewLabel_6.setForeground(Color.GRAY);
-		lblNewLabel_6.setFont(new Font("微軟正黑體", Font.BOLD, 20));
+		lblNewLabel_6.setFont(new Font("敺株�甇��擃�", Font.BOLD, 20));
 		lblNewLabel_6.setBounds(24, 168, 118, 28);
 		panel_1.add(lblNewLabel_6);
 		
 		JLabel lblNewLabel_7 = new JLabel("Wifi :");
 		lblNewLabel_7.setForeground(Color.GRAY);
-		lblNewLabel_7.setFont(new Font("微軟正黑體", Font.BOLD, 20));
+		lblNewLabel_7.setFont(new Font("敺株�甇��擃�", Font.BOLD, 20));
 		lblNewLabel_7.setBounds(24, 222, 118, 28);
 		panel_1.add(lblNewLabel_7);
 		
 		JLabel lblNewLabel_8 = new JLabel("MobileCam :");
 		lblNewLabel_8.setForeground(Color.GRAY);
-		lblNewLabel_8.setFont(new Font("微軟正黑體", Font.BOLD, 20));
+		lblNewLabel_8.setFont(new Font("敺株�甇��擃�", Font.BOLD, 20));
 		lblNewLabel_8.setBounds(24, 275, 133, 28);
 		panel_1.add(lblNewLabel_8);
 		
@@ -126,7 +127,7 @@ public class Server {
 		panel_2.setLayout(null);
 		
 		JTextArea textArea_1 = new JTextArea();
-		textArea_1.setFont(new Font("�L�n������", Font.BOLD, 13));
+		textArea_1.setFont(new Font("嚙盤嚙緯嚙踝蕭嚙踝蕭嚙踝蕭", Font.BOLD, 13));
 		textArea_1.setBackground(Color.WHITE);
 		textArea_1.setBounds(337, 76, 184, 289);
 		panel_1.add(textArea_1);
@@ -180,6 +181,14 @@ public class Server {
 					set.BTConnectflag=true;
 					set.BTMatch=comboBox_1.getSelectedIndex();
 					btnNewButton_18.setText("Close");
+					while(!info.BTstatus.equals("Connected")){
+						try {
+							Thread.sleep(50);
+						} catch (InterruptedException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
 					btnNewButton_19.setEnabled(true);
 					Amigostatus=0;
 				}else if(btnNewButton_18.getText().equals("Close")){
@@ -189,21 +198,18 @@ public class Server {
 				}
 			}
 		});
-		btnNewButton_18.setBounds(164, 114, 87, 28);
+		btnNewButton_18.setBounds(164, 114, 110, 28);
 		panel_1.add(btnNewButton_18);
 		btnNewButton_18.setEnabled(false);
 		
 		btnNewButton_19.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				if(Amigostatus==0){
-					set.Amigoconnect=true;
-					Amigostatus=1;
-					btnNewButton_19.setEnabled(false);
-				}
+				btnNewButton_19.setEnabled(false);
+				set.Amigoconnect=true;
 			}
 		});
-		btnNewButton_19.setBounds(164, 168, 87, 28);
+		btnNewButton_19.setBounds(164, 168, 110, 28);
 		panel_1.add(btnNewButton_19);
 		
 		final JButton btnNewButton_20 = new JButton("Initializing...");
@@ -219,7 +225,7 @@ public class Server {
 				}
 			}
 		});
-		btnNewButton_20.setBounds(164, 222, 87, 28);
+		btnNewButton_20.setBounds(164, 222, 110, 28);
 		panel_1.add(btnNewButton_20);
 		btnNewButton_20.setEnabled(false);
 		
@@ -236,11 +242,63 @@ public class Server {
 				}
 			}
 		});
-		btnNewButton_21.setBounds(164, 275, 87, 28);
+		btnNewButton_21.setBounds(164, 275, 110, 28);
 		panel_1.add(btnNewButton_21);
 		btnNewButton_21.setEnabled(false);
 		
 		info.Initial(textArea_1, btnNewButton_18, btnNewButton_19, btnNewButton_20, btnNewButton_21);
+		
+		final JButton btnNewButton_23 = new JButton("OneClickConnect");
+		btnNewButton_23.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if(btnNewButton_23.getText().equals("OneClickConnect")){
+					set.BTSwitchopen=true;
+					while(!Info.BTstatus.equals("Open")){
+						try {
+							Thread.sleep(50);
+						} catch (InterruptedException ex0) {
+							// TODO Auto-generated catch block
+							ex0.printStackTrace();
+						}
+					}
+					set.BTSearchflag=true;
+					while(!set.Searchreceive){
+						try {
+							Thread.sleep(50);
+						} catch (InterruptedException ex1) {
+							// TODO Auto-generated catch block
+							ex1.printStackTrace();
+						}
+					}
+					String[] option=set.BTSearch.split("_");
+					for(int i=0; i<option.length; i++){
+						if(option[i].indexOf("Hotlife")>0){
+							set.BTMatch=i;
+							break;
+						}
+					}
+					set.BTConnectflag=true;
+					
+					while(!info.BTstatus.equals("Connected")){
+						try {
+							Thread.sleep(50);
+						} catch (InterruptedException ex2) {
+							// TODO Auto-generated catch block
+							ex2.printStackTrace();
+						}
+					}
+					set.Amigoconnect=true;
+					btnNewButton_23.setText("Close");
+				}else{
+					set.BTSwitchclose=true;
+					btnNewButton_23.setText("OneClickConnect");
+				}
+				
+			}
+		});
+		btnNewButton_23.setBounds(24, 337, 250, 28);
+		panel_1.add(btnNewButton_23);
 		info.start();
 		
 		Panel panel_3 = new Panel();
@@ -507,27 +565,27 @@ public class Server {
 		
 		JLabel lblMode = new JLabel("Mode :");
 		lblMode.setForeground(Color.GRAY);
-		lblMode.setFont(new Font("微軟正黑體", Font.BOLD, 20));
+		lblMode.setFont(new Font("敺株�甇��擃�", Font.BOLD, 20));
 		lblMode.setBounds(324, 53, 76, 23);
 		panel_3.add(lblMode);
 		
 		JLabel lblCarInfo = new JLabel("Car Info:");
 		lblCarInfo.setForeground(Color.GRAY);
-		lblCarInfo.setFont(new Font("微軟正黑體", Font.BOLD, 20));
+		lblCarInfo.setFont(new Font("敺株�甇��擃�", Font.BOLD, 20));
 		lblCarInfo.setBounds(324, 183, 100, 21);
 		panel_3.add(lblCarInfo);
 		
 		JLabel lblWfiInfo = new JLabel("Wifi Info:");
 		lblWfiInfo.setForeground(Color.GRAY);
-		lblWfiInfo.setFont(new Font("微軟正黑體", Font.BOLD, 20));
+		lblWfiInfo.setFont(new Font("敺株�甇��擃�", Font.BOLD, 20));
 		lblWfiInfo.setBounds(434, 183, 100, 21);
 		panel_3.add(lblWfiInfo);
-		final visualalgo vtest=new visualalgo();
+		
 		JButton btnNewButton_22 = new JButton("start");
 		btnNewButton_22.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-//				visualalgo vtest=new visualalgo();
+				vtest=new visualalgo();
 				vtest.start();
 			}
 		});
@@ -542,7 +600,7 @@ public class Server {
 				vtest.setstop(true);
 			}
 		});
-		btnStop.setBounds(162, 30, 87, 23);
+		btnStop.setBounds(189, 30, 87, 23);
 		panel_3.add(btnStop);
 		
 		final JLabel lblNewLabel_1 = new JLabel("");
@@ -552,7 +610,7 @@ public class Server {
 		final JLabel lblNewLabel_2 = new JLabel("");
 		lblNewLabel_2.setBackground(UIManager.getColor("Button.background"));
 		lblNewLabel_2.setForeground(Color.GRAY);
-		lblNewLabel_2.setFont(new Font("微軟正黑體", Font.BOLD, 20));
+		lblNewLabel_2.setFont(new Font("敺株�甇��擃�", Font.BOLD, 20));
 		lblNewLabel_2.setBounds(177, 10, 274, 23);
 		panel_2.add(lblNewLabel_2);
 		
@@ -670,9 +728,10 @@ public class Server {
 		btnNewButton_14.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				set.Speed+=10;
+				set.Speed=set.Speed-10;
 				if(set.Speed>1000) set.Speed=1000;
 				textArea_4.setText(set.Speed+"");
+				set.SetAddSpeed=true;
 			}
 		});
 		btnNewButton_14.setBounds(160, 403, 56, 23);
@@ -682,9 +741,10 @@ public class Server {
 		button_2.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				set.Speed-=10;
+				set.Speed=set.Speed-10;
 				if(set.Speed<0) set.Speed=0;
 				textArea_4.setText(set.Speed+"");
+				set.SetSubtractSpeed=true;
 			}
 		});
 		button_2.setBounds(268, 403, 56, 23);
@@ -692,7 +752,7 @@ public class Server {
 		
 		JLabel lblNewLabel_3 = new JLabel("Speed Setting :");
 		lblNewLabel_3.setForeground(Color.GRAY);
-		lblNewLabel_3.setFont(new Font("微軟正黑體", Font.BOLD, 20));
+		lblNewLabel_3.setFont(new Font("敺株�甇��擃�", Font.BOLD, 20));
 		lblNewLabel_3.setBounds(171, 369, 154, 23);
 		panel_2.add(lblNewLabel_3);
 		
@@ -715,7 +775,7 @@ public class Server {
 		JLabel lblData = new JLabel("DATA:");
 		lblData.setBounds(22, 81, 58, 21);
 		panel.add(lblData);
-		lblData.setFont(new Font("微軟正黑體", Font.BOLD, 16));
+		lblData.setFont(new Font("敺株�甇��擃�", Font.BOLD, 16));
 		
 		textField_1 = new JTextField("250");
 		textField_1.setBounds(78, 84, 96, 21);
@@ -725,7 +785,7 @@ public class Server {
 		JLabel lblNewLabel = new JLabel("PORT:");
 		lblNewLabel.setBounds(22, 48, 53, 23);
 		panel.add(lblNewLabel);
-		lblNewLabel.setFont(new Font("微軟正黑體", Font.BOLD, 16));
+		lblNewLabel.setFont(new Font("敺株�甇��擃�", Font.BOLD, 16));
 		
 		textField = new JTextField("861");
 		textField.setBounds(78, 52, 96, 21);
@@ -736,7 +796,7 @@ public class Server {
 		lblSetting.setBounds(10, 10, 292, 28);
 		panel.add(lblSetting);
 		lblSetting.setForeground(Color.GRAY);
-		lblSetting.setFont(new Font("微軟正黑體", Font.BOLD, 20));
+		lblSetting.setFont(new Font("敺株�甇��擃�", Font.BOLD, 20));
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(333, 8, 246, 435);

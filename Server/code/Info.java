@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.ServerSocket;
 import java.net.Socket;
- 
+import code.Setting;
 import javax.swing.JButton;
 import javax.swing.JTextArea;
  
@@ -54,19 +54,13 @@ public class Info extends Thread{
 				
 				textArea.setText(info);
 				
-				if(BTstatus.equals("Close")) BTbtn.setText("Open");
-				else if(BTstatus.equals("Open") && cnt==0){
-					BTbtn.setText("Search");
-					cnt++;
+				if(BTstatus.equals("Close")){
+					BTbtn.setText("Open");
+					Setting.Searchreceive=false;
 				}
-				else if(BTstatus.equals("Open") && cnt==1){
-					BTbtn.setText("Connect");
-					cnt--;
-				}
-				else if(BTstatus.equals("Connected")){
-					BTbtn.setText("Close");
-					Amigobtn.setEnabled(true);
-				}
+				else if(BTstatus.equals("Open") && !Setting.Searchreceive) BTbtn.setText("Search");
+				else if(BTstatus.equals("Open") && Setting.Searchreceive) BTbtn.setText("Connect");
+				else if(BTstatus.equals("Connected")) BTbtn.setText("Close");
 				
 				if(Wifistatus.equals("Stopped")) Wifibtn.setText("Send");
 				else Wifibtn.setText("Stop");
@@ -80,16 +74,13 @@ public class Info extends Thread{
 					Wifibtn.setEnabled(true);
 				}
 				
-				Thread.sleep(100);
+//				Thread.sleep(100);
 				
 				brin.close();
 				socket.close();
 			}
 			
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

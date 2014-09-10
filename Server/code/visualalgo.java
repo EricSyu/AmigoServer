@@ -6,6 +6,7 @@ import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.Socket;
 
+import code.Setting;
 
 public class visualalgo extends Thread implements MonitorProtocol{
 	boolean fin=false;
@@ -34,19 +35,19 @@ public class visualalgo extends Thread implements MonitorProtocol{
 			
 		setrotang(0);
 	
-		setgodis(300,250);
+		setgodis(300,200);
 		
    }
 	
 	if(now.no==1&&next.no==0){		
 			setrotang(180);
 		
-			setgodis(300,250);			
+			setgodis(300,200);			
 	}
 	if(now.no==1&&next.no==2){
 		setrotang(0);
 	
-		setgodis(300,250);
+		setgodis(300,200);
 	}
 	if(now.no==1&&next.no==4){
 		
@@ -58,20 +59,21 @@ public class visualalgo extends Thread implements MonitorProtocol{
 	if(now.no==2&&next.no==1){
 		setrotang(180);
 	
-		setgodis(300,250);
+		setgodis(300,200);
 		
 	}
 	if(now.no==2&&next.no==3){
+		System.out.println("2-3");
 		setrotang(90);
 	
-		setgodis(360,250);
+		setgodis(360,200);
 
 	}
 	if(now.no==2&&next.no==4){
 
 		setrotang(135);
 	
-		setgodis(423,250);
+		setgodis(423,200);
 
 	}
 	if(now.no==3&&next.no==2){
@@ -82,23 +84,24 @@ public class visualalgo extends Thread implements MonitorProtocol{
 		
 	}
 	if(now.no==3&&next.no==8){//90
+		System.out.println("3-8");
 		setrotang(90);
 	
-		setgodis(360,250);
+		setgodis(360,200);
 		
 	}
 	if(now.no==8&&next.no==3){
 		
 		setrotang(270);
 	
-		setgodis(360,250);
+		setgodis(360,200);
 		
 	}
 	if(now.no==4&&next.no==2){
 
 		setrotang(315);
 	
-		setgodis(423,250);
+		setgodis(423,200);
 		
 	}
 	
@@ -106,18 +109,18 @@ public class visualalgo extends Thread implements MonitorProtocol{
 		
 		setrotang(270);
 	
-		setgodis(300,250);
+		setgodis(300,200);
 	}
 	if(now.no==4&&next.no==7){
 		setrotang(90);
 	
-		setgodis(540,250);
+		setgodis(540,200);
 	}
 	if(now.no==7&&next.no==4){
 		
 		setrotang(270);
 	
-		setgodis(480,250);
+		setgodis(480,200);
 	}
 	
 	if(now.no==0&&next.no==0x10){
@@ -134,25 +137,25 @@ public class visualalgo extends Thread implements MonitorProtocol{
 		
 		setrotang(90);
 	
-		setgodis(360,250);
+		setgodis(360,200);
 	}
 	if(now.no==5&&next.no==0){
 		setrotang(270);
 
-		setgodis(360,250);
+		setgodis(360,200);
 		
 	}
 	if(now.no==5&&next.no==6){
 		setrotang(90);
 
-		setgodis(360,250);
+		setgodis(360,200);
 		
 	}
 	if(now.no==6&&next.no==5){
 		
 		setrotang(270);
 	
-		setgodis(360,250);
+		setgodis(360,200);
 		
 	}
 	if(now.no==8&&next.no==7){
@@ -174,7 +177,7 @@ public class visualalgo extends Thread implements MonitorProtocol{
 
 		setrotang(191);//5,11,12
 	
-		setgodis(306,250);
+		setgodis(306,200);
 
 		
 	}
@@ -197,14 +200,16 @@ public class visualalgo extends Thread implements MonitorProtocol{
 			
 			try {
 				if(fin==true){
-					Thread.currentThread().isInterrupted();
-					return;  }
+					break;  
+					}
 				go(now,next);
 				Thread.sleep(1000);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+				
 				System.out.println( "travel bye!-go(now,next)");
+				break;
 			}
 
 		}
@@ -245,35 +250,47 @@ public class visualalgo extends Thread implements MonitorProtocol{
 		}
 		
 	}
+	boolean avoflag=false;
 	public void avoidbum() throws IOException, InterruptedException {
-		 boolean stop=false;
-		 
-	
+		
+		System.out.println( "avoidbum()");
+				avoflag=true;
 				if(Info.sensor[2]<450||Info.sensor[3]<450){
 					try {
-						if(Info.sensor[1]>Info.sensor[4]){
+						if(Info.sensor[2]>Info.sensor[3]){
+							System.out.println( "turn left");
 							forward(0);
-							relrot(79);
+							relrot(79);					
 							forward(150);
-							while(Info.sensor[5]<500&&fin==false){
+							
+							while(Info.sensor[5]<300&&fin==false){
 								if(Info.sensor[2]<450||Info.sensor[3]<450){
+									System.out.println( "backprepoint-pre");
+									forward(0);
 									backprepoint();
+									return;
 								}
 							
 							}
+							
 							forward(0);
 							relrot(-79);
 							
 						}else {
+							System.out.println( "turn right");
 							forward(0);
 							relrot(-79);
 							forward(150);
-							while(Info.sensor[0]<500&&fin==false){
+							
+							while(Info.sensor[0]<300&&fin==false){
 								if(Info.sensor[2]<450||Info.sensor[3]<450){
+									forward(0);
 									backprepoint();
+									return;
 								}
 							
 							}
+							
 							forward(0);
 							relrot(79);
 							}
@@ -281,20 +298,25 @@ public class visualalgo extends Thread implements MonitorProtocol{
 					} catch (Exception e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
+						
 					}
 				}//if
 				else if(Info.sensor[1]<250||Info.sensor[4]<250){
 					if(Info.sensor[1]>Info.sensor[4]){
 					
-						
 						forward(0);
 						relrot(49);
 						forward(150);
-						while(Info.sensor[5]<500&&fin==false){
+						
+						while(Info.sensor[5]<300&&fin==false){
 							if(Info.sensor[2]<450||Info.sensor[3]<450){
+								forward(0);
 								backprepoint();
+								return;
 							}
+						
 						}
+						
 						forward(0);
 						relrot(-49);
 						
@@ -302,11 +324,15 @@ public class visualalgo extends Thread implements MonitorProtocol{
 							forward(0);
 							relrot(-49);
 							forward(150);
-							while(Info.sensor[0]<500&&fin==false){
+							
+							while(Info.sensor[0]<300&&fin==false){
 								if(Info.sensor[2]<450||Info.sensor[3]<450){
-									backprepoint();
+									forward(0);
+									return;
 								}
+							
 							}
+							
 							forward(0);
 							relrot(49);
 							
@@ -317,22 +343,25 @@ public class visualalgo extends Thread implements MonitorProtocol{
 		}
 	public void  backprepoint(){
 //		(tang + 180)%360;
-		
+		System.out.println( "backprepoint");
 		try {
 			int bang=(int)(Math.atan2(tnow.y-Info.y, tnow.x-Info.x)*180/Math.PI);
-			setrotang(bang);
-			while(Math.abs(tnow.y-Info.y)>15&&Math.abs(tnow.x-Info.x)>15){
+			setrotang((360+bang)%360);
+			while(Math.abs(tnow.y-Info.y)>15&&Math.abs(tnow.x-Info.x)>15&&fin==false){
 				forward(150);
 			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			
 		}
 	}
 	public void forward(int speed) throws IOException{
+		System.out.println( "forward ");
 		socket=null;
 		socket=Setting.server.accept();
 		out = new DataOutputStream(socket.getOutputStream());
@@ -342,67 +371,97 @@ public class visualalgo extends Thread implements MonitorProtocol{
 		out.flush();
 		socket.close();
 	}
-	public void relrot(int ang) throws IOException, InterruptedException{
+	public void relrot(int ang) throws IOException{
+		System.out.println( "relrot: "+ang);
 		socket=null;
 		 socket=Setting.server.accept();
 		 out = new DataOutputStream(socket.getOutputStream());
-		 
+		 double xt=0;
 		out.writeInt(Rotate);
 		out.flush();
-		out.writeInt(10);
+		if(ang==0)out.writeInt(0);
+		if(ang>0)out.writeInt(10);
+		else if(ang<0)out.writeInt(-10);
+		
 		out.flush();
-		double tang=Math.abs(ang/10);
-		Thread.sleep((long) tang);
-		out.writeInt(Rotate);
-		out.flush();
-		out.writeInt(0);
-		out.close();
-		socket.close();
+		double tang=Math.abs(ang)/10;
+		while(xt<tang&&fin==false){
+			xt+=0.1;
+			try {
+				Thread.sleep(100);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				break;
+			}
+		}
+		 out.close();
+		 socket.close();
+		 socket=Setting.server.accept();
+		 out = new DataOutputStream(socket.getOutputStream());
+		 out.writeInt(Rotate);
+		 out.flush();
+		 out.writeInt(0);
+		 out.flush();
+		 out.close();
+		 socket.close();
+		
 	}
 	public void setrotang(int ang) throws IOException, InterruptedException{
+		System.out.println( "setrotang");
 		socket=null;
+		 socket=Setting.server.accept();
+		 out = new DataOutputStream(socket.getOutputStream());
+		 out.writeInt(Rotate);
+		 out.flush();
+		 out.writeInt(20);
+		 socket.close();
 		 socket=Setting.server.accept();
 		 out = new DataOutputStream(socket.getOutputStream());
 		 out.writeInt(AbsoluteHeading);
-		out.flush();
-		out.writeInt(ang);
-		out.flush();
-		out.close();
-		socket.close();
-		Thread.sleep(4000);
+		 out.flush();
+		 out.writeInt(ang);
+		 out.flush();
+		 out.close();
+		 socket.close();
+		 Thread.sleep(4000);
 	}
 	public void setgodis(double dis,int speed) throws IOException, InterruptedException{
-		socket=null;
-		 socket=Setting.server.accept();
-		  out = new DataOutputStream(socket.getOutputStream());
+		System.out.println( "setgodis");
 		double dtime=dis/(speed/10);
 		double xt=0;
 		
-		out.writeInt(Trans);
-		out.flush();
-		out.writeInt(speed);
-		out.flush();
+		forward(speed);
 		while(xt<dtime&&fin==false){
 			avoidbum();
+			if(avoflag==true){
+				avoflag=false;
+				return;
+			}
 			xt+=0.1;
 			Thread.sleep(100);
 		}
 //		Thread.sleep((long) dtime);
-		out.writeInt(0);
+		forward(0);
 		
-		socket.close();
+		
 	
 	}
 	public  void setstop(boolean t) {
-		
+		this.fin = t;
 		Thread.currentThread().interrupt();
 		while(Thread.currentThread().isInterrupted()==false){}
 		this.fin = t;
 		try {
 			forward(0);
+			relrot(0);
+			out=null;
+			socket=null;
+			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		
 		}
 	
 	}
