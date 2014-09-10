@@ -2,11 +2,6 @@
 <classpath>
 	<classpathentry kind="src" path=""/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="D:/program/javacv-bin/javacv-bin/ffmpeg.jar"/>
-	<classpathentry kind="lib" path="D:/program/javacv-bin/javacv-bin/ffmpeg-windows-x86.jar"/>
-	<classpathentry kind="lib" path="D:/program/javacv-bin/javacv-bin/javacpp.jar"/>
-	<classpathentry kind="lib" path="D:/program/javacv-bin/javacv-bin/javacv.jar"/>
-	<classpathentry kind="lib" path="D:/program/javacv-bin/javacv-bin/opencv.jar"/>
-	<classpathentry kind="lib" path="D:/program/javacv-bin/javacv-bin/opencv-windows-x86.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/javacv"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
