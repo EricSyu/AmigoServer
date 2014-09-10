@@ -522,18 +522,28 @@ public class Server {
 		lblWfiInfo.setFont(new Font("微軟正黑體", Font.BOLD, 20));
 		lblWfiInfo.setBounds(434, 183, 100, 21);
 		panel_3.add(lblWfiInfo);
-		
-		JButton btnNewButton_22 = new JButton("New button");
+		final visualalgo vtest=new visualalgo();
+		JButton btnNewButton_22 = new JButton("start");
 		btnNewButton_22.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				visualalgo vtest=new visualalgo();
+//				visualalgo vtest=new visualalgo();
 				vtest.start();
 			}
 		});
 		
 		btnNewButton_22.setBounds(67, 30, 87, 23);
 		panel_3.add(btnNewButton_22);
+		
+		JButton btnStop = new JButton("stop");
+		btnStop.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				vtest.setstop(true);
+			}
+		});
+		btnStop.setBounds(162, 30, 87, 23);
+		panel_3.add(btnStop);
 		
 		final JLabel lblNewLabel_1 = new JLabel("");
 		lblNewLabel_1.setBounds(36, 50, 517, 309);

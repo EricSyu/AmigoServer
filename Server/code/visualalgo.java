@@ -321,7 +321,7 @@ public class visualalgo extends Thread implements MonitorProtocol{
 		try {
 			int bang=(int)(Math.atan2(tnow.y-Info.y, tnow.x-Info.x)*180/Math.PI);
 			setrotang(bang);
-			while(Math.abs(tnow.y-Info.y)<15&&Math.abs(tnow.x-Info.x)<15){
+			while(Math.abs(tnow.y-Info.y)>15&&Math.abs(tnow.x-Info.x)>15){
 				forward(150);
 			}
 		} catch (IOException e) {
@@ -383,7 +383,7 @@ public class visualalgo extends Thread implements MonitorProtocol{
 		out.writeInt(speed);
 		out.flush();
 		while(xt<dtime&&fin==false){
-//			avoidbum();
+			avoidbum();
 			xt+=0.1;
 			Thread.sleep(100);
 		}
