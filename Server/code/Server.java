@@ -271,15 +271,21 @@ public class Server {
 							ex1.printStackTrace();
 						}
 					}
+					int index=0;
 					String[] option=set.BTSearch.split("_");
 					for(int i=0; i<option.length; i++){
-						if(option[i].indexOf("Hotlife")>0){
-							set.BTMatch=i;
-							break;
-						}
+						if(option[i].indexOf("Hotlife")>0)
+							index=i;
 					}
 					set.BTConnectflag=true;
-					
+					set.BTMatch=index;
+							
+					try {
+						Thread.sleep(100);
+					} catch (InterruptedException ex2) {
+						// TODO Auto-generated catch block
+						ex2.printStackTrace();
+					}
 					while(!info.BTstatus.equals("Connected")){
 						try {
 							Thread.sleep(50);
