@@ -45,7 +45,8 @@ public class Server {
 	JButton btnNewButton_9 = new JButton("8");
 	JButton btnNewButton_10 = new JButton("7");
 	JButton btnNewButton_11 = new JButton("6");
-	visualalgo vtest=null;
+	pathalgo vtest=null;
+	
 	/**
 	 * Launch the application.
 	 */
@@ -246,9 +247,7 @@ public class Server {
 		panel_1.add(btnNewButton_21);
 		btnNewButton_21.setEnabled(false);
 		
-		info.Initial(textArea_1, btnNewButton_18, btnNewButton_19, btnNewButton_20, btnNewButton_21);
-		
-		final JButton btnNewButton_23 = new JButton("OneClickConnect");
+		final JButton btnNewButton_23 = new JButton("Initializing...");
 		btnNewButton_23.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -279,12 +278,11 @@ public class Server {
 					}
 					set.BTConnectflag=true;
 					set.BTMatch=index;
-							
 					try {
 						Thread.sleep(100);
-					} catch (InterruptedException ex2) {
+					} catch (InterruptedException e1) {
 						// TODO Auto-generated catch block
-						ex2.printStackTrace();
+						e1.printStackTrace();
 					}
 					while(!info.BTstatus.equals("Connected")){
 						try {
@@ -296,6 +294,7 @@ public class Server {
 					}
 					set.Amigoconnect=true;
 					btnNewButton_23.setText("Close");
+					
 				}else{
 					set.BTSwitchclose=true;
 					btnNewButton_23.setText("OneClickConnect");
@@ -305,6 +304,31 @@ public class Server {
 		});
 		btnNewButton_23.setBounds(24, 337, 250, 28);
 		panel_1.add(btnNewButton_23);
+		btnNewButton_23.setEnabled(false);
+		
+		info.Initial(textArea_1, btnNewButton_18, btnNewButton_19
+				, btnNewButton_20, btnNewButton_21, btnNewButton_23);
+		
+		final JButton btnNewButton_24 = new JButton("start");
+		
+		
+		btnNewButton_24.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				if(btnNewButton_24.getText().equals("start")==true){
+				btnNewButton_24.setText("stop");
+				vtest=new pathalgo();
+				vtest.start();
+				}
+				else{
+					btnNewButton_24.setText("start");
+					vtest.setstop(true);
+				}
+				
+			}
+		});
+		btnNewButton_24.setBounds(55, 390, 87, 23);
+		panel_1.add(btnNewButton_24);
 		info.start();
 		
 		Panel panel_3 = new Panel();
@@ -586,28 +610,6 @@ public class Server {
 		lblWfiInfo.setFont(new Font("敺株�甇��擃�", Font.BOLD, 20));
 		lblWfiInfo.setBounds(434, 183, 100, 21);
 		panel_3.add(lblWfiInfo);
-		
-		JButton btnNewButton_22 = new JButton("start");
-		btnNewButton_22.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				vtest=new visualalgo();
-				vtest.start();
-			}
-		});
-		
-		btnNewButton_22.setBounds(67, 30, 87, 23);
-		panel_3.add(btnNewButton_22);
-		
-		JButton btnStop = new JButton("stop");
-		btnStop.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				vtest.setstop(true);
-			}
-		});
-		btnStop.setBounds(189, 30, 87, 23);
-		panel_3.add(btnStop);
 		
 		final JLabel lblNewLabel_1 = new JLabel("");
 		lblNewLabel_1.setBounds(36, 50, 517, 309);

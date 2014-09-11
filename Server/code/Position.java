@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-
 import javax.swing.JButton;
 import javax.swing.JTextArea;
 
@@ -14,8 +13,6 @@ import org.bytedeco.javacpp.opencv_core.Mat;
 import org.bytedeco.javacpp.opencv_legacy.CvEM;
 import org.bytedeco.javacpp.opencv_legacy.CvEMParams;
 import org.bytedeco.javacpp.helper.opencv_core.AbstractCvMat;
-
-
 
 public class Position extends Thread{
 	private JButton zone0, zone1, zone2, zone3, zone4, zone5, zone6, zone7, zone8;
@@ -40,10 +37,18 @@ public class Position extends Thread{
 	@Override
 	public void run(){
 
-		int i, j, cnt=0, avg=0;
+		int i, j, cnt=0, avg=0, zone=-1, count=1, m=-1, n=-1;
+		int[][] LockZone=new int[5][5]; 
 		
 		CvEM [] gmm_model=new CvEM[9];
 		CvMat[] trainData=new CvMat[9];
+		
+		for( i=0; i<5; i++ )
+			for( j=0; j<5; j++ )
+				if( i==0 || j==0 ) LockZone[i][j]=-1;
+		for( i=1; i<4; i++ )
+			for( j=1; j<4; j++ )
+				LockZone[j][i]=count++;
 		
 		for( i=0; i<9; i++ ) trainData[i]=AbstractCvMat.create(248, 6, opencv_core.CV_32FC1);
 		
@@ -78,7 +83,7 @@ public class Position extends Thread{
 		params.nclusters(3);
 		params.cov_mat_type(CvEM.COV_MAT_SPHERICAL);
 		params.start_step(CvEM.START_AUTO_STEP);
-		params.term_crit().max_iter(300);    // ����N�̰�����
+		params.term_crit().max_iter(300);    // 嚙踝蕭嚙踐迭嚙瞇嚙諒堆蕭嚙踝蕭嚙踝蕭
 		params.term_crit().epsilon(0.001);
 		params.term_crit().type(opencv_core.CV_TERMCRIT_ITER|opencv_core.CV_TERMCRIT_EPS);
 		
@@ -140,12 +145,29 @@ public class Position extends Thread{
 					Mat TestFeature=new Mat(matTestFeature);
 					
 					double result=gmm_model[0].calcLikelihood(TestFeature);
-					int zone=0;
+					int _zone=-1;
+					
 					for( i=1; i<gmm_model.length; i++){
 						if( gmm_model[i].calcLikelihood(TestFeature)>result ){
 							result = gmm_model[i].calcLikelihood(TestFeature);
-							zone=i;
+							_zone=i;
 						}
+					}
+					
+					if( zone==-1 ) zone=_zone;
+					else{
+						for( i=1; i<4; i++ ){
+							for( j=1; j<4; j++ ){
+								if( _zone==LockZone[i][j] ){
+									m=i;
+									n=j;
+									break;
+								}
+							}
+						}
+						if( _zone==LockZone[m][n] || _zone==LockZone[m+1][n] || _zone==LockZone[m-1][n] 
+								|| _zone==LockZone[m][n+1] || _zone==LockZone[m][n-1])
+							zone=_zone;
 					}
 					
 					switch(zone){

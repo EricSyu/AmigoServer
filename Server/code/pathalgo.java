@@ -6,9 +6,11 @@ import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.Socket;
 
+import com.sun.beans.util.Cache;
+
 import code.Setting;
 
-public class visualalgo extends Thread implements MonitorProtocol{
+public class pathalgo extends Thread implements MonitorProtocol{
 	boolean fin=false;
 	public  DataOutputStream  out=null;
 	Socket socket=null;
@@ -18,6 +20,7 @@ public class visualalgo extends Thread implements MonitorProtocol{
 	public void run(){
 		int[] a={2,3,8};
 		pathgo(a);
+		
 	}
 	public void inipos(){
 		//判斷一開始在第幾區  visual
@@ -251,48 +254,55 @@ public class visualalgo extends Thread implements MonitorProtocol{
 		
 	}
 	boolean avoflag=false;
+	
+	
 	public void avoidbum() throws IOException, InterruptedException {
-		
+		int x=0;
 		System.out.println( "avoidbum()");
-				avoflag=true;
+				
 				if(Info.sensor[2]<450||Info.sensor[3]<450){
+					avoflag=true;
 					try {
 						if(Info.sensor[2]>Info.sensor[3]){
 							System.out.println( "turn left");
 							forward(0);
-							relrot(79);					
+							relrot(85);					
 							forward(150);
 							
-							while(Info.sensor[5]<300&&fin==false){
+							while(Info.sensor[5]<300&&fin==false&&x<3){
 								if(Info.sensor[2]<450||Info.sensor[3]<450){
 									System.out.println( "backprepoint-pre");
 									forward(0);
 									backprepoint();
 									return;
 								}
-							
+								Thread.sleep(1000);
+								x++;
 							}
 							
 							forward(0);
-							relrot(-79);
+							relrot(-85);
 							
 						}else {
+							avoflag=true;
 							System.out.println( "turn right");
 							forward(0);
-							relrot(-79);
+							relrot(-85);
 							forward(150);
 							
 							while(Info.sensor[0]<300&&fin==false){
-								if(Info.sensor[2]<450||Info.sensor[3]<450){
+								if(Info.sensor[2]<450||Info.sensor[3]<450&&x<3){
 									forward(0);
 									backprepoint();
 									return;
+									
 								}
-							
+								Thread.sleep(1000);
+								x++;
 							}
 							
 							forward(0);
-							relrot(79);
+							relrot(85);
 							}
 						
 					} catch (Exception e) {
@@ -302,6 +312,7 @@ public class visualalgo extends Thread implements MonitorProtocol{
 					}
 				}//if
 				else if(Info.sensor[1]<250||Info.sensor[4]<250){
+					
 					if(Info.sensor[1]>Info.sensor[4]){
 					
 						forward(0);
@@ -362,6 +373,7 @@ public class visualalgo extends Thread implements MonitorProtocol{
 	}
 	public void forward(int speed) throws IOException{
 		System.out.println( "forward ");
+		if(socket!=null)socket.close();
 		socket=null;
 		socket=Setting.server.accept();
 		out = new DataOutputStream(socket.getOutputStream());
@@ -416,6 +428,7 @@ public class visualalgo extends Thread implements MonitorProtocol{
 		 out.flush();
 		 out.writeInt(20);
 		 socket.close();
+		 socket=null;
 		 socket=Setting.server.accept();
 		 out = new DataOutputStream(socket.getOutputStream());
 		 out.writeInt(AbsoluteHeading);
