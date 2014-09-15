@@ -34,19 +34,19 @@ public class Server {
 	private JTextField textField;
 	private JTextField textField_1;
 	static Boolean flag=true, _flag=true, posflag=true, monflag=true, positflag=true, conflag=false, Infoflag=false;
-	int mode=0, speed=0, Amigostatus=0, Wifistatus=0, Camstatus=0;
+	int mode=0, speed=0;
 	String BTname="";
-	JButton btnNewButton_3 = new JButton("2");
+	JButton btnNewButton_3 = new JButton("0");
 	JButton btnNewButton_4 = new JButton("1");
-	JButton btnNewButton_5 = new JButton("0");
+	JButton btnNewButton_5 = new JButton("2");
 	JButton btnNewButton_6 = new JButton("3");
 	JButton btnNewButton_7 = new JButton("4");
 	JButton btnNewButton_8 = new JButton("5");
-	JButton btnNewButton_9 = new JButton("8");
+	JButton btnNewButton_9 = new JButton("6");
 	JButton btnNewButton_10 = new JButton("7");
-	JButton btnNewButton_11 = new JButton("6");
+	JButton btnNewButton_11 = new JButton("8");
+	private JTextField txtWifisignal;
 	pathalgo vtest=null;
-	
 	/**
 	 * Launch the application.
 	 */
@@ -76,6 +76,8 @@ public class Server {
 	 */
 	private void initialize() {
 		frmServer = new JFrame();
+		frmServer.getContentPane().setBackground(UIManager.getColor("Button.background"));
+		frmServer.setBackground(Color.BLACK);
 		frmServer.setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\owuser\\Downloads\\icon.png"));
 		frmServer.setTitle("Amigo");
 		frmServer.setResizable(false);
@@ -90,36 +92,36 @@ public class Server {
 		final WifiSignal wifisgl=new WifiSignal();
 		
 		JPanel panel_1 = new JPanel();
-		tabbedPane.addTab("Control", null, panel_1, null);
+		tabbedPane.addTab("Setting", null, panel_1, null);
 		panel_1.setLayout(null);
 		
 		JLabel lblNewLabel_4 = new JLabel("AmigoBot Setting___________________________");
 		lblNewLabel_4.setForeground(Color.GRAY);
-		lblNewLabel_4.setFont(new Font("敺株�甇��擃�", Font.BOLD, 25));
+		lblNewLabel_4.setFont(new Font("敺株�甇�擃�", Font.BOLD, 25));
 		lblNewLabel_4.setBounds(10, 10, 529, 34);
 		panel_1.add(lblNewLabel_4);
 		
 		JLabel lblNewLabel_5 = new JLabel("Bluetooth :");
 		lblNewLabel_5.setForeground(Color.GRAY);
-		lblNewLabel_5.setFont(new Font("敺株�甇��擃�", Font.BOLD, 20));
+		lblNewLabel_5.setFont(new Font("敺株�甇�擃�", Font.BOLD, 20));
 		lblNewLabel_5.setBounds(24, 76, 118, 28);
 		panel_1.add(lblNewLabel_5);
 		
 		JLabel lblNewLabel_6 = new JLabel("AmigoBot :");
 		lblNewLabel_6.setForeground(Color.GRAY);
-		lblNewLabel_6.setFont(new Font("敺株�甇��擃�", Font.BOLD, 20));
+		lblNewLabel_6.setFont(new Font("敺株�甇�擃�", Font.BOLD, 20));
 		lblNewLabel_6.setBounds(24, 168, 118, 28);
 		panel_1.add(lblNewLabel_6);
 		
 		JLabel lblNewLabel_7 = new JLabel("Wifi :");
 		lblNewLabel_7.setForeground(Color.GRAY);
-		lblNewLabel_7.setFont(new Font("敺株�甇��擃�", Font.BOLD, 20));
+		lblNewLabel_7.setFont(new Font("敺株�甇�擃�", Font.BOLD, 20));
 		lblNewLabel_7.setBounds(24, 222, 118, 28);
 		panel_1.add(lblNewLabel_7);
 		
 		JLabel lblNewLabel_8 = new JLabel("MobileCam :");
 		lblNewLabel_8.setForeground(Color.GRAY);
-		lblNewLabel_8.setFont(new Font("敺株�甇��擃�", Font.BOLD, 20));
+		lblNewLabel_8.setFont(new Font("敺株�甇�擃�", Font.BOLD, 20));
 		lblNewLabel_8.setBounds(24, 275, 133, 28);
 		panel_1.add(lblNewLabel_8);
 		
@@ -134,12 +136,17 @@ public class Server {
 		panel_1.add(textArea_1);
 		
 		final JTextArea textArea_4 = new JTextArea();
+		textArea_4.setBackground(UIManager.getColor("Button.background"));
+		textArea_4.setForeground(Color.BLACK);
+		textArea_4.setFont(new Font("敺株�甇�擃�", Font.BOLD, 13));
 		textArea_4.setText("0");
 		textArea_4.setBounds(226, 402, 32, 25);
 		panel_2.add(textArea_4);
+		textArea_4.setEditable(false);
 		
 		final Setting set=new Setting();
 		set.start();
+		speed=set.Speed;
 		
 		final Info info = new Info();
 		
@@ -150,53 +157,15 @@ public class Server {
 		final JButton btnNewButton_19 = new JButton("Connect");
 		btnNewButton_19.setEnabled(false);
 		
+		final JButton btnNewButton_23 = new JButton("Initializing...");
+		
 		final JButton btnNewButton_18 = new JButton("Initializing...");
 		btnNewButton_18.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				if(btnNewButton_18.getText().equals("Open")){
-					set.BTSwitchopen=true;
-					while(!Info.BTstatus.equals("Open")){
-						try {
-							Thread.sleep(50);
-						} catch (InterruptedException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-					}
-					btnNewButton_18.setText("Search");
-				}else if(btnNewButton_18.getText().equals("Search")){
-					set.BTSearchflag=true;
-					while(!set.Searchreceive){
-						try {
-							Thread.sleep(50);
-						} catch (InterruptedException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-					}
-					String[] option=set.BTSearch.split("_");
-					comboBox_1.setModel(new DefaultComboBoxModel(option));
-					btnNewButton_18.setText("Connect");
-				}else if(btnNewButton_18.getText().equals("Connect")){
-					set.BTConnectflag=true;
-					set.BTMatch=comboBox_1.getSelectedIndex();
-					btnNewButton_18.setText("Close");
-					while(!info.BTstatus.equals("Connected")){
-						try {
-							Thread.sleep(50);
-						} catch (InterruptedException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-					}
-					btnNewButton_19.setEnabled(true);
-					Amigostatus=0;
-				}else if(btnNewButton_18.getText().equals("Close")){
-					set.BTSwitchclose=true;
-					comboBox_1.setModel(new DefaultComboBoxModel());
-					btnNewButton_18.setText("Open");
-				}
+				BTButton BT=new BTButton(btnNewButton_18, btnNewButton_19, btnNewButton_23, comboBox_1);
+				BT.start();
+				btnNewButton_18.setEnabled(false);
 			}
 		});
 		btnNewButton_18.setBounds(164, 114, 110, 28);
@@ -247,59 +216,12 @@ public class Server {
 		panel_1.add(btnNewButton_21);
 		btnNewButton_21.setEnabled(false);
 		
-		final JButton btnNewButton_23 = new JButton("Initializing...");
 		btnNewButton_23.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				if(btnNewButton_23.getText().equals("OneClickConnect")){
-					set.BTSwitchopen=true;
-					while(!Info.BTstatus.equals("Open")){
-						try {
-							Thread.sleep(50);
-						} catch (InterruptedException ex0) {
-							// TODO Auto-generated catch block
-							ex0.printStackTrace();
-						}
-					}
-					set.BTSearchflag=true;
-					while(!set.Searchreceive){
-						try {
-							Thread.sleep(50);
-						} catch (InterruptedException ex1) {
-							// TODO Auto-generated catch block
-							ex1.printStackTrace();
-						}
-					}
-					int index=0;
-					String[] option=set.BTSearch.split("_");
-					for(int i=0; i<option.length; i++){
-						if(option[i].indexOf("Hotlife")>0)
-							index=i;
-					}
-					set.BTConnectflag=true;
-					set.BTMatch=index;
-					try {
-						Thread.sleep(100);
-					} catch (InterruptedException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
-					while(!info.BTstatus.equals("Connected")){
-						try {
-							Thread.sleep(50);
-						} catch (InterruptedException ex2) {
-							// TODO Auto-generated catch block
-							ex2.printStackTrace();
-						}
-					}
-					set.Amigoconnect=true;
-					btnNewButton_23.setText("Close");
-					
-				}else{
-					set.BTSwitchclose=true;
-					btnNewButton_23.setText("OneClickConnect");
-				}
-				
+				OneClickConnect oneClick=new OneClickConnect(btnNewButton_23, btnNewButton_18);
+				oneClick.start();
+				btnNewButton_23.setEnabled(false);
 			}
 		});
 		btnNewButton_23.setBounds(24, 337, 250, 28);
@@ -309,26 +231,25 @@ public class Server {
 		info.Initial(textArea_1, btnNewButton_18, btnNewButton_19
 				, btnNewButton_20, btnNewButton_21, btnNewButton_23);
 		
-		final JButton btnNewButton_24 = new JButton("start");
-		
-		
-		btnNewButton_24.addMouseListener(new MouseAdapter() {
+		final JButton btnStart = new JButton("start");
+		btnStart.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				if(btnNewButton_24.getText().equals("start")==true){
-				btnNewButton_24.setText("stop");
+				if(btnStart.getText().equals("start")==true){
+					btnStart.setText("stop");
 				vtest=new pathalgo();
 				vtest.start();
 				}
 				else{
-					btnNewButton_24.setText("start");
+					btnStart.setText("start");
 					vtest.setstop(true);
 				}
 				
 			}
 		});
-		btnNewButton_24.setBounds(55, 390, 87, 23);
-		panel_1.add(btnNewButton_24);
+		
+		btnStart.setBounds(50, 398, 87, 23);
+		panel_1.add(btnStart);
 		info.start();
 		
 		Panel panel_3 = new Panel();
@@ -595,30 +516,33 @@ public class Server {
 		
 		JLabel lblMode = new JLabel("Mode :");
 		lblMode.setForeground(Color.GRAY);
-		lblMode.setFont(new Font("敺株�甇��擃�", Font.BOLD, 20));
+		lblMode.setFont(new Font("敺株�甇�擃�", Font.BOLD, 20));
 		lblMode.setBounds(324, 53, 76, 23);
 		panel_3.add(lblMode);
 		
 		JLabel lblCarInfo = new JLabel("Car Info:");
 		lblCarInfo.setForeground(Color.GRAY);
-		lblCarInfo.setFont(new Font("敺株�甇��擃�", Font.BOLD, 20));
+		lblCarInfo.setFont(new Font("敺株�甇�擃�", Font.BOLD, 20));
 		lblCarInfo.setBounds(324, 183, 100, 21);
 		panel_3.add(lblCarInfo);
 		
 		JLabel lblWfiInfo = new JLabel("Wifi Info:");
 		lblWfiInfo.setForeground(Color.GRAY);
-		lblWfiInfo.setFont(new Font("敺株�甇��擃�", Font.BOLD, 20));
+		lblWfiInfo.setFont(new Font("敺株�甇�擃�", Font.BOLD, 20));
 		lblWfiInfo.setBounds(434, 183, 100, 21);
 		panel_3.add(lblWfiInfo);
 		
+		
+		
 		final JLabel lblNewLabel_1 = new JLabel("");
+		lblNewLabel_1.setBackground(Color.BLUE);
 		lblNewLabel_1.setBounds(36, 50, 517, 309);
 		panel_2.add(lblNewLabel_1);
 		
 		final JLabel lblNewLabel_2 = new JLabel("");
 		lblNewLabel_2.setBackground(UIManager.getColor("Button.background"));
 		lblNewLabel_2.setForeground(Color.GRAY);
-		lblNewLabel_2.setFont(new Font("敺株�甇��擃�", Font.BOLD, 20));
+		lblNewLabel_2.setFont(new Font("敺株�甇�擃�", Font.BOLD, 20));
 		lblNewLabel_2.setBounds(177, 10, 274, 23);
 		panel_2.add(lblNewLabel_2);
 		
@@ -736,9 +660,13 @@ public class Server {
 		btnNewButton_14.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				set.Speed=set.Speed-10;
-				if(set.Speed>1000) set.Speed=1000;
-				textArea_4.setText(set.Speed+"");
+				speed+=10;
+				set.Speed=speed;
+				if(speed>1000){
+					speed=1000;
+					set.Speed=speed;
+				}
+				textArea_4.setText(speed+"");
 				set.SetAddSpeed=true;
 			}
 		});
@@ -749,9 +677,13 @@ public class Server {
 		button_2.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				set.Speed=set.Speed-10;
-				if(set.Speed<0) set.Speed=0;
-				textArea_4.setText(set.Speed+"");
+				speed-=10;
+				set.Speed=speed;
+				if(speed<0){
+					speed=0;
+					set.Speed=speed;
+				}
+				textArea_4.setText(speed+"");
 				set.SetSubtractSpeed=true;
 			}
 		});
@@ -760,7 +692,7 @@ public class Server {
 		
 		JLabel lblNewLabel_3 = new JLabel("Speed Setting :");
 		lblNewLabel_3.setForeground(Color.GRAY);
-		lblNewLabel_3.setFont(new Font("敺株�甇��擃�", Font.BOLD, 20));
+		lblNewLabel_3.setFont(new Font("敺株�甇�擃�", Font.BOLD, 20));
 		lblNewLabel_3.setBounds(171, 369, 154, 23);
 		panel_2.add(lblNewLabel_3);
 		
@@ -768,43 +700,43 @@ public class Server {
 		tabbedPane.addTab("Build", null, panel, null);
 		panel.setLayout(null);
 		
-		JButton btnSearch = new JButton("Level");
-		btnSearch.setBounds(22, 174, 80, 23);
+		JButton btnSearch = new JButton("Build");
+		btnSearch.setBounds(22, 174, 119, 23);
 		panel.add(btnSearch);
 		
 		JButton btnNewButton = new JButton("Search");
-		btnNewButton.setBounds(112, 174, 80, 23);
+		btnNewButton.setBounds(183, 174, 119, 23);
 		panel.add(btnNewButton);
 		
-		JButton btnNewButton_1 = new JButton("Erase");
-		btnNewButton_1.setBounds(202, 174, 80, 23);
-		panel.add(btnNewButton_1);
-		
 		JLabel lblData = new JLabel("DATA:");
+		lblData.setForeground(Color.GRAY);
 		lblData.setBounds(22, 81, 58, 21);
 		panel.add(lblData);
-		lblData.setFont(new Font("敺株�甇��擃�", Font.BOLD, 16));
+		lblData.setFont(new Font("敺株�甇�擃�", Font.BOLD, 16));
 		
 		textField_1 = new JTextField("250");
-		textField_1.setBounds(78, 84, 96, 21);
+		textField_1.setFont(new Font("敺株�甇�擃�", Font.BOLD, 12));
+		textField_1.setBounds(112, 81, 96, 21);
 		panel.add(textField_1);
 		textField_1.setColumns(10);
 		
 		JLabel lblNewLabel = new JLabel("PORT:");
+		lblNewLabel.setForeground(Color.GRAY);
 		lblNewLabel.setBounds(22, 48, 53, 23);
 		panel.add(lblNewLabel);
-		lblNewLabel.setFont(new Font("敺株�甇��擃�", Font.BOLD, 16));
+		lblNewLabel.setFont(new Font("敺株�甇�擃�", Font.BOLD, 16));
 		
 		textField = new JTextField("861");
-		textField.setBounds(78, 52, 96, 21);
+		textField.setFont(new Font("敺株�甇�擃�", Font.BOLD, 12));
+		textField.setBounds(112, 48, 96, 21);
 		panel.add(textField);
 		textField.setColumns(10);
 		
-		JLabel lblSetting = new JLabel("Build Setting__________________");
+		JLabel lblSetting = new JLabel("Wifi Build Setting_____________");
 		lblSetting.setBounds(10, 10, 292, 28);
 		panel.add(lblSetting);
 		lblSetting.setForeground(Color.GRAY);
-		lblSetting.setFont(new Font("敺株�甇��擃�", Font.BOLD, 20));
+		lblSetting.setFont(new Font("敺株�甇�擃�", Font.BOLD, 20));
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(333, 8, 246, 435);
@@ -812,6 +744,19 @@ public class Server {
 		
 		final JTextArea textArea = new JTextArea();
 		scrollPane.setViewportView(textArea);
+		
+		JLabel lblNewLabel_9 = new JLabel("FileName:");
+		lblNewLabel_9.setFont(new Font("敺株�甇�擃�", Font.BOLD, 16));
+		lblNewLabel_9.setForeground(Color.GRAY);
+		lblNewLabel_9.setBounds(22, 112, 103, 21);
+		panel.add(lblNewLabel_9);
+		
+		txtWifisignal = new JTextField();
+		txtWifisignal.setText("WifiSignal");
+		txtWifisignal.setFont(new Font("敺株�甇�擃�", Font.BOLD, 12));
+		txtWifisignal.setBounds(112, 114, 96, 21);
+		panel.add(txtWifisignal);
+		txtWifisignal.setColumns(10);
 		
 		btnNewButton.addMouseListener(new MouseAdapter() {
 			@Override
@@ -823,7 +768,7 @@ public class Server {
 		btnSearch.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				Level lvl=new Level(textField, textField_1, textArea);
+				Level lvl=new Level(textField, textField_1, textArea, txtWifisignal);
 				lvl.start();
 			}
 		});

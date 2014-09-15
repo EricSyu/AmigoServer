@@ -16,9 +16,10 @@ public class pathalgo extends Thread implements MonitorProtocol{
 	Socket socket=null;
 	double tang=0;
 	vec tnow=null;
+	vec tnext=null;
 	@Override
 	public void run(){
-		int[] a={2,3,8};
+		int[] a={2,3,8,7,6,5,0,1,2};
 		pathgo(a);
 		
 	}
@@ -26,30 +27,46 @@ public class pathalgo extends Thread implements MonitorProtocol{
 		//判斷一開始在第幾區  visual
 		qtvisual ql=new qtvisual();
 		new Thread(ql).start();
+		
 		//..to be continue
 	}
+	public void checkpath() throws InterruptedException{
+		qtvisual ql=new qtvisual();
+		new Thread(ql).start();
+		try {int xxx=0;
+			while(ql.uang==360||ql.uang==370){
+				if(xxx%10==0)System.out.println(ql.uang);
+				Thread.sleep(100);xxx++;
+				if(xxx==370){ql.uang=0;break;}
+			}
+			relrot(ql.uang);
+		} catch (NumberFormatException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	
+	}
 	public void go(vec now,vec next) throws IOException, InterruptedException{
 		if(fin==true){
 			Thread.currentThread().isInterrupted();
 			return;  }
 		tnow=now;
+		tnext=next;
 	if(now.no==0&&next.no==1){
 			
 		setrotang(0);
-	
+		checkpath();
 		setgodis(300,200);
 		
    }
 	
 	if(now.no==1&&next.no==0){		
-			setrotang(180);
-		
+			setrotang(180);			
 			setgodis(300,200);			
 	}
 	if(now.no==1&&next.no==2){
-		setrotang(0);
-	
+		setrotang(0);	
+		checkpath();
 		setgodis(300,200);
 	}
 	if(now.no==1&&next.no==4){
@@ -68,14 +85,13 @@ public class pathalgo extends Thread implements MonitorProtocol{
 	if(now.no==2&&next.no==3){
 		System.out.println("2-3");
 		setrotang(90);
-	
+		
 		setgodis(360,200);
 
 	}
 	if(now.no==2&&next.no==4){
 
 		setrotang(135);
-	
 		setgodis(423,200);
 
 	}
@@ -89,9 +105,9 @@ public class pathalgo extends Thread implements MonitorProtocol{
 	if(now.no==3&&next.no==8){//90
 		System.out.println("3-8");
 		setrotang(90);
-	
+		checkpath();
 		setgodis(360,200);
-		
+
 	}
 	if(now.no==8&&next.no==3){
 		
@@ -103,7 +119,7 @@ public class pathalgo extends Thread implements MonitorProtocol{
 	if(now.no==4&&next.no==2){
 
 		setrotang(315);
-	
+		
 		setgodis(423,200);
 		
 	}
@@ -139,12 +155,12 @@ public class pathalgo extends Thread implements MonitorProtocol{
 	if(now.no==0&&next.no==5){
 		
 		setrotang(90);
-	
+		
 		setgodis(360,200);
 	}
 	if(now.no==5&&next.no==0){
 		setrotang(270);
-
+		checkpath();
 		setgodis(360,200);
 		
 	}
@@ -157,14 +173,14 @@ public class pathalgo extends Thread implements MonitorProtocol{
 	if(now.no==6&&next.no==5){
 		
 		setrotang(270);
-	
+		checkpath();
 		setgodis(360,200);
 		
 	}
 	if(now.no==8&&next.no==7){
 
-		setrotang(168);//15
-	
+		setrotang(165);//15
+		checkpath();
 		setgodis(306,200);
 
 		
@@ -179,7 +195,7 @@ public class pathalgo extends Thread implements MonitorProtocol{
 	if(now.no==7&&next.no==6){
 
 		setrotang(191);//5,11,12
-	
+		checkpath();
 		setgodis(306,200);
 
 		
@@ -202,11 +218,14 @@ public class pathalgo extends Thread implements MonitorProtocol{
 			next=new vec(vi[i+1]);
 			
 			try {
+				
 				if(fin==true){
 					break;  
 					}
 				go(now,next);
+				
 				Thread.sleep(1000);
+				
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -221,6 +240,7 @@ public class pathalgo extends Thread implements MonitorProtocol{
 	}
 	public class qtvisual implements Runnable{
 //		public String path="";
+		int uang=360;
 		@Override
 		public void run() {
 			// TODO Auto-generated method stub
@@ -242,8 +262,24 @@ public class pathalgo extends Thread implements MonitorProtocol{
 				
 				String modifiedSentence = new String(receivePacket.getData());      
 				System.out.println("FROM SERVER:" + modifiedSentence);
+				int xx=modifiedSentence.indexOf("ang");
+				int zero=modifiedSentence.indexOf("ang0.");
 			
-			   
+				int dan=0;
+				if(zero>1||modifiedSentence.indexOf("ang0,")>1){
+					uang=0;
+				}else{
+					
+					double tan=Double.parseDouble(modifiedSentence.substring(xx+3, xx+7));
+					
+					if((tan*10)%10>5){
+						if(tan<0)dan=(int) (tan-1);
+						else dan=(int) (tan+1);
+					}	
+					else dan=(int)(tan);
+					System.out.println(xx+" :" + modifiedSentence.substring(xx+3, xx+7)+" dan "+dan);
+					uang=dan;
+				}
 				ds.close();
 
 	
@@ -254,113 +290,200 @@ public class pathalgo extends Thread implements MonitorProtocol{
 		
 	}
 	boolean avoflag=false;
-	
-	
-	public void avoidbum() throws IOException, InterruptedException {
-		int x=0;
-		System.out.println( "avoidbum()");
-				
-				if(Info.sensor[2]<450||Info.sensor[3]<450){
-					avoflag=true;
-					try {
-						if(Info.sensor[2]>Info.sensor[3]){
-							System.out.println( "turn left");
-							forward(0);
-							relrot(85);					
-							forward(150);
-							
-							while(Info.sensor[5]<300&&fin==false&&x<3){
-								if(Info.sensor[2]<450||Info.sensor[3]<450){
-									System.out.println( "backprepoint-pre");
-									forward(0);
-									backprepoint();
-									return;
-								}
-								Thread.sleep(1000);
-								x++;
-							}
-							
-							forward(0);
-							relrot(-85);
-							
-						}else {
-							avoflag=true;
-							System.out.println( "turn right");
-							forward(0);
-							relrot(-85);
-							forward(150);
-							
-							while(Info.sensor[0]<300&&fin==false){
-								if(Info.sensor[2]<450||Info.sensor[3]<450&&x<3){
-									forward(0);
-									backprepoint();
-									return;
-									
-								}
-								Thread.sleep(1000);
-								x++;
-							}
-							
-							forward(0);
-							relrot(85);
-							}
-						
-					} catch (Exception e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-						
+	double si41=Math.sin(Math.PI/180*41);
+	double co75=Math.cos(Math.PI/180*75);
+	double co15=Math.cos(Math.PI/180*15);
+	public int avoidbum2() throws IOException, InterruptedException {
+		
+		
+		try {
+			int x=0;
+			if(Info.sensor[2]*co15<450){
+				forward(0);
+				relrot(-85);
+				Thread.sleep(500);
+				forward(150);				
+				while((Info.sensor[0]<300||Info.sensor[1]<250||x<1)&&fin==false){
+					if(calbumdis(Info.sensor[2],Info.sensor[3])<250){
+						forward(0);
+						backprepoint();
+						return -1;
 					}
-				}//if
-				else if(Info.sensor[1]<250||Info.sensor[4]<250){
-					
-					if(Info.sensor[1]>Info.sensor[4]){
-					
+				x++;
+				Thread.sleep(1000);
+				}
+				forward(0);
+				relrot(85);
+				return 1;
+			}
+			if(Info.sensor[3]*co15<450){
+				forward(0);
+				relrot(85);
+				Thread.sleep(500);
+				forward(150);
+				while((Info.sensor[5]<300||Info.sensor[4]<250||x<1)&&fin==false){
+					if(calbumdis(Info.sensor[2],Info.sensor[3])<250){
 						forward(0);
-						relrot(49);
-						forward(150);
-						
-						while(Info.sensor[5]<300&&fin==false){
-							if(Info.sensor[2]<450||Info.sensor[3]<450){
-								forward(0);
-								backprepoint();
-								return;
-							}
-						
-						}
-						
+						backprepoint();
+						return -1;
+					}
+				x++;
+				Thread.sleep(1000);
+				}
+				forward(0);
+				relrot(-85);
+				return 1;
+			}
+			
+			if(Info.sensor[1]*si41<240||Info.sensor[2]*co75<200){
+				forward(0);
+				relrot(-49);
+				Thread.sleep(500);
+				forward(150);				
+				while((Info.sensor[0]<300||Info.sensor[1]<250||x<1)&&fin==false){
+					if(calbumdis(Info.sensor[2],Info.sensor[3])<250){
 						forward(0);
-						relrot(-49);
-						
-					}else {
-							forward(0);
-							relrot(-49);
-							forward(150);
-							
-							while(Info.sensor[0]<300&&fin==false){
-								if(Info.sensor[2]<450||Info.sensor[3]<450){
-									forward(0);
-									return;
-								}
-							
-							}
-							
-							forward(0);
-							relrot(49);
-							
-						}
-					} 
-				
+						backprepoint();
+						return -1;
+					}
+				x++;
+				Thread.sleep(1000);
+				}
+				forward(0);
+				relrot(49);
+				return 1;
+			}
+			if(Info.sensor[4]*si41<240||Info.sensor[3]*co75<200){
+				forward(0);
+				relrot(49);
+				Thread.sleep(500);
+				forward(150);
+				while((Info.sensor[5]<300||Info.sensor[4]<250||x<1)&&fin==false){
+					if(calbumdis(Info.sensor[2],Info.sensor[3])<250){
+						forward(0);
+						backprepoint();
+						return -1;
+					}
+				x++;
+				Thread.sleep(1000);
+				}
+				forward(0);
+				relrot(-49);
+				return 1;
+			}
+		}catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 			
 		}
+		return 0;
+	}
+	public int avoidbum38() throws IOException, InterruptedException {
+		try {
+			int x=0;
+			if(Info.sensor[2]<450){
+				forward(0);
+				relrot(-75);
+				Thread.sleep(500);
+				forward(150);				
+				while((Info.sensor[0]<300||Info.sensor[1]<250||x<1)&&fin==false){
+					if(calbumdis(Info.sensor[2],Info.sensor[3])<250){
+						forward(0);
+						backprepoint();
+						return -1;
+					}
+				x++;
+				Thread.sleep(1000);
+				}
+				forward(0);
+				relrot(75);
+				return 1;
+			}
+			if(Info.sensor[3]<200){
+				forward(0);
+				relrot(75);
+				Thread.sleep(500);
+				forward(150);
+				while((Info.sensor[5]<300||Info.sensor[4]<250||x<1)&&fin==false){
+					if(calbumdis(Info.sensor[2],Info.sensor[3])<250){
+						forward(0);
+						backprepoint();
+						return -1;
+					}
+				x++;
+				Thread.sleep(1000);
+				}
+				forward(0);
+				relrot(-75);
+				return 1;
+			}
+			
+			if(Info.sensor[1]*si41<240||Info.sensor[2]*co75<200){
+				forward(0);
+				relrot(-49);
+				Thread.sleep(500);
+				forward(150);				
+				while((Info.sensor[0]<300||Info.sensor[1]<250||x<1)&&fin==false){
+					if(calbumdis(Info.sensor[2],Info.sensor[3])<250){
+						forward(0);
+						backprepoint();
+						return -1;
+					}
+				x++;
+				Thread.sleep(1000);
+				}
+				forward(0);
+				relrot(49);
+				return 1;
+			}
+			if(Info.sensor[4]*si41<240||Info.sensor[3]*co75<200){
+				forward(0);
+				relrot(49);
+				Thread.sleep(500);
+				forward(150);
+				while((Info.sensor[5]<300||Info.sensor[4]<250||x<1)&&fin==false){
+					if(calbumdis(Info.sensor[2],Info.sensor[3])<250){
+						forward(0);
+						backprepoint();
+						return -1;
+					}
+				x++;
+				Thread.sleep(1000);
+				}
+				forward(0);
+				relrot(-49);
+				return 1;
+			}
+		}catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			
+		}
+		return 0;
+	}
+	public double calbumdis(int l1,int l2){
+		double dis=1000;
+		if(l1>=l2)dis=l2*Math.cos(Math.PI/180*60);
+		else dis=l1*Math.cos(Math.PI/180*60);
+		return dis;
+	}
+	public double calbumdis2(int l1,int l2){
+		double dis=1000;
+		if(l1>=l2)dis=l2*Math.sin(Math.PI/180*60);
+		else dis=l1*Math.sin(Math.PI/180*60);
+		return dis;
+	}
+	
 	public void  backprepoint(){
 //		(tang + 180)%360;
-		System.out.println( "backprepoint");
+		
 		try {
 			int bang=(int)(Math.atan2(tnow.y-Info.y, tnow.x-Info.x)*180/Math.PI);
+			System.out.println( "backprepoint: x"+ tnow.x+" y "+ tnow.y+" bang "+bang);
 			setrotang((360+bang)%360);
-			while(Math.abs(tnow.y-Info.y)>15&&Math.abs(tnow.x-Info.x)>15&&fin==false){
-				forward(150);
-			}
+			double tdis=Math.sqrt(Math.pow(tnow.y-Info.y, 2)+Math.pow(tnow.x-Info.x,2) );
+			setgodis(tdis, 150);
+			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -370,6 +493,19 @@ public class pathalgo extends Thread implements MonitorProtocol{
 			e.printStackTrace();
 			
 		}
+	}
+	public void avotonext(){
+		int nang=(int)(Math.atan2(tnext.y-Info.y, tnext.x-Info.x)*180/Math.PI);
+		System.out.println( "avotonext: x"+ Info.x+" y "+ Info.y+" bang "+nang);
+		try {
+			setrotang((360+nang)%360);
+			double tdis=Math.sqrt(Math.pow(tnext.y-Info.y, 2)+Math.pow(tnext.x-Info.x,2) );
+			setgodis(tdis, 150);
+		} catch (IOException | InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 	public void forward(int speed) throws IOException{
 		System.out.println( "forward ");
@@ -420,6 +556,7 @@ public class pathalgo extends Thread implements MonitorProtocol{
 		
 	}
 	public void setrotang(int ang) throws IOException, InterruptedException{
+		
 		System.out.println( "setrotang");
 		socket=null;
 		 socket=Setting.server.accept();
@@ -433,11 +570,30 @@ public class pathalgo extends Thread implements MonitorProtocol{
 		 out = new DataOutputStream(socket.getOutputStream());
 		 out.writeInt(AbsoluteHeading);
 		 out.flush();
-		 out.writeInt(ang);
+		 double fixang=ang-ang/45;
+		 out.writeInt((int) fixang);
+		 out.flush();
+		 Thread.sleep(4000);
+		 
+		 socket=null;
+		 socket=Setting.server.accept();
+		 out = new DataOutputStream(socket.getOutputStream());
+		 out.writeInt(Rotate);
+		 out.flush();
+		 out.writeInt(0);
 		 out.flush();
 		 out.close();
 		 socket.close();
-		 Thread.sleep(4000);
+		 int x=0;
+		 Thread.sleep(2000);
+		 while(Math.abs(Info.theta-fixang)>6||Math.abs(Info.theta-fixang)<354&&Math.abs(Info.theta-fixang)>350){
+
+		 }
+		 if(Math.abs(Info.theta-fixang)>3||Math.abs(Info.theta-fixang)<358&&Math.abs(Info.theta-fixang)>350){
+			 relrot(-45);
+			 setrotang(ang); 
+		 }
+		 
 	}
 	public void setgodis(double dis,int speed) throws IOException, InterruptedException{
 		System.out.println( "setgodis");
@@ -445,13 +601,20 @@ public class pathalgo extends Thread implements MonitorProtocol{
 		double xt=0;
 		
 		forward(speed);
+		
 		while(xt<dtime&&fin==false){
-			avoidbum();
-			if(avoflag==true){
-				avoflag=false;
-				return;
+			if(tnow.no==3&&tnext.no==8){
+				if(avoidbum38()==1){
+					avotonext();
+					break;
+				}
+			}
+			else if(avoidbum2()==1){
+				avotonext();
+				break;
 			}
 			xt+=0.1;
+				
 			Thread.sleep(100);
 		}
 //		Thread.sleep((long) dtime);

@@ -43,8 +43,8 @@ public class Info extends Thread{
 				Camstatus=brin.readLine();
 				Motor=Integer.parseInt(brin.readLine());
 				stall=Integer.parseInt(brin.readLine());
-				x=Integer.parseInt(brin.readLine());
-				y=Integer.parseInt(brin.readLine());
+				x=(Integer.parseInt(brin.readLine()));
+				y=(Integer.parseInt(brin.readLine()));
 				theta=Integer.parseInt(brin.readLine());
 				for( i=0; i<8; i++ ) sensor[i]=Integer.parseInt(brin.readLine());
 				
@@ -80,16 +80,13 @@ public class Info extends Thread{
 					}
 				}
 				
-				Thread.sleep(100);
+				
 				
 				brin.close();
 				socket.close();
 			}
 			
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

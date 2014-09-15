@@ -12,23 +12,24 @@ import code.MonitorProtocol;
 
 
 public class Setting extends Thread implements MonitorProtocol{
-	public Boolean BTSwitchopen=false;
-	public Boolean BTSwitchclose=false;
-	public Boolean BTConnectflag=false;
-	public Boolean BTSearchflag=false;
-	public Boolean Amigoconnect=false;
-	public Boolean Amigounconnect=false;
-	public Boolean Wificonnect=false;
-	public Boolean Wifiunconnect=false;
-	public Boolean MobileCamuncon=false;
-	public Boolean MobileCamcon=false;
-	public Boolean Forward=false;
-	public Boolean Turn=false;
-	public Boolean SetAddSpeed=false;
-	public Boolean SetSubtractSpeed=false;
+	public static  Boolean BTSwitchopen=false;
+	public static Boolean BTSwitchclose=false;
+	public static Boolean BTConnectflag=false;
+	public static Boolean BTSearchflag=false;
+	public static Boolean Amigoconnect=false;
+	public static Boolean Amigounconnect=false;
+	public static Boolean Wificonnect=false;
+	public static Boolean Wifiunconnect=false;
+	public static  Boolean MobileCamuncon=false;
+	public static Boolean MobileCamcon=false;
+	public static Boolean Forward=false;
+	public static Boolean Turn=false;
+	public static Boolean SetAddSpeed=false;
+	public static Boolean SetSubtractSpeed=false;
 	public static Boolean Searchreceive=false;
-	public String BTSearch="";
-	public int BTMatch=-1, Speed=0;
+	public static String BTSearch="";
+	public static int BTMatch=-1;
+	public int Speed=0;
 
 	 DataOutputStream  out = null;
 	 

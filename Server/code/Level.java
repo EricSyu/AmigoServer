@@ -12,15 +12,17 @@ import javax.swing.JTextField;
 
 
 public class Level extends Thread{
-	private JTextField textField, textField_1;
+	private JTextField textField, textField_1, FileName;
 	private JTextArea textArea;
 	BufferedReader in;
 	static String sum="", _sum="";
 	
-	public Level(JTextField textField0, JTextField textField1, JTextArea textArea0){
+	public Level(JTextField textField0, JTextField textField1
+			, JTextArea textArea0, JTextField _FileName){
 		textField=textField0;
 		textField_1=textField1;
 		textArea=textArea0;
+		FileName=_FileName;
 	}
 	@Override
 	public void run(){
@@ -61,10 +63,11 @@ public class Level extends Thread{
 				loop++;
 				wclient.close();
 			}
-			FileWriter fw = new FileWriter("C://CamTest//Wifilevel.txt", false);
+			FileWriter fw = new FileWriter("C://CamTest//"+FileName.getText()+".txt", false);
 			fw.write(_sum);
 			fw.flush();
 			fw.close();
+			br.close();
 			
 			sum="";
 			_sum="";

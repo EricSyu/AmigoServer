@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+
 import javax.swing.JButton;
 import javax.swing.JTextArea;
 
@@ -38,10 +39,13 @@ public class Position extends Thread{
 	public void run(){
 
 		int i, j, cnt=0, avg=0, zone=-1, count=1, m=-1, n=-1;
+		double NorMax=1.0, NorMin=0.0;
 		int[][] LockZone=new int[5][5]; 
 		
 		CvEM [] gmm_model=new CvEM[9];
 		CvMat[] trainData=new CvMat[9];
+		CvMat Max=CvMat.create( 1, 6, opencv_core.CV_32FC1 );
+		CvMat Min=CvMat.create( 1, 6, opencv_core.CV_32FC1 );
 		
 		for( i=0; i<5; i++ )
 			for( j=0; j<5; j++ )
@@ -49,6 +53,11 @@ public class Position extends Thread{
 		for( i=1; i<4; i++ )
 			for( j=1; j<4; j++ )
 				LockZone[j][i]=count++;
+		
+		for( i=0; i<6; i++ ){
+			Max.put( 0, i, -100 );
+			Min.put( 0, i, -20 );
+		}
 		
 		for( i=0; i<9; i++ ) trainData[i]=AbstractCvMat.create(248, 6, opencv_core.CV_32FC1);
 		
@@ -60,13 +69,40 @@ public class Position extends Thread{
 				for( i=0; i<248; i++ ){
 					ln=br.readLine();
 					String[] strdblevel = ln.split("  ");
-					int[] intdblevel=new int[strdblevel.length];
-					for( j=0; j<strdblevel.length; j++ )
-						intdblevel[j]=Integer.parseInt(strdblevel[j]);
-					for( j=0; j<6; j++ ) 
-						trainData[cnt].put(i, j, intdblevel[j]);
+					for( j=0; j<strdblevel.length; j++ ){
+						if( Max.get( 0, j )<Double.parseDouble(strdblevel[j]) )
+							Max.put( 0, j, Double.parseDouble(strdblevel[j]) );
+						if( Min.get( 0, j )>Double.parseDouble(strdblevel[j]) )
+							Min.put( 0, j, Double.parseDouble(strdblevel[j]) );
+					}	
 				}
 				
+				fr.close();
+				br.close();
+				cnt++;
+			}
+			cnt=0;
+			while( cnt<9 ){
+				FileReader fr = new FileReader("C://CamTest//"+(cnt+1)+".txt");
+				BufferedReader br = new BufferedReader(fr);
+				String ln;
+				for( i=0; i<248; i++ ){
+					ln=br.readLine();
+					String[] strdblevel = ln.split("  ");
+					
+					for( j=0; j<strdblevel.length; j++ ){
+						double tmpVal=Double.parseDouble(strdblevel[j]);
+						if( tmpVal<Min.get( 0, j ) ) tmpVal=NorMin;
+						else if( tmpVal>Max.get( 0, j ) ) tmpVal=NorMax;
+						else{
+							if( Min.get( 0, j )==Max.get( 0, j ) )
+								tmpVal=( NorMax-NorMin )*( tmpVal-Min.get( 0, j ) );
+							else
+								tmpVal=( NorMax-NorMin )*( tmpVal-Min.get( 0, j ) )/( Max.get( 0, j )-Min.get( 0, j ) )+NorMin;
+						}
+						trainData[cnt].put(i, j, tmpVal);
+					}
+				}
 				fr.close();
 				br.close();
 				cnt++;
@@ -130,7 +166,18 @@ public class Position extends Thread{
 					avg=0;
 					for( i=0; i<6; i++ ){ 
 						level[i]/=10;
-						matTestFeature.put(0, i, level[i]);
+						
+						double tmpVal=level[i];
+						if( tmpVal<Min.get( 0, i ) ) tmpVal=NorMin;
+						else if( tmpVal>Max.get( 0, i ) ) tmpVal=NorMax;
+						else{
+							if( Min.get( 0, i )==Max.get( 0, i ) )
+								tmpVal=( NorMax-NorMin )*( tmpVal-Min.get( 0, i ) );
+							else
+								tmpVal=( NorMax-NorMin )*( tmpVal-Min.get( 0, i ) )/( Max.get( 0, i )-Min.get( 0, i ) )+NorMin;
+						}
+						
+						matTestFeature.put(0, i, tmpVal);
 					}
 					
 					FileReader fr = new FileReader("C://CamTest//Wifimac.txt");
