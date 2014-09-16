@@ -17,6 +17,8 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
+import ch.randelshofer.media.avi.AVIOutputStream;
+
 
 
 

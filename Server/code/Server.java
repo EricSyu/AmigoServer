@@ -95,7 +95,7 @@ public class Server {
 		tabbedPane.addTab("Setting", null, panel_1, null);
 		panel_1.setLayout(null);
 		
-		JLabel lblNewLabel_4 = new JLabel("AmigoBot Setting___________________________");
+		JLabel lblNewLabel_4 = new JLabel("AmigoBot Setting______________________");
 		lblNewLabel_4.setForeground(Color.GRAY);
 		lblNewLabel_4.setFont(new Font("敺株�甇�擃�", Font.BOLD, 25));
 		lblNewLabel_4.setBounds(10, 10, 529, 34);
@@ -732,7 +732,7 @@ public class Server {
 		panel.add(textField);
 		textField.setColumns(10);
 		
-		JLabel lblSetting = new JLabel("Wifi Build Setting_____________");
+		JLabel lblSetting = new JLabel("Wifi Build Setting___________");
 		lblSetting.setBounds(10, 10, 292, 28);
 		panel.add(lblSetting);
 		lblSetting.setForeground(Color.GRAY);
