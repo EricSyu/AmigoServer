@@ -4,11 +4,15 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.Panel;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
 
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -17,12 +21,6 @@ import javax.swing.JTabbedPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
-import javax.swing.JComboBox;
-import javax.swing.DefaultComboBoxModel;
-
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-
 import javax.swing.UIManager;
 
 
@@ -250,7 +248,15 @@ public class Server {
 		
 		btnStart.setBounds(50, 398, 87, 23);
 		panel_1.add(btnStart);
+		
+		carxy cxy=new carxy();
+		JTextArea textArea_6 = new JTextArea();
+		textArea_6.setBounds(237, 381, 100, 62);
+		panel_1.add(textArea_6);
+		cxy.print(textArea_6);
+		new Thread(cxy).start();
 		info.start();
+		
 		
 		Panel panel_3 = new Panel();
 		tabbedPane.addTab("Position & Go", null, panel_3, null);
@@ -536,7 +542,7 @@ public class Server {
 		
 		final JLabel lblNewLabel_1 = new JLabel("");
 		lblNewLabel_1.setBackground(Color.BLUE);
-		lblNewLabel_1.setBounds(36, 50, 517, 309);
+		lblNewLabel_1.setBounds(36, 29, 517, 309);
 		panel_2.add(lblNewLabel_1);
 		
 		final JLabel lblNewLabel_2 = new JLabel("");
@@ -695,6 +701,8 @@ public class Server {
 		lblNewLabel_3.setFont(new Font("敺株�甇�擃�", Font.BOLD, 20));
 		lblNewLabel_3.setBounds(171, 369, 154, 23);
 		panel_2.add(lblNewLabel_3);
+		
+		
 		
 		JPanel panel = new JPanel();
 		tabbedPane.addTab("Build", null, panel, null);

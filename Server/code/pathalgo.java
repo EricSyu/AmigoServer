@@ -6,7 +6,10 @@ import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.Socket;
 
-import com.sun.beans.util.Cache;
+import javax.swing.JButton;
+import javax.swing.JTextArea;
+
+
 
 import code.Setting;
 
@@ -17,9 +20,13 @@ public class pathalgo extends Thread implements MonitorProtocol{
 	double tang=0;
 	vec tnow=null;
 	vec tnext=null;
+	static double carx=0;
+	static double cary=0;
+	
 	@Override
 	public void run(){
 		int[] a={2,3,8,7,6,5,0,1,2};
+		
 		pathgo(a);
 		
 	}
@@ -30,6 +37,8 @@ public class pathalgo extends Thread implements MonitorProtocol{
 		
 		//..to be continue
 	}
+	 
+	 
 	public void checkpath() throws InterruptedException{
 		qtvisual ql=new qtvisual();
 		new Thread(ql).start();
@@ -518,6 +527,7 @@ public class pathalgo extends Thread implements MonitorProtocol{
 		out.writeInt(speed);
 		out.flush();
 		socket.close();
+		
 	}
 	public void relrot(int ang) throws IOException{
 		System.out.println( "relrot: "+ang);
@@ -595,6 +605,7 @@ public class pathalgo extends Thread implements MonitorProtocol{
 		 }
 		 
 	}
+
 	public void setgodis(double dis,int speed) throws IOException, InterruptedException{
 		System.out.println( "setgodis");
 		double dtime=dis/(speed/10);
@@ -614,8 +625,9 @@ public class pathalgo extends Thread implements MonitorProtocol{
 				break;
 			}
 			xt+=0.1;
-				
 			Thread.sleep(100);
+			carx=carx+0.1*speed/10*Math.cos(Info.theta);
+			cary=cary+0.1*speed/10*Math.sin(Info.theta);
 		}
 //		Thread.sleep((long) dtime);
 		forward(0);
