@@ -20,6 +20,7 @@ public class Position extends Thread{
 	private JTextArea textArea;
 	static Boolean flag=true;
 	static int start=-1;
+	String _str="-1";
 	static CvEMParams params=new CvEMParams();
 	
 	public Position( JButton _zone0, JButton _zone1, JButton _zone2, JButton _zone3, JButton _zone4, 
@@ -138,7 +139,8 @@ public class Position extends Thread{
 						FileReader posfr = new FileReader("C://CamTest//Positioning.txt");
 						BufferedReader posbr = new BufferedReader(posfr);
 						synchronized(posbr){
-							String _str=posbr.readLine();
+							String reg=posbr.readLine();
+							_str=reg;
 							if( _str.indexOf("SSID")>-1 ){
 								String[] wifi = _str.split("BSSID: ");
 								

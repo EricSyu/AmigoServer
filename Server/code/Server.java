@@ -165,7 +165,8 @@ public class Server {
 			public void mouseClicked(MouseEvent arg0) {
 				BTButton BT=new BTButton(btnNewButton_18, btnNewButton_19, btnNewButton_23, comboBox_1);
 				BT.start();
-				btnNewButton_18.setEnabled(false);
+				if(!btnNewButton_18.getText().equals("Close"))
+					btnNewButton_18.setEnabled(false);
 			}
 		});
 		btnNewButton_18.setBounds(164, 114, 110, 28);
@@ -221,7 +222,8 @@ public class Server {
 			public void mouseClicked(MouseEvent e) {
 				OneClickConnect oneClick=new OneClickConnect(btnNewButton_23, btnNewButton_18);
 				oneClick.start();
-				btnNewButton_23.setEnabled(false);
+				if(!btnNewButton_23.getText().equals("Close"))
+					btnNewButton_23.setEnabled(false);
 			}
 		});
 		btnNewButton_23.setBounds(24, 337, 250, 28);
