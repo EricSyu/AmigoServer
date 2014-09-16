@@ -17,6 +17,8 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
+import ch.randelshofer.media.avi.AVIOutputStream;
+
 
 public class Monitor extends Thread{
 	private JLabel img, cal;
@@ -26,7 +28,7 @@ public class Monitor extends Thread{
 	
 	public static String getpicname="";
 
-	public static final String file_name = "D:/CamTest/";
+	public static final String file_name = "C:/CamTest/monitor/";
 
 	static ServerSocket serverSocket;
 	
@@ -47,6 +49,7 @@ public class Monitor extends Thread{
 	@Override
 	public void run(){
 		SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd-hh-mm-ss.SSS");
+		int pics=0, header=0;
 		
 		try {
 			serverSocket = new ServerSocket(168);
@@ -57,27 +60,26 @@ public class Monitor extends Thread{
 		try {
 			while(true){
 				if(flag) { 
-//					System.out.println("Server: Connect");
 					Socket client = serverSocket.accept();
-//					System.out.println("Server: Connecting...");
 					
 					Date date=new Date();
 					String time=sdf.format(date);
-					 
-					OutputStream out = new FileOutputStream(file_name+time+".jpeg");
+					
+					pics++;
+					OutputStream out = new FileOutputStream(file_name+header+"_"+pics+".jpeg");
 					 
 					byte buf[] = new byte[1024];
 					int len;
 
-					 // Ū�J�q����ݶǨӪ��Ӥ�
+					 // 讀嚙皚嚙緬嚙踝蕭嚙踝蕭搋ガ茠嚙踝蕭茪嚙�
 					InputStream inputStream = client.getInputStream();
 					
 					while ((len = inputStream.read(buf)) != -1) {
-						// �g�J��q����
+						// 嚙篇嚙皚嚙踝蕭q嚙踝蕭嚙踝蕭
 						out.write(buf, 0, len);
 					}
 					
-					File file=new File(file_name+time+".jpeg");
+					File file=new File(file_name+header+"_"+pics+".jpeg");
 					BufferedImage image=ImageIO.read(file);
 					BufferedImage resizedImage=resize(image, 520, 300);
 					ImageIcon imgicon = new ImageIcon(resizedImage);
@@ -88,7 +90,13 @@ public class Monitor extends Thread{
 					out.close();
 					inputStream.close();
 					client.close();
-					getpicname=file_name+time+".jpeg";
+					getpicname=file_name+header+"_"+pics+".jpeg";
+					if(pics==280){
+						AviCreator avi=new AviCreator( header );
+						avi.start();
+						header++;
+						pics=0;
+					}
 				}
 			}
 		} catch (IOException e) {
