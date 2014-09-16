@@ -20,6 +20,8 @@ import javax.swing.JLabel;
 import ch.randelshofer.media.avi.AVIOutputStream;
 
 
+
+
 public class Monitor extends Thread{
 	private JLabel img, cal;
 	static Boolean flag=true;

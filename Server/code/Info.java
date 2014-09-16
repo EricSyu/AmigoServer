@@ -13,7 +13,7 @@ public class Info extends Thread{
 	public JTextArea textArea;
 	public JButton BTbtn, Wifibtn, Cambtn, Amigobtn, OneClick;
 	public static String BTstatus="", Amigostatus="", Wifistatus="", Camstatus="";
-	public static int x=0, y=0, theta=0, Motor=0, stall=0;
+	public static int x=0, y=0, theta=0, Motor=0, stall=0,carang=0;
 	public static int[] sensor=new int[]{-100, -100, -100, -100, -100, -100, -100, -100};
 	
 	public void Initial( JTextArea _textArea, JButton _BTbtn, JButton _Amigobtn
@@ -46,6 +46,10 @@ public class Info extends Thread{
 				x=(Integer.parseInt(brin.readLine()));
 				y=(Integer.parseInt(brin.readLine()));
 				theta=Integer.parseInt(brin.readLine());
+				
+				carang=theta+theta/44;
+				
+			
 				for( i=0; i<8; i++ ) sensor[i]=Integer.parseInt(brin.readLine());
 				
 				info+="Blustooth: "+BTstatus+"\nAmigostatus: "+Amigostatus+"\nWifistatus: "
