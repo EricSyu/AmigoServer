@@ -57,7 +57,7 @@ public class OneClickConnect extends Thread{
 		}else{
 			Setting.BTSwitchclose=true;
 			OneClick.setText("OneClickConnect");
-			OneClick.setEnabled(true);
+//			OneClick.setEnabled(true);
 			BTButton.setEnabled(true);
 		}
 	}
