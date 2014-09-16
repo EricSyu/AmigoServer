@@ -11,7 +11,7 @@ public class carxy implements Runnable{
 	public void run() {
 		// TODO Auto-generated method stub
 		while(true){
-			textArea.setText("carx: "+pathalgo.carx+"\ncary: "+pathalgo.cary);
+			textArea.setText("carx: "+pathalgo.carx+"\ncary: "+pathalgo.cary+"\ncartheta: "+Info.carang);
 			try {
 				Thread.sleep(500);
 			} catch (InterruptedException e) {

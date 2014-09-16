@@ -26,7 +26,9 @@ public class pathalgo extends Thread implements MonitorProtocol{
 	@Override
 	public void run(){
 		int[] a={2,3,8,7,6,5,0,1,2};
-		
+		int[] b={2,1,0,5};
+		carx=600;
+		cary=0;
 		pathgo(a);
 		
 	}
@@ -394,8 +396,9 @@ public class pathalgo extends Thread implements MonitorProtocol{
 				forward(0);
 				relrot(-75);
 				Thread.sleep(500);
-				forward(150);				
+							
 				while((Info.sensor[0]<300||Info.sensor[1]<250||x<1)&&fin==false){
+					setgodis(10,150);
 					if(calbumdis(Info.sensor[2],Info.sensor[3])<250){
 						forward(0);
 						backprepoint();
@@ -414,6 +417,7 @@ public class pathalgo extends Thread implements MonitorProtocol{
 				Thread.sleep(500);
 				forward(150);
 				while((Info.sensor[5]<300||Info.sensor[4]<250||x<1)&&fin==false){
+					setgodis(10,150);
 					if(calbumdis(Info.sensor[2],Info.sensor[3])<250){
 						forward(0);
 						backprepoint();
@@ -427,12 +431,13 @@ public class pathalgo extends Thread implements MonitorProtocol{
 				return 1;
 			}
 			
-			if(Info.sensor[1]*si41<240||Info.sensor[2]*co75<200){
+			if(Info.sensor[1]*si41<200||Info.sensor[2]*co75<170){
 				forward(0);
 				relrot(-49);
 				Thread.sleep(500);
 				forward(150);				
 				while((Info.sensor[0]<300||Info.sensor[1]<250||x<1)&&fin==false){
+					setgodis(10,150);
 					if(calbumdis(Info.sensor[2],Info.sensor[3])<250){
 						forward(0);
 						backprepoint();
@@ -445,12 +450,13 @@ public class pathalgo extends Thread implements MonitorProtocol{
 				relrot(49);
 				return 1;
 			}
-			if(Info.sensor[4]*si41<240||Info.sensor[3]*co75<200){
+			if(Info.sensor[4]*si41<200||Info.sensor[3]*co75<170){
 				forward(0);
 				relrot(49);
 				Thread.sleep(500);
 				forward(150);
 				while((Info.sensor[5]<300||Info.sensor[4]<250||x<1)&&fin==false){
+					setgodis(10,150);
 					if(calbumdis(Info.sensor[2],Info.sensor[3])<250){
 						forward(0);
 						backprepoint();
@@ -487,8 +493,8 @@ public class pathalgo extends Thread implements MonitorProtocol{
 //		(tang + 180)%360;
 		
 		try {
-			int bang=(int)(Math.atan2(tnow.y-Info.y, tnow.x-Info.x)*180/Math.PI);
-			System.out.println( "backprepoint: x"+ tnow.x+" y "+ tnow.y+" bang "+bang);
+			int bang=(int)(Math.atan2(tnow.y-cary, tnow.x-carx)*180/Math.PI);
+			System.out.println( "backprepoint: x"+ carx+" y "+ cary+" bang "+bang);
 			setrotang((360+bang)%360);
 			double tdis=Math.sqrt(Math.pow(tnow.y-Info.y, 2)+Math.pow(tnow.x-Info.x,2) );
 			setgodis(tdis, 150);
@@ -504,8 +510,8 @@ public class pathalgo extends Thread implements MonitorProtocol{
 		}
 	}
 	public void avotonext(){
-		int nang=(int)(Math.atan2(tnext.y-Info.y, tnext.x-Info.x)*180/Math.PI);
-		System.out.println( "avotonext: x"+ Info.x+" y "+ Info.y+" bang "+nang);
+		int nang=(int)(Math.atan2(tnext.y-cary, tnext.x-carx)*180/Math.PI);
+		System.out.println( "avotonext: x"+ carx+" y "+ cary+" nang "+nang);
 		try {
 			setrotang((360+nang)%360);
 			double tdis=Math.sqrt(Math.pow(tnext.y-Info.y, 2)+Math.pow(tnext.x-Info.x,2) );
@@ -580,7 +586,7 @@ public class pathalgo extends Thread implements MonitorProtocol{
 		 out = new DataOutputStream(socket.getOutputStream());
 		 out.writeInt(AbsoluteHeading);
 		 out.flush();
-		 double fixang=ang-ang/45;
+		 double fixang=ang-ang/36;
 		 out.writeInt((int) fixang);
 		 out.flush();
 		 Thread.sleep(4000);
@@ -595,11 +601,11 @@ public class pathalgo extends Thread implements MonitorProtocol{
 		 out.close();
 		 socket.close();
 		 int x=0;
-		 Thread.sleep(2000);
+		 Thread.sleep(3000);
 		 while(Math.abs(Info.theta-fixang)>6||Math.abs(Info.theta-fixang)<354&&Math.abs(Info.theta-fixang)>350){
 
 		 }
-		 if(Math.abs(Info.theta-fixang)>3||Math.abs(Info.theta-fixang)<358&&Math.abs(Info.theta-fixang)>350){
+		 if(Math.abs(Info.theta-fixang)>2||(Math.abs(Info.theta-fixang)<358&&Math.abs(Info.theta-fixang)>350)){
 			 relrot(-45);
 			 setrotang(ang); 
 		 }
@@ -624,10 +630,11 @@ public class pathalgo extends Thread implements MonitorProtocol{
 				avotonext();
 				break;
 			}
+			
+			carx=carx+(0.1*speed/10)*Math.cos(Math.PI/180*Info.carang);
+			cary=cary+(0.1*speed/10)*Math.sin(Math.PI/180*Info.carang);
 			xt+=0.1;
 			Thread.sleep(100);
-			carx=carx+0.1*speed/10*Math.cos(Info.theta);
-			cary=cary+0.1*speed/10*Math.sin(Info.theta);
 		}
 //		Thread.sleep((long) dtime);
 		forward(0);

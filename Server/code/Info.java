@@ -13,9 +13,9 @@ public class Info extends Thread{
 	public JTextArea textArea;
 	public JButton BTbtn, Wifibtn, Cambtn, Amigobtn, OneClick;
 	public static String BTstatus="", Amigostatus="", Wifistatus="", Camstatus="";
-	public static int x=0, y=0, theta=0, Motor=0, stall=0,carang=0;
+	public static int x=0, y=0, theta=0, Motor=0, stall=0;
 	public static int[] sensor=new int[]{-100, -100, -100, -100, -100, -100, -100, -100};
-	
+	static double carang=0;
 	public void Initial( JTextArea _textArea, JButton _BTbtn, JButton _Amigobtn
 			, JButton _Wifibtn, JButton _Cambtn, JButton _OneClick ){
 		textArea=_textArea;
@@ -47,7 +47,7 @@ public class Info extends Thread{
 				y=(Integer.parseInt(brin.readLine()));
 				theta=Integer.parseInt(brin.readLine());
 				
-				carang=theta+theta/44;
+				carang=theta+theta/35.0f;
 				
 			
 				for( i=0; i<8; i++ ) sensor[i]=Integer.parseInt(brin.readLine());

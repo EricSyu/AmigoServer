@@ -21,17 +21,17 @@ public class AviCreator extends Thread{
 			Date avidate=new Date();
 			String avitime=avisdf.format(avidate);
 			AVIOutputStream aviout = null;
-			aviout = new AVIOutputStream( new File("C:/CamTest/avi/"+avitime+".avi"), 
+			aviout = new AVIOutputStream( new File("D:/CamTest/avi/"+avitime+".avi"), 
 					AVIOutputStream.VideoFormat.JPG );
 			aviout.setVideoCompressionQuality( 1f );
 	        aviout.setTimeScale(1);
 	        aviout.setFrameRate(28);
 
 	        for( i=1; i<=280; i++ )
-	        	aviout.writeFrame( ImageIO.read(new File( "C:/CamTest/monitor/"+Header+"_"+i+".jpeg" ) ) );
+	        	aviout.writeFrame( ImageIO.read(new File( "D:/CamTest/"+Header+"_"+i+".jpeg" ) ) );
 	        
 	        for( i=1; i<=280; i++ ){
-	        	File file=new File("C:/CamTest/monitor/"+Header+"_"+i+".jpeg");
+	        	File file=new File("D:/CamTest/"+Header+"_"+i+".jpeg");
 	        	file.delete();
 	        }
 	        aviout.close();
