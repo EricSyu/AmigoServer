@@ -42,6 +42,7 @@ public class pathalgo extends Thread implements MonitorProtocol{
 	 
 	 
 	public void checkpath() throws InterruptedException{
+		
 		qtvisual ql=new qtvisual();
 		new Thread(ql).start();
 		try {int xxx=0;
@@ -55,7 +56,7 @@ public class pathalgo extends Thread implements MonitorProtocol{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	
+	return;
 	}
 	public void go(vec now,vec next) throws IOException, InterruptedException{
 		if(fin==true){
@@ -189,7 +190,7 @@ public class pathalgo extends Thread implements MonitorProtocol{
 		
 	}
 	if(now.no==8&&next.no==7){
-
+		System.out.println("8-7");
 		setrotang(165);//15
 		checkpath();
 		setgodis(306,200);
@@ -197,14 +198,14 @@ public class pathalgo extends Thread implements MonitorProtocol{
 		
 	}
 	if(now.no==7&&next.no==8){
-
+	
 		setrotang(349);
 	
 		setgodis(306,200);
 
 	}
 	if(now.no==7&&next.no==6){
-
+		System.out.println("7-6");
 		setrotang(191);//5,11,12
 		checkpath();
 		setgodis(306,200);
@@ -309,12 +310,13 @@ public class pathalgo extends Thread implements MonitorProtocol{
 		
 		try {
 			int x=0;
-			if(Info.sensor[2]*co15<450){
+			if(Info.sensor[2]*co15<350){
 				forward(0);
 				relrot(-85);
 				Thread.sleep(500);
-				forward(150);				
-				while((Info.sensor[0]<300||Info.sensor[1]<250||x<1)&&fin==false){
+				
+				while((Info.sensor[0]<350||Info.sensor[1]<300||x<1)&&fin==false){
+					setgodis(10,150);
 					if(calbumdis(Info.sensor[2],Info.sensor[3])<250){
 						forward(0);
 						backprepoint();
@@ -327,12 +329,13 @@ public class pathalgo extends Thread implements MonitorProtocol{
 				relrot(85);
 				return 1;
 			}
-			if(Info.sensor[3]*co15<450){
+			if(Info.sensor[3]*co15<350){
 				forward(0);
 				relrot(85);
 				Thread.sleep(500);
-				forward(150);
-				while((Info.sensor[5]<300||Info.sensor[4]<250||x<1)&&fin==false){
+				
+				while((Info.sensor[5]<350||Info.sensor[4]<300||x<1)&&fin==false){
+					setgodis(10,150);
 					if(calbumdis(Info.sensor[2],Info.sensor[3])<250){
 						forward(0);
 						backprepoint();
@@ -346,12 +349,13 @@ public class pathalgo extends Thread implements MonitorProtocol{
 				return 1;
 			}
 			
-			if(Info.sensor[1]*si41<240||Info.sensor[2]*co75<200){
+			if(Info.sensor[1]*si41<190||Info.sensor[2]*co75<170){
 				forward(0);
 				relrot(-49);
 				Thread.sleep(500);
-				forward(150);				
-				while((Info.sensor[0]<300||Info.sensor[1]<250||x<1)&&fin==false){
+						
+				while((Info.sensor[0]<350||Info.sensor[1]<300||x<1)&&fin==false){
+					setgodis(10,150);
 					if(calbumdis(Info.sensor[2],Info.sensor[3])<250){
 						forward(0);
 						backprepoint();
@@ -364,12 +368,13 @@ public class pathalgo extends Thread implements MonitorProtocol{
 				relrot(49);
 				return 1;
 			}
-			if(Info.sensor[4]*si41<240||Info.sensor[3]*co75<200){
+			if(Info.sensor[4]*si41<190||Info.sensor[3]*co75<170){
 				forward(0);
 				relrot(49);
 				Thread.sleep(500);
-				forward(150);
-				while((Info.sensor[5]<300||Info.sensor[4]<250||x<1)&&fin==false){
+				
+				while((Info.sensor[5]<350||Info.sensor[4]<300||x<1)&&fin==false){
+					setgodis(10,150);
 					if(calbumdis(Info.sensor[2],Info.sensor[3])<250){
 						forward(0);
 						backprepoint();
@@ -392,12 +397,12 @@ public class pathalgo extends Thread implements MonitorProtocol{
 	public int avoidbum38() throws IOException, InterruptedException {
 		try {
 			int x=0;
-			if(Info.sensor[2]<450){
+			if(Info.sensor[2]<350){
 				forward(0);
 				relrot(-75);
 				Thread.sleep(500);
 							
-				while((Info.sensor[0]<300||Info.sensor[1]<250||x<1)&&fin==false){
+				while((Info.sensor[0]<350||Info.sensor[1]<300||x<1)&&fin==false){
 					setgodis(10,150);
 					if(calbumdis(Info.sensor[2],Info.sensor[3])<250){
 						forward(0);
@@ -415,8 +420,8 @@ public class pathalgo extends Thread implements MonitorProtocol{
 				forward(0);
 				relrot(75);
 				Thread.sleep(500);
-				forward(150);
-				while((Info.sensor[5]<300||Info.sensor[4]<250||x<1)&&fin==false){
+				
+				while((Info.sensor[5]<350||Info.sensor[4]<300||x<1)&&fin==false){
 					setgodis(10,150);
 					if(calbumdis(Info.sensor[2],Info.sensor[3])<250){
 						forward(0);
@@ -431,12 +436,12 @@ public class pathalgo extends Thread implements MonitorProtocol{
 				return 1;
 			}
 			
-			if(Info.sensor[1]*si41<200||Info.sensor[2]*co75<170){
+			if(Info.sensor[1]*si41<190||Info.sensor[2]*co75<170){
 				forward(0);
 				relrot(-49);
 				Thread.sleep(500);
-				forward(150);				
-				while((Info.sensor[0]<300||Info.sensor[1]<250||x<1)&&fin==false){
+							
+				while((Info.sensor[0]<350||Info.sensor[1]<300||x<1)&&fin==false){
 					setgodis(10,150);
 					if(calbumdis(Info.sensor[2],Info.sensor[3])<250){
 						forward(0);
@@ -450,12 +455,12 @@ public class pathalgo extends Thread implements MonitorProtocol{
 				relrot(49);
 				return 1;
 			}
-			if(Info.sensor[4]*si41<200||Info.sensor[3]*co75<170){
+			if(Info.sensor[4]*si41<160||Info.sensor[3]*co75<150){
 				forward(0);
 				relrot(49);
 				Thread.sleep(500);
-				forward(150);
-				while((Info.sensor[5]<300||Info.sensor[4]<250||x<1)&&fin==false){
+				
+				while((Info.sensor[5]<350||Info.sensor[4]<300||x<1)&&fin==false){
 					setgodis(10,150);
 					if(calbumdis(Info.sensor[2],Info.sensor[3])<250){
 						forward(0);
@@ -478,8 +483,8 @@ public class pathalgo extends Thread implements MonitorProtocol{
 	}
 	public double calbumdis(int l1,int l2){
 		double dis=1000;
-		if(l1>=l2)dis=l2*Math.cos(Math.PI/180*60);
-		else dis=l1*Math.cos(Math.PI/180*60);
+		if(l1>=l2)dis=l2*Math.cos(Math.PI/180*15);
+		else dis=l1*Math.cos(Math.PI/180*15);
 		return dis;
 	}
 	public double calbumdis2(int l1,int l2){
@@ -496,7 +501,7 @@ public class pathalgo extends Thread implements MonitorProtocol{
 			int bang=(int)(Math.atan2(tnow.y-cary, tnow.x-carx)*180/Math.PI);
 			System.out.println( "backprepoint: x"+ carx+" y "+ cary+" bang "+bang);
 			setrotang((360+bang)%360);
-			double tdis=Math.sqrt(Math.pow(tnow.y-Info.y, 2)+Math.pow(tnow.x-Info.x,2) );
+			double tdis=Math.sqrt(Math.pow(tnow.y-cary, 2)+Math.pow(tnow.x-carx,2) );
 			setgodis(tdis, 150);
 			
 		} catch (IOException e) {
@@ -511,10 +516,11 @@ public class pathalgo extends Thread implements MonitorProtocol{
 	}
 	public void avotonext(){
 		int nang=(int)(Math.atan2(tnext.y-cary, tnext.x-carx)*180/Math.PI);
-		System.out.println( "avotonext: x"+ carx+" y "+ cary+" nang "+nang);
+		System.out.println( "avotonext: next"+tnext.no+" x:"+ tnext.x+" nexty "+ cary+" nang "+nang);
+		if(Math.abs(tnext.y-cary)<10&&Math.abs(tnext.x-carx)<10)return;
 		try {
 			setrotang((360+nang)%360);
-			double tdis=Math.sqrt(Math.pow(tnext.y-Info.y, 2)+Math.pow(tnext.x-Info.x,2) );
+			double tdis=Math.sqrt(Math.pow(tnext.y-cary, 2)+Math.pow(tnext.x-carx,2) );
 			setgodis(tdis, 150);
 		} catch (IOException | InterruptedException e) {
 			// TODO Auto-generated catch block
@@ -614,14 +620,16 @@ public class pathalgo extends Thread implements MonitorProtocol{
 
 	public void setgodis(double dis,int speed) throws IOException, InterruptedException{
 		System.out.println( "setgodis");
+		
 		double dtime=dis/(speed/10);
+		System.out.println( "dis: "+dis+" time: "+dtime);
 		double xt=0;
 		
 		forward(speed);
 		
 		while(xt<dtime&&fin==false){
 			if(tnow.no==3&&tnext.no==8){
-				if(avoidbum38()==1){
+				if(avoidbum38()==1||avoidbum38()==-1){
 					avotonext();
 					break;
 				}

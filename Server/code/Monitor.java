@@ -94,10 +94,10 @@ public class Monitor extends Thread{
 					client.close();
 					getpicname=file_name+header+"_"+pics+".jpeg";
 					if(pics==280){
-						AviCreator avi=new AviCreator( header );
-						avi.start();
-						header++;
-						pics=0;
+//						AviCreator avi=new AviCreator( header );
+//						avi.start();
+//						header++;
+//						pics=0;
 					}
 				}
 			}
