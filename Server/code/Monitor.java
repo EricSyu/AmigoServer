@@ -20,8 +20,6 @@ import javax.swing.JLabel;
 import ch.randelshofer.media.avi.AVIOutputStream;
 
 
-
-
 public class Monitor extends Thread{
 	private JLabel img, cal;
 	static Boolean flag=true;
@@ -30,7 +28,7 @@ public class Monitor extends Thread{
 	
 	public static String getpicname="";
 
-	public static final String file_name = "D:/CamTest/";
+	public static final String file_name = "C:/CamTest/monitor/";
 
 	static ServerSocket serverSocket;
 	
@@ -73,11 +71,11 @@ public class Monitor extends Thread{
 					byte buf[] = new byte[1024];
 					int len;
 
-					 // 讀嚙皚嚙緬嚙踝蕭嚙踝蕭搋ガ茠嚙踝蕭茪嚙�
+					 // 霈��⒢��⒢楓�⒣��剖�頦慤�骗槙�ǜ�頦慤�芸�嚙�
 					InputStream inputStream = client.getInputStream();
 					
 					while ((len = inputStream.read(buf)) != -1) {
-						// 嚙篇嚙皚嚙踝蕭q嚙踝蕭嚙踝蕭
+						// �⒢��⒢��⒣��訂�⒣��剖�頦慤
 						out.write(buf, 0, len);
 					}
 					
@@ -93,11 +91,11 @@ public class Monitor extends Thread{
 					inputStream.close();
 					client.close();
 					getpicname=file_name+header+"_"+pics+".jpeg";
-					if(pics==280){
-//						AviCreator avi=new AviCreator( header );
-//						avi.start();
-//						header++;
-//						pics=0;
+					if( pics>=280 && pathalgo.visfin ){
+						AviCreator avi=new AviCreator( header, pics );
+						avi.start();
+						header++;
+						pics=0;
 					}
 				}
 			}

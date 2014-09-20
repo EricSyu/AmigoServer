@@ -40,17 +40,19 @@ public class pathalgo extends Thread implements MonitorProtocol{
 		//..to be continue
 	}
 	 
-	 
+	 static boolean visfin=true;
 	public void checkpath() throws InterruptedException{
-		
+	
 		qtvisual ql=new qtvisual();
 		new Thread(ql).start();
+		visfin=false;
 		try {int xxx=0;
 			while(ql.uang==360||ql.uang==370){
 				if(xxx%10==0)System.out.println(ql.uang);
 				Thread.sleep(100);xxx++;
 				if(xxx==370){ql.uang=0;break;}
 			}
+			visfin=true;
 			relrot(ql.uang);
 		} catch (NumberFormatException | IOException e) {
 			// TODO Auto-generated catch block
@@ -607,11 +609,9 @@ public class pathalgo extends Thread implements MonitorProtocol{
 		 out.close();
 		 socket.close();
 		 int x=0;
-		 Thread.sleep(3000);
-		 while(Math.abs(Info.theta-fixang)>6||Math.abs(Info.theta-fixang)<354&&Math.abs(Info.theta-fixang)>350){
-
-		 }
-		 if(Math.abs(Info.theta-fixang)>2||(Math.abs(Info.theta-fixang)<358&&Math.abs(Info.theta-fixang)>350)){
+		 Thread.sleep(2500);
+		
+		 if(Math.abs(Info.carang-ang)>2||(Math.abs(Info.carang-ang)<358&&Math.abs(Info.carang-ang)>350)){
 			 relrot(-45);
 			 setrotang(ang); 
 		 }

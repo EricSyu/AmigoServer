@@ -1,19 +1,17 @@
 package code;
 
-import java.awt.Color;
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-
-import javax.swing.JButton;
-import javax.swing.JTextArea;
-
+import org.bytedeco.javacpp.helper.opencv_core.AbstractCvMat;
 import org.bytedeco.javacpp.opencv_core;
 import org.bytedeco.javacpp.opencv_core.CvMat;
 import org.bytedeco.javacpp.opencv_core.Mat;
 import org.bytedeco.javacpp.opencv_legacy.CvEM;
 import org.bytedeco.javacpp.opencv_legacy.CvEMParams;
-import org.bytedeco.javacpp.helper.opencv_core.AbstractCvMat;
+
+import javax.swing.*;
+import java.awt.*;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 
 public class Position extends Thread{
 	private JButton zone0, zone1, zone2, zone3, zone4, zone5, zone6, zone7, zone8;
