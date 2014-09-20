@@ -70,7 +70,7 @@ public class Monitor extends Thread{
 					 
 					byte buf[] = new byte[1024];
 					int len;
-
+						//ddd
 					 // 霈��⒢��⒢楓�⒣��剖�頦慤�骗槙�ǜ�頦慤�芸�嚙�
 					InputStream inputStream = client.getInputStream();
 					
