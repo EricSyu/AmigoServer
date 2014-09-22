@@ -40,7 +40,6 @@ public class Setting extends Thread implements MonitorProtocol{
 	@Override
 	public void run(){
 		try {
-//			System.out.println("connec wait....");
 			server=new ServerSocket(100);
 			
 			while(true){
