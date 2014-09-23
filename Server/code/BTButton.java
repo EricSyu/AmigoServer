@@ -5,14 +5,16 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 
 public class BTButton extends Thread{
-	public JButton Blutooth, Amigo, OneClick;
+	public JButton Blutooth, Amigo, OneClick, WanderMode;
 	public JComboBox comboBox;
 	
-	public BTButton( JButton _Blutooth, JButton _Amigo, JButton _OneClick, JComboBox _comboBox ){
+	public BTButton( JButton _Blutooth, JButton _Amigo, JButton _OneClick, 
+			JComboBox _comboBox, JButton _WanderMode ){
 		Blutooth=_Blutooth;
 		Amigo=_Amigo;
 		comboBox=_comboBox;
 		OneClick=_OneClick;
+		WanderMode=_WanderMode;
 	}
 	public void run(){
 		if(Blutooth.getText().equals("Open")){
@@ -62,6 +64,8 @@ public class BTButton extends Thread{
 			Blutooth.setText("Open");
 			Blutooth.setEnabled(true);
 			OneClick.setEnabled(true);
+			WanderMode.setEnabled(false);
+			WanderMode.setText("Stop");
 		}
 	}
 }

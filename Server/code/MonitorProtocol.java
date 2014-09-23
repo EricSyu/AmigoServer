@@ -9,7 +9,7 @@ public interface MonitorProtocol {
 	public static final int Rotate = 6;
 	public static final int AbsoluteHeading = 7;
 	public static final int MaxTransRotV=8;
-	public static final int WonderMode= 9;
+	public static final int WanderMode= 9;
 	
 	public static final int Close = 1;
 	public static final int Open = 2;

@@ -20,13 +20,15 @@ public class Setting extends Thread implements MonitorProtocol{
 	public static Boolean Amigounconnect=false;
 	public static Boolean Wificonnect=false;
 	public static Boolean Wifiunconnect=false;
-	public static  Boolean MobileCamuncon=false;
+	public static Boolean MobileCamuncon=false;
 	public static Boolean MobileCamcon=false;
 	public static Boolean Forward=false;
 	public static Boolean Turn=false;
 	public static Boolean SetAddSpeed=false;
 	public static Boolean SetSubtractSpeed=false;
 	public static Boolean Searchreceive=false;
+	public static Boolean WanderOpen=false;
+	public static Boolean WanderClose=false;
 	public static String BTSearch="";
 	public static int BTMatch=-1;
 	public int Speed=0;
@@ -190,6 +192,26 @@ public class Setting extends Thread implements MonitorProtocol{
 					socket.close();
 					out.close();
 					SetSubtractSpeed=false;
+				}else if(WanderOpen){
+					Socket socket=server.accept();
+					out = new DataOutputStream(socket.getOutputStream());
+					out.writeInt(WanderMode);
+					out.flush();
+					out.writeInt(Open);
+					out.flush();
+					socket.close();
+					out.close();
+					WanderOpen=false;
+				}else if(WanderClose){
+					Socket socket=server.accept();
+					out = new DataOutputStream(socket.getOutputStream());
+					out.writeInt(WanderMode);
+					out.flush();
+					out.writeInt(Close);
+					out.flush();
+					socket.close();
+					out.close();
+					WanderClose=false;
 				}
 				Thread.sleep(100);
 			}

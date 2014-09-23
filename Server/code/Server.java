@@ -120,30 +120,11 @@ public class Server {
 		lblNewLabel_8.setBounds(24, 275, 133, 28);
 		panel_1.add(lblNewLabel_8);
 		
-		Panel panel_2 = new Panel();
-		tabbedPane.addTab("Monitor", null, panel_2, null);
-		panel_2.setLayout(null);
-		
 		JTextArea textArea_1 = new JTextArea();
-		textArea_1.setFont(new Font("嚙盤嚙緯嚙踝蕭嚙踝蕭嚙踝蕭", Font.BOLD, 13));
+		textArea_1.setFont(new Font("微軟正黑體", Font.BOLD, 15));
 		textArea_1.setBackground(Color.WHITE);
-		textArea_1.setBounds(337, 76, 184, 289);
+		textArea_1.setBounds(337, 76, 184, 342);
 		panel_1.add(textArea_1);
-		
-		final JTextArea textArea_4 = new JTextArea();
-		textArea_4.setBackground(UIManager.getColor("Button.background"));
-		textArea_4.setForeground(Color.BLACK);
-		textArea_4.setFont(new Font("敺株�甇�擃�", Font.BOLD, 13));
-		textArea_4.setText("0");
-		textArea_4.setBounds(226, 402, 32, 25);
-		panel_2.add(textArea_4);
-		textArea_4.setEditable(false);
-		
-		final Setting set=new Setting();
-		set.start();
-		speed=set.Speed;
-		
-		final Info info = new Info();
 		
 		final JComboBox comboBox_1 = new JComboBox();
 		comboBox_1.setBounds(24, 114, 118, 28);
@@ -154,17 +135,29 @@ public class Server {
 		
 		final JButton btnNewButton_23 = new JButton("Initializing...");
 		
+		final Setting set=new Setting();
+		set.start();
+		speed=set.Speed;
+		
+		final Info info = new Info();
+		
+		carxy cxy=new carxy();
+		new Thread(cxy).start();
+		info.start();
+		
+		final JButton button_1 = new JButton("Initializing...");
+		
 		final JButton btnNewButton_18 = new JButton("Initializing...");
 		btnNewButton_18.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				BTButton BT=new BTButton(btnNewButton_18, btnNewButton_19, btnNewButton_23, comboBox_1);
+				BTButton BT=new BTButton(btnNewButton_18, btnNewButton_19, btnNewButton_23, comboBox_1, button_1);
 				BT.start();
 				if(!btnNewButton_18.getText().equals("Close"))
 					btnNewButton_18.setEnabled(false);
 			}
 		});
-		btnNewButton_18.setBounds(164, 114, 110, 28);
+		btnNewButton_18.setBounds(174, 114, 110, 28);
 		panel_1.add(btnNewButton_18);
 		btnNewButton_18.setEnabled(false);
 		
@@ -173,9 +166,11 @@ public class Server {
 			public void mouseClicked(MouseEvent arg0) {
 				btnNewButton_19.setEnabled(false);
 				set.Amigoconnect=true;
+				button_1.setEnabled(true);
+				button_1.setText("Start");;
 			}
 		});
-		btnNewButton_19.setBounds(164, 168, 110, 28);
+		btnNewButton_19.setBounds(174, 168, 110, 28);
 		panel_1.add(btnNewButton_19);
 		
 		final JButton btnNewButton_20 = new JButton("Initializing...");
@@ -191,7 +186,7 @@ public class Server {
 				}
 			}
 		});
-		btnNewButton_20.setBounds(164, 222, 110, 28);
+		btnNewButton_20.setBounds(174, 222, 110, 28);
 		panel_1.add(btnNewButton_20);
 		btnNewButton_20.setEnabled(false);
 		
@@ -208,20 +203,20 @@ public class Server {
 				}
 			}
 		});
-		btnNewButton_21.setBounds(164, 275, 110, 28);
+		btnNewButton_21.setBounds(174, 275, 110, 28);
 		panel_1.add(btnNewButton_21);
 		btnNewButton_21.setEnabled(false);
 		
 		btnNewButton_23.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				OneClickConnect oneClick=new OneClickConnect(btnNewButton_23, btnNewButton_18);
+				OneClickConnect oneClick=new OneClickConnect(btnNewButton_23, btnNewButton_18, button_1);
 				oneClick.start();
 				if(!btnNewButton_23.getText().equals("Close"))
 					btnNewButton_23.setEnabled(false);
 			}
 		});
-		btnNewButton_23.setBounds(24, 337, 250, 28);
+		btnNewButton_23.setBounds(24, 390, 260, 28);
 		panel_1.add(btnNewButton_23);
 		btnNewButton_23.setEnabled(false);
 		
@@ -245,17 +240,43 @@ public class Server {
 			}
 		});
 		
-		btnStart.setBounds(50, 398, 87, 23);
+		btnStart.setBounds(164, 81, 87, 23);
 		panel_1.add(btnStart);
 		
-		carxy cxy=new carxy();
-		JTextArea textArea_6 = new JTextArea();
-		textArea_6.setBounds(237, 381, 100, 62);
-		panel_1.add(textArea_6);
-		cxy.print(textArea_6);
-		new Thread(cxy).start();
-		info.start();
+		JLabel lblWandermode = new JLabel("WanderMode :");
+		lblWandermode.setForeground(Color.GRAY);
+		lblWandermode.setFont(new Font("Dialog", Font.BOLD, 20));
+		lblWandermode.setBounds(24, 328, 138, 28);
+		panel_1.add(lblWandermode);
 		
+		button_1.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if(button_1.getText().equals("Start")){
+					set.WanderOpen=true;
+					button_1.setText("Stop");
+				}else{
+					set.WanderClose=true;
+					button_1.setText("Start");
+				}
+			}
+		});
+		button_1.setEnabled(false);
+		button_1.setBounds(174, 330, 110, 28);
+		panel_1.add(button_1);
+		
+		Panel panel_2 = new Panel();
+		tabbedPane.addTab("Monitor", null, panel_2, null);
+		panel_2.setLayout(null);
+		
+		final JTextArea textArea_4 = new JTextArea();
+		textArea_4.setBackground(UIManager.getColor("Button.background"));
+		textArea_4.setForeground(Color.BLACK);
+		textArea_4.setFont(new Font("敺株�甇�擃�", Font.BOLD, 13));
+		textArea_4.setText("0");
+		textArea_4.setBounds(226, 402, 32, 25);
+		panel_2.add(textArea_4);
+		textArea_4.setEditable(false);
 		
 		Panel panel_3 = new Panel();
 		tabbedPane.addTab("Position & Go", null, panel_3, null);
