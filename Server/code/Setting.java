@@ -31,10 +31,12 @@ public class Setting extends Thread implements MonitorProtocol{
 	public static int BTMatch=-1;
 	public int Speed=0;
 
-	 DataOutputStream  out = null;
+	 static DataOutputStream  out = null;
 	 
 
 	public static ServerSocket server;
+	private static Socket socket2;
+	private static DataOutputStream out2;
 	
 
 	@Override
@@ -202,4 +204,133 @@ public class Setting extends Thread implements MonitorProtocol{
 			e.printStackTrace();
 		}
 	}
+	/****
+	public static void relrot(int ang) throws IOException{
+		System.out.println( "relrot: "+ang);
+		Socket socket=null;
+		 socket=Setting.server.accept();
+		 out = new DataOutputStream(socket.getOutputStream());
+		 double xt=0;
+		out.writeInt(Rotate);
+		out.flush();
+		if(ang==0)out.writeInt(0);
+		if(ang>0)out.writeInt(10);
+		else if(ang<0)out.writeInt(-10);
+		
+		out.flush();
+		double tang=Math.abs(ang)/10;
+		while(xt<tang){
+			xt+=0.1;
+			try {
+				Thread.sleep(100);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				break;
+			}
+		}
+		 out.close();
+		 socket.close();
+		 socket=Setting.server.accept();
+		 out = new DataOutputStream(socket.getOutputStream());
+		 out.writeInt(Rotate);
+		 out.flush();
+		 out.writeInt(0);
+		 out.flush();
+		 out.close();
+		 socket.close();
+		
+	}
+	static int rotc=0;
+	static boolean po=false;
+	static int ta=0;
+	static int status=0;
+	public  static void setrotang(int ang) throws IOException, InterruptedException{
+		rotc++;
+		System.out.println( "setrotang"+ang);
+		
+		int ttx=(int) (Math.abs(ang-Info.carang)/9);
+		if(ang==0)ttx=(int) (Math.abs(360-Info.carang)/9);
+		Socket socket=null;
+		 socket=Setting.server.accept();
+		out = new DataOutputStream(socket.getOutputStream());
+		 out.writeInt(MaxRotV);
+		 out.flush();
+		 out.writeInt(10);
+		 out.flush();
+		 out.close();
+		 socket=null;
+		 socket=Setting.server.accept();
+		 out = new DataOutputStream(socket.getOutputStream());
+		 out.writeInt(AbsoluteHeading);
+		 out.flush();
+		 if(ta==0){
+			 if(ang<=180){
+					po=true;
+					ta++;
+				}else{
+					po=false;
+					ta++;
+				}
+		 }
+		 double fixang=0;
+		 if(po==true){
+			 fixang=ang-ang/30;
+			 status=0;
+//			 if(Info.carang>=180&&ang>180){fixang=ang-ang/15;
+//			 status=1;
+			 if(Info.carang>180&&ang==270){
+				 fixang=ang-ang/30-10;
+					status=2;
+					
+				}
+			 if(Info.carang>180&&ang==0){
+					fixang=360-360/30-15;  
+					status=2;
+					
+				}
+		}
+		
+		 else{
+			 fixang=ang-(360-ang)/30;
+			 
+		 }
+		
+		 
+		 out.writeInt((int) fixang);
+		 out.flush();
+		 
+		 Thread.sleep(ttx*1000+1000);
+		 
+		 socket=null;
+		 socket=Setting.server.accept();
+		 out = new DataOutputStream(socket.getOutputStream());
+		 out.writeInt(Rotate);
+		 out.flush();
+		 out.writeInt(0);
+		 out.flush();
+		
+		 out.close();
+		 socket.close();
+		 int x=0;
+		 Thread.sleep(250);
+		 
+//		if(Info.carang>350&&Math.abs(Info.carang-360)>2&&ang==0&&rotc==1){
+//			
+//			
+//			 relrot(45); 
+//			 relrot(0); 
+//			 setrotang(ang);
+//		}
+//		 if((Math.abs(Info.carang-ang)>2)&&rotc==1){
+//			 System.out.println( "Math.abs(Info.carang-ang)");
+//		
+//		     relrot(45); 
+//		     relrot(0); 
+//		     setrotang(ang); 	
+//		 }
+		 rotc=0;
+		
+	}
+	****/
 }

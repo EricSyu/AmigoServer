@@ -29,7 +29,7 @@ public class WifiSignal extends Thread{
 								InputStreamReader(wificlient.getInputStream()));
 					String str = in.readLine();
 						//1
-					FileWriter fw = new FileWriter("C://CamTest//Positioning.txt");
+					FileWriter fw = new FileWriter("D:/CamTest/database/Positioning.txt");
 					synchronized(fw){
 						fw.write(str+"");
 						fw.flush();

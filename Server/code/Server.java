@@ -34,17 +34,20 @@ public class Server {
 	static Boolean flag=true, _flag=true, posflag=true, monflag=true, positflag=true, conflag=false, Infoflag=false;
 	int mode=0, speed=0;
 	String BTname="";
-	JButton btnNewButton_3 = new JButton("0");
+	JButton btnNewButton_3 = new JButton("2");
 	JButton btnNewButton_4 = new JButton("1");
-	JButton btnNewButton_5 = new JButton("2");
+	JButton btnNewButton_5 = new JButton("0");
 	JButton btnNewButton_6 = new JButton("3");
 	JButton btnNewButton_7 = new JButton("4");
 	JButton btnNewButton_8 = new JButton("5");
-	JButton btnNewButton_9 = new JButton("6");
+	JButton btnNewButton_9 = new JButton("8");
 	JButton btnNewButton_10 = new JButton("7");
-	JButton btnNewButton_11 = new JButton("8");
+	JButton btnNewButton_11 = new JButton("6");
+	FloydWarshall fw=new FloydWarshall();
+	 vposini vpi=null;
 	private JTextField txtWifisignal;
 	pathalgo vtest=null;
+	private JTextField textField_2;
 	/**
 	 * Launch the application.
 	 */
@@ -237,8 +240,8 @@ public class Server {
 			public void mouseClicked(MouseEvent arg0) {
 				if(btnStart.getText().equals("start")==true){
 					btnStart.setText("stop");
-				vtest=new pathalgo();
-				vtest.start();
+//				vtest=new pathalgo();
+//				vtest.start();
 				}
 				else{
 					btnStart.setText("start");
@@ -256,6 +259,31 @@ public class Server {
 		textArea_6.setBounds(237, 381, 100, 62);
 		panel_1.add(textArea_6);
 		cxy.print(textArea_6);
+		
+		textField_2 = new JTextField();
+		textField_2.setBounds(364, 399, 96, 21);
+		panel_1.add(textField_2);
+		textField_2.setColumns(10);
+		
+		JButton btnTest = new JButton("test");
+		btnTest.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+//				try {
+//					try {
+//						Setting.setrotang(Integer.parseInt(textField_2.getText()));
+//					} catch (IOException | InterruptedException e) {
+//						// TODO Auto-generated catch block
+//						e.printStackTrace();
+//					}
+//				} catch (NumberFormatException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				}
+			}
+		});
+		btnTest.setBounds(374, 420, 87, 23);
+		panel_1.add(btnTest);
 		new Thread(cxy).start();
 		info.start();
 		
@@ -303,12 +331,16 @@ public class Server {
 				btnNewButton_10, btnNewButton_9, textArea_2 );
 		
 		final JButton btnNewButton_12 = new JButton("Position");
+	
 		btnNewButton_12.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				if(_flag) {
 					position.start();
 					wifisgl.start();
+//					vpi=new vposini();
+//					vpi.start();
+					
 					btnNewButton_12.setText("Stop");
 					_flag=false;
 				}else {
@@ -328,25 +360,23 @@ public class Server {
 		});
 		btnNewButton_12.setBounds(324, 117, 112, 23);
 		panel_3.add(btnNewButton_12);
-		btnNewButton_3.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-			}
-		});
+		
 		
 		btnNewButton_3.setBackground(Color.WHITE);
 		btnNewButton_3.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-//				if( mode==0 ){
-//					Propel.start=Position.start;
-//					Propel.end=2;
-//					Propel.flag=true;
-//				}else{
-//					int[] path=new int[]{2, 3, 8, 7, 6, 5, 0, 1, 4, 2};
-//					mz.array=path;
-//					MonitorZones.flag=true;
-//				}
+				if( mode==0 ){
+					int[] path=fw.FindPathArray(Position.start, 2);
+					vtest=new pathalgo(path);
+					vtest.start();
+				}else{
+					int[] path=new int[]{2, 3, 8, 7, 6, 5, 0, 1, 4, 2};
+					vtest=new pathalgo(path);
+					vtest.start();
+					mz.array=path;
+					MonitorZones.flag=true;
+				}
 			}
 		});
 		btnNewButton_3.setBounds(22, 86, 87, 87);
@@ -357,15 +387,19 @@ public class Server {
 		btnNewButton_4.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-//				if( mode==0 ){
-//					Propel.start=Position.start;
-//					Propel.end=1;
-//					Propel.flag=true;
-//				}else{
-//					int[] path=new int[]{1, 0, 5, 6, 7, 8, 3, 2, 4, 1};
-//					mz.array=path;
-//					MonitorZones.flag=true;
-//				}
+				if( mode==0 ){
+					
+					int[] path=fw.FindPathArray(Position.start , 1);
+					for(int i=0;i<path.length;i++){
+						System.out.println(path[i]);
+					}
+					vtest=new pathalgo(path);
+					vtest.start();
+				}else{
+					int[] path=new int[]{1, 0, 5, 6, 7, 8, 3, 2, 4, 1};
+					mz.array=path;
+					MonitorZones.flag=true;
+				}
 			}
 		});
 		btnNewButton_4.setBounds(119, 85, 87, 87);
@@ -376,15 +410,15 @@ public class Server {
 		btnNewButton_5.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-//				if( mode==0 ){
-//					Propel.start=Position.start;
-//					Propel.end=0;
-//					Propel.flag=true;
-//				}else{
-//					int[] path=new int[]{0, 5, 6, 7, 8, 3, 2, 4, 1, 0};
-//					mz.array=path;
-//					MonitorZones.flag=true;
-//				}
+				if( mode==0 ){
+					int[] path=fw.FindPathArray(Position.start,0);
+					vtest=new pathalgo(path);
+					vtest.start();
+				}else{
+					int[] path=new int[]{0, 5, 6, 7, 8, 3, 2, 4, 1, 0};
+					mz.array=path;
+					MonitorZones.flag=true;
+				}
 			}
 		});
 		btnNewButton_5.setBounds(216, 85, 87, 87);
@@ -395,15 +429,15 @@ public class Server {
 		btnNewButton_6.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-//				if( mode==0 ){
-//					Propel.start=Position.start;
-//					Propel.end=3;
-//					Propel.flag=true;
-//				}else{
-//					int[] path=new int[]{3, 8, 7, 6, 5, 0, 1, 2, 4, 3};
-//					mz.array=path;
-//					MonitorZones.flag=true;
-//				}
+				if( mode==0 ){
+					int[] path=fw.FindPathArray(Position.start,3);
+					vtest=new pathalgo(path);
+					vtest.start();
+				}else{
+					int[] path=new int[]{3, 8, 7, 6, 5, 0, 1, 2, 4, 3};
+					mz.array=path;
+					MonitorZones.flag=true;
+				}
 			}
 		});
 		btnNewButton_6.setBounds(22, 183, 87, 87);
@@ -414,39 +448,35 @@ public class Server {
 		btnNewButton_7.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-//				if( mode==0 ){
-//					Propel.start=Position.start;
-//					Propel.end=4;
-//					Propel.flag=true;
-//				}else{
-//					int[] path=new int[]{4, 7, 6, 5, 0, 1, 2, 3, 8, 4};
-//					mz.array=path;
-//					MonitorZones.flag=true;
-//				}
+				if( mode==0 ){
+					int[] path=fw.FindPathArray(Position.start,4);
+					vtest=new pathalgo(path);
+					vtest.start();
+				}else{
+					int[] path=new int[]{4, 7, 6, 5, 0, 1, 2, 3, 8, 4};
+					mz.array=path;
+					MonitorZones.flag=true;
+				}
 			}
 		});
 		btnNewButton_7.setBounds(119, 183, 87, 87);
 		panel_3.add(btnNewButton_7);
-		btnNewButton_8.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-			}
-		});
+		
 		
 //		final JButton btnNewButton_8 = new JButton("5");
 		btnNewButton_8.setBackground(Color.WHITE);
 		btnNewButton_8.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-//				if( mode==0 ){
-//					Propel.start=Position.start;
-//					Propel.end=5;
-//					Propel.flag=true;
-//				}else{
-//					int[] path=new int[]{5, 0, 1, 4, 2, 3, 8, 7, 6, 5};
-//					mz.array=path;
-//					MonitorZones.flag=true;
-//				}
+				if( mode==0 ){
+					int[] path=fw.FindPathArray(Position.start, 5);
+					vtest=new pathalgo(path);
+					vtest.start();
+				}else{
+					int[] path=new int[]{5, 0, 1, 4, 2, 3, 8, 7, 6, 5};
+					mz.array=path;
+					MonitorZones.flag=true;
+				}
 			}
 		});
 		btnNewButton_8.setBounds(216, 183, 87, 87);
@@ -457,15 +487,15 @@ public class Server {
 		btnNewButton_9.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-//				if( mode==0 ){
-//					Propel.start=Position.start;
-//					Propel.end=8;
-//					Propel.flag=true;
-//				}else{
-//					int[] path=new int[]{8, 7, 6, 5, 0, 1, 4, 2, 3, 8};
-//					mz.array=path;
-//					MonitorZones.flag=true;
-//				}
+				if( mode==0 ){
+					int[] path=fw.FindPathArray(Position.start,8);
+					vtest=new pathalgo(path);
+					vtest.start();
+				}else{
+					int[] path=new int[]{8, 7, 6, 5, 0, 1, 4, 2, 3, 8};
+					mz.array=path;
+					MonitorZones.flag=true;
+				}
 			}
 		});
 		btnNewButton_9.setBounds(22, 280, 87, 87);
@@ -476,15 +506,15 @@ public class Server {
 		btnNewButton_10.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-//				if( mode==0 ){
-//					Propel.start=Position.start;
-//					Propel.end=7;
-//					Propel.flag=true;
-//				}else{
-//					int[] path=new int[]{7, 6, 5, 0, 1, 4, 2, 3, 8, 7};
-//					mz.array=path;
-//					MonitorZones.flag=true;
-//				}
+				if( mode==0 ){
+					int[] path=fw.FindPathArray(Position.start,7);
+					vtest=new pathalgo(path);
+					vtest.start();
+				}else{
+					int[] path=new int[]{7, 6, 5, 0, 1, 4, 2, 3, 8, 7};
+					mz.array=path;
+					MonitorZones.flag=true;
+				}
 			}
 		});
 		btnNewButton_10.setBounds(119, 278, 87, 87);
@@ -495,15 +525,15 @@ public class Server {
 		btnNewButton_11.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-//				if( mode==0 ){
-//					Propel.start=Position.start;
-//					Propel.end=6;
-//					Propel.flag=true;
-//				}else{
-//					int[] path=new int[]{6, 5, 0, 1, 4, 2, 3, 8, 7, 6};
-//					mz.array=path;
-//					MonitorZones.flag=true;
-//				}
+				if( mode==0 ){
+					int[] path=fw.FindPathArray(Position.start, 6);
+					vtest=new pathalgo(path);
+					vtest.start();
+				}else{
+					int[] path=new int[]{6, 5, 0, 1, 4, 2, 3, 8, 7, 6};
+					mz.array=path;
+					MonitorZones.flag=true;
+				}
 			}
 		});
 		btnNewButton_11.setBounds(216, 278, 87, 87);

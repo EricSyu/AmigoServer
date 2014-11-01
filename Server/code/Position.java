@@ -18,7 +18,7 @@ import org.bytedeco.javacpp.helper.opencv_core.AbstractCvMat;
 public class Position extends Thread{
 	private JButton zone0, zone1, zone2, zone3, zone4, zone5, zone6, zone7, zone8;
 	private JTextArea textArea;
-	public double NorMax=1.0, NorMin=0.0;
+	public double NorMax=1.0, NorMin=0.0, reset=0;
 	static Boolean flag=true;
 	static int start=-1;
 	static String _str="-1";
@@ -59,11 +59,18 @@ public class Position extends Thread{
 		double result=gmm_model[0].calcLikelihood(TestFeature);
 		int _zone=-1, m=-1, n=-1, i, j;
 		
+		reset++;
+		
 		for( i=1; i<gmm_model.length; i++){
 			if( gmm_model[i].calcLikelihood(TestFeature)>result ){
 				result = gmm_model[i].calcLikelihood(TestFeature);
 				_zone=i;
 			}
+		}
+		
+		if( reset>=20 ){
+			reset=0;
+			zone=-1;
 		}
 		
 		if( zone==-1 ) zone=_zone;
@@ -197,7 +204,7 @@ public class Position extends Thread{
 	public void FindMaxMin() throws IOException{
 		int i, j, cnt=0;
 		while( cnt<9 ){
-			FileReader fr = new FileReader("C://CamTest//"+(cnt+1)+".txt");
+			FileReader fr = new FileReader("D:/CamTest/database/"+(cnt+1)+".txt");
 			BufferedReader br = new BufferedReader(fr);
 			String ln;
 			for( i=0; i<248; i++ ){
@@ -257,7 +264,7 @@ public class Position extends Thread{
 			FindMaxMin();
 			
 			while( cnt<9 ){
-				FileReader fr = new FileReader("C://CamTest//"+(cnt+1)+".txt");
+				FileReader fr = new FileReader("D:/CamTest/database/"+(cnt+1)+".txt");
 				BufferedReader br = new BufferedReader(fr);
 				String ln;
 				for( i=0; i<248; i++ ){
@@ -288,15 +295,17 @@ public class Position extends Thread{
 					while(avg<5){
 						int[] _level=new int[]{-100, -100, -100, -100, -100, -100};
 								
-						FileReader posfr = new FileReader("C://CamTest//Positioning.txt");
+						FileReader posfr = new FileReader("D:/CamTest/database/Positioning.txt");
 						BufferedReader posbr = new BufferedReader(posfr);
 						synchronized(posbr){
-							String reg=posbr.readLine();
+							String reg="0";
+							reg=posbr.readLine();
 							_str=reg;
+//							if( _str==null ) _str="-1";
 							if( _str.indexOf("SSID")>-1 ){
 								String[] wifi = _str.split("BSSID: ");
 								
-								FileReader macfr = new FileReader("C://CamTest//Wifimac.txt");
+								FileReader macfr = new FileReader("D:/CamTest/database/Wifimac.txt");
 								BufferedReader macbr = new BufferedReader(macfr);
 								String str=macbr.readLine();
 								String[] mac = str.split("__");
@@ -333,7 +342,7 @@ public class Position extends Thread{
 						matTestFeature.put(0, i, tmpVal);
 					}
 					
-					FileReader fr = new FileReader("C://CamTest//Wifimac.txt");
+					FileReader fr = new FileReader("D:/CamTest/database/Wifimac.txt");
 					BufferedReader br = new BufferedReader(fr);
 					String str=br.readLine();
 					String[] mac = str.split("__");
@@ -349,9 +358,11 @@ public class Position extends Thread{
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
+					continue;
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
+					continue;
 				}
 			}
 		}

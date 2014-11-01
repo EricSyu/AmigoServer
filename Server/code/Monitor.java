@@ -28,7 +28,7 @@ public class Monitor extends Thread{
 	
 	public static String getpicname="";
 
-	public static final String file_name = "C:/CamTest/monitor/";
+	public static final String file_name = "D:/CamTest/";
 
 	static ServerSocket serverSocket;
 	

@@ -21,7 +21,7 @@ public class Propel {
 		};
 	Propel(){
 		 fw=new FloydWarshall();
-		fw.Cal(zone404);
+//		fw.Cal(zone404);
 	}
 	public int[] go(int start,int end){
 		
