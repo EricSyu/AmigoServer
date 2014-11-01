@@ -3,10 +3,11 @@ package code;
 import javax.swing.JButton;
 
 public class OneClickConnect extends Thread{
-	public JButton OneClick, BTButton;
-	public OneClickConnect( JButton _OneClick, JButton _BTButton ){
+	public JButton OneClick, BTButton, WanderMode;
+	public OneClickConnect( JButton _OneClick, JButton _BTButton, JButton _WanderMode ){
 		OneClick=_OneClick;
 		BTButton=_BTButton;
+		WanderMode=_WanderMode;
 	}
 	public void run(){
 		if(OneClick.getText().equals("OneClickConnect")){
@@ -54,11 +55,14 @@ public class OneClickConnect extends Thread{
 			Setting.Amigoconnect=true;
 			OneClick.setText("Close");
 			OneClick.setEnabled(true);
+			WanderMode.setEnabled(true);
+			WanderMode.setText("Start");
 		}else{
 			Setting.BTSwitchclose=true;
 			OneClick.setText("OneClickConnect");
-//			OneClick.setEnabled(true);
 			BTButton.setEnabled(true);
+			WanderMode.setText("Start");
+			WanderMode.setEnabled(false);
 		}
 	}
 }

@@ -47,7 +47,7 @@ public class Position extends Thread{
 		params.means();
 		params.weights();
 		params.probs();
-		params.nclusters(3);
+		params.nclusters(4);
 		params.cov_mat_type(CvEM.COV_MAT_SPHERICAL);
 		params.start_step(CvEM.START_AUTO_STEP);
 		params.term_crit().max_iter(300);    // 嚙踝蕭嚙踐迭嚙瞇嚙諒堆蕭嚙踝蕭嚙踝蕭
@@ -57,7 +57,7 @@ public class Position extends Thread{
 	
 	public void PredictZones(int zone, Mat TestFeature, CvEM [] gmm_model){
 		double result=gmm_model[0].calcLikelihood(TestFeature);
-		int _zone=-1, m=-1, n=-1, i, j;
+		int _zone=0, m=1, n=1, i, j;
 		
 		reset++;
 		
@@ -67,12 +67,12 @@ public class Position extends Thread{
 				_zone=i;
 			}
 		}
-		
-		if( reset>=20 ){
+
+		if( reset<100 ){
 			reset=0;
 			zone=-1;
 		}
-		
+
 		if( zone==-1 ) zone=_zone;
 		else{
 			for( i=1; i<4; i++ ){
@@ -240,10 +240,13 @@ public class Position extends Thread{
 		}
 	}
 	
+	
+	
+	
 	@Override
 	public void run(){
 
-		int i, j, cnt=0, avg=0, zone=-1, count=1;
+		int i, j, cnt=0, avg=0, zone=0, count=1;
 		CvEM [] gmm_model=new CvEM[9];
 		
 		for( i=0; i<5; i++ )
@@ -292,8 +295,9 @@ public class Position extends Thread{
 					CvMat matTestFeature=AbstractCvMat.create(1, 6, opencv_core.CV_32FC1);
 					
 					int[] level=new int[]{0, 0, 0, 0, 0, 0};
+					int[] _level=new int[]{-100, -100, -100, -100, -100, -100};
 					while(avg<5){
-						int[] _level=new int[]{-100, -100, -100, -100, -100, -100};
+						
 								
 						FileReader posfr = new FileReader("D:/CamTest/database/Positioning.txt");
 						BufferedReader posbr = new BufferedReader(posfr);
@@ -301,30 +305,34 @@ public class Position extends Thread{
 							String reg="0";
 							reg=posbr.readLine();
 							_str=reg;
-//							if( _str==null ) _str="-1";
-							if( _str.indexOf("SSID")>-1 ){
-								String[] wifi = _str.split("BSSID: ");
-								
-								FileReader macfr = new FileReader("D:/CamTest/database/Wifimac.txt");
-								BufferedReader macbr = new BufferedReader(macfr);
-								String str=macbr.readLine();
-								String[] mac = str.split("__");
-								
-								macbr.close();
-								posbr.close();
-								
-								for( i=1; i<wifi.length; i++){
-									for( j=0; j<mac.length; j++ ){
-										if( wifi[i].indexOf(mac[j])!=-1 )
-											_level[j]=Integer.parseInt(wifi[i].substring(
-													wifi[i].indexOf("level: -")+7, wifi[i].indexOf("level: -")+10));
+
+
+							if( _str!=null ){
+								if( _str.indexOf("SSID")>-1 ){
+									String[] wifi = _str.split("BSSID: ");
+									
+									FileReader macfr = new FileReader("D:/CamTest/database/Wifimac.txt");
+									BufferedReader macbr = new BufferedReader(macfr);
+									String str=macbr.readLine();
+									String[] mac = str.split("__");
+									
+									macbr.close();
+									posbr.close();
+									
+									for( i=1; i<wifi.length; i++){
+										for( j=0; j<mac.length; j++ ){
+											if( wifi[i].indexOf(mac[j])!=-1 )
+												_level[j]=Integer.parseInt(wifi[i].substring(
+														wifi[i].indexOf("level: -")+7, wifi[i].indexOf("level: -")+10));
+										}
+
 									}
+									for( i=0; i<mac.length; i++ ) level[i]+=_level[i];
+									Thread.sleep(10);
+									avg++;
 								}
-								for( i=0; i<mac.length; i++ ) level[i]+=_level[i];
-								Thread.sleep(10);
 							}
 						}
-						avg++;
 					}
 					avg=0;
 					for( i=0; i<6; i++ ){ 

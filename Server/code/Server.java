@@ -23,9 +23,6 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 
-
-
-
 public class Server {
 
 	private JFrame frmServer;
@@ -47,7 +44,6 @@ public class Server {
 	 vposini vpi=null;
 	private JTextField txtWifisignal;
 	pathalgo vtest=null;
-	private JTextField textField_2;
 	/**
 	 * Launch the application.
 	 */
@@ -126,30 +122,11 @@ public class Server {
 		lblNewLabel_8.setBounds(24, 275, 133, 28);
 		panel_1.add(lblNewLabel_8);
 		
-		Panel panel_2 = new Panel();
-		tabbedPane.addTab("Monitor", null, panel_2, null);
-		panel_2.setLayout(null);
-		
 		JTextArea textArea_1 = new JTextArea();
-		textArea_1.setFont(new Font("嚙盤嚙緯嚙踝蕭嚙踝蕭嚙踝蕭", Font.BOLD, 13));
+		textArea_1.setFont(new Font("微軟正黑體", Font.BOLD, 15));
 		textArea_1.setBackground(Color.WHITE);
-		textArea_1.setBounds(337, 76, 184, 289);
+		textArea_1.setBounds(319, 54, 184, 342);
 		panel_1.add(textArea_1);
-		
-		final JTextArea textArea_4 = new JTextArea();
-		textArea_4.setBackground(UIManager.getColor("Button.background"));
-		textArea_4.setForeground(Color.BLACK);
-		textArea_4.setFont(new Font("敺株�甇�擃�", Font.BOLD, 13));
-		textArea_4.setText("0");
-		textArea_4.setBounds(226, 402, 32, 25);
-		panel_2.add(textArea_4);
-		textArea_4.setEditable(false);
-		
-		final Setting set=new Setting();
-		set.start();
-		speed=set.Speed;
-		
-		final Info info = new Info();
 		
 		final JComboBox comboBox_1 = new JComboBox();
 		comboBox_1.setBounds(24, 114, 118, 28);
@@ -160,17 +137,28 @@ public class Server {
 		
 		final JButton btnNewButton_23 = new JButton("Initializing...");
 		
+		final Setting set=new Setting();
+		set.start();
+		speed=set.Speed;
+		
+		final Info info = new Info();
+		info.start();
+		
+		
+		
+		final JButton button_1 = new JButton("Initializing...");
+		
 		final JButton btnNewButton_18 = new JButton("Initializing...");
 		btnNewButton_18.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				BTButton BT=new BTButton(btnNewButton_18, btnNewButton_19, btnNewButton_23, comboBox_1);
+				BTButton BT=new BTButton(btnNewButton_18, btnNewButton_19, btnNewButton_23, comboBox_1, button_1);
 				BT.start();
 				if(!btnNewButton_18.getText().equals("Close"))
 					btnNewButton_18.setEnabled(false);
 			}
 		});
-		btnNewButton_18.setBounds(164, 114, 110, 28);
+		btnNewButton_18.setBounds(174, 114, 110, 28);
 		panel_1.add(btnNewButton_18);
 		btnNewButton_18.setEnabled(false);
 		
@@ -179,9 +167,11 @@ public class Server {
 			public void mouseClicked(MouseEvent arg0) {
 				btnNewButton_19.setEnabled(false);
 				set.Amigoconnect=true;
+				button_1.setEnabled(true);
+				button_1.setText("Start");;
 			}
 		});
-		btnNewButton_19.setBounds(164, 168, 110, 28);
+		btnNewButton_19.setBounds(174, 168, 110, 28);
 		panel_1.add(btnNewButton_19);
 		
 		final JButton btnNewButton_20 = new JButton("Initializing...");
@@ -197,7 +187,7 @@ public class Server {
 				}
 			}
 		});
-		btnNewButton_20.setBounds(164, 222, 110, 28);
+		btnNewButton_20.setBounds(174, 222, 110, 28);
 		panel_1.add(btnNewButton_20);
 		btnNewButton_20.setEnabled(false);
 		
@@ -214,20 +204,20 @@ public class Server {
 				}
 			}
 		});
-		btnNewButton_21.setBounds(164, 275, 110, 28);
+		btnNewButton_21.setBounds(174, 275, 110, 28);
 		panel_1.add(btnNewButton_21);
 		btnNewButton_21.setEnabled(false);
 		
 		btnNewButton_23.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				OneClickConnect oneClick=new OneClickConnect(btnNewButton_23, btnNewButton_18);
+				OneClickConnect oneClick=new OneClickConnect(btnNewButton_23, btnNewButton_18, button_1);
 				oneClick.start();
 				if(!btnNewButton_23.getText().equals("Close"))
 					btnNewButton_23.setEnabled(false);
 			}
 		});
-		btnNewButton_23.setBounds(24, 337, 250, 28);
+		btnNewButton_23.setBounds(24, 390, 260, 28);
 		panel_1.add(btnNewButton_23);
 		btnNewButton_23.setEnabled(false);
 		
@@ -251,324 +241,43 @@ public class Server {
 			}
 		});
 		
-		btnStart.setBounds(50, 398, 87, 23);
+		btnStart.setBounds(164, 81, 87, 23);
 		panel_1.add(btnStart);
 		
-		carxy cxy=new carxy();
-		JTextArea textArea_6 = new JTextArea();
-		textArea_6.setBounds(237, 381, 100, 62);
-		panel_1.add(textArea_6);
-		cxy.print(textArea_6);
+
+
 		
-		textField_2 = new JTextField();
-		textField_2.setBounds(364, 399, 96, 21);
-		panel_1.add(textField_2);
-		textField_2.setColumns(10);
-		
-		JButton btnTest = new JButton("test");
-		btnTest.addMouseListener(new MouseAdapter() {
+		button_1.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent arg0) {
-//				try {
-//					try {
-//						Setting.setrotang(Integer.parseInt(textField_2.getText()));
-//					} catch (IOException | InterruptedException e) {
-//						// TODO Auto-generated catch block
-//						e.printStackTrace();
-//					}
-//				} catch (NumberFormatException e) {
-//					// TODO Auto-generated catch block
-//					e.printStackTrace();
-//				}
+			public void mouseClicked(MouseEvent e) {
+				if(button_1.getText().equals("Start")){
+					set.WanderOpen=true;
+					button_1.setText("Stop");
+				}else{
+					set.WanderClose=true;
+					button_1.setText("Start");
+				}
 			}
 		});
-		btnTest.setBounds(374, 420, 87, 23);
-		panel_1.add(btnTest);
-		new Thread(cxy).start();
-		info.start();
+		button_1.setEnabled(false);
+		button_1.setBounds(174, 330, 110, 28);
+		panel_1.add(button_1);
 		
+		Panel panel_2 = new Panel();
+		tabbedPane.addTab("Monitor", null, panel_2, null);
+		panel_2.setLayout(null);
 		
-		Panel panel_3 = new Panel();
-		tabbedPane.addTab("Position & Go", null, panel_3, null);
-		panel_3.setLayout(null);
-		
-		JTextArea textArea_3 = new JTextArea();
-		textArea_3.setBounds(324, 214, 100, 151);
-		panel_3.add(textArea_3);
+		final JTextArea textArea_4 = new JTextArea();
+		textArea_4.setBackground(UIManager.getColor("Button.background"));
+		textArea_4.setForeground(Color.BLACK);
+		textArea_4.setFont(new Font("敺株�甇�擃�", Font.BOLD, 13));
+		textArea_4.setText("0");
+		textArea_4.setBounds(226, 402, 32, 25);
+		panel_2.add(textArea_4);
+		textArea_4.setEditable(false);
 		
 		final Propel propel=new Propel();
 		final MonitorZones mz=new MonitorZones();
-		
-		final JButton btnNewButton_13 = new JButton("Connect");
-		btnNewButton_13.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-//				if(!conflag){
-//					if(mode==0) propel.start();
-//					else if(mode==1) mz.start();
-//					btnNewButton_13.setText("Connecting...");
-//					conflag=true;
-//					if(!Infoflag){
-//						Infoflag=true;
-//					}
-//				}else{
-//					if(mode==0) Propel.core=false;
-//					else if(mode==1) MonitorZones.core=false;
-//					btnNewButton_13.setText("Connect");
-//					conflag=false;
-//				}
-			}
-		});
-		btnNewButton_13.setBounds(324, 150, 112, 23);
-		panel_3.add(btnNewButton_13);
-		
-		final JTextArea textArea_2 = new JTextArea();
-		textArea_2.setBounds(434, 214, 145, 151);
-		panel_3.add(textArea_2);
-		
-		final Position position=new Position( btnNewButton_5, btnNewButton_4, btnNewButton_3, 
-				btnNewButton_6, btnNewButton_7, btnNewButton_8, btnNewButton_11, 
-				btnNewButton_10, btnNewButton_9, textArea_2 );
-		
-		final JButton btnNewButton_12 = new JButton("Position");
-	
-		btnNewButton_12.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				if(_flag) {
-					position.start();
-					wifisgl.start();
-//					vpi=new vposini();
-//					vpi.start();
-					
-					btnNewButton_12.setText("Stop");
-					_flag=false;
-				}else {
-					if(positflag){
-						Position.flag=false;
-						WifiSignal.flag=false;
-						btnNewButton_12.setText("Position");
-						positflag=false;
-					}else{
-						Position.flag=true;
-						WifiSignal.flag=true;
-						btnNewButton_12.setText("Stop");
-						positflag=true;
-					}
-				}
-			}
-		});
-		btnNewButton_12.setBounds(324, 117, 112, 23);
-		panel_3.add(btnNewButton_12);
-		
-		
-		btnNewButton_3.setBackground(Color.WHITE);
-		btnNewButton_3.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				if( mode==0 ){
-					int[] path=fw.FindPathArray(Position.start, 2);
-					vtest=new pathalgo(path);
-					vtest.start();
-				}else{
-					int[] path=new int[]{2, 3, 8, 7, 6, 5, 0, 1, 4, 2};
-					vtest=new pathalgo(path);
-					vtest.start();
-					mz.array=path;
-					MonitorZones.flag=true;
-				}
-			}
-		});
-		btnNewButton_3.setBounds(22, 86, 87, 87);
-		panel_3.add(btnNewButton_3);
-		
-//		final JButton btnNewButton_4 = new JButton("1");
-		btnNewButton_4.setBackground(Color.WHITE);
-		btnNewButton_4.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				if( mode==0 ){
-					
-					int[] path=fw.FindPathArray(Position.start , 1);
-					for(int i=0;i<path.length;i++){
-						System.out.println(path[i]);
-					}
-					vtest=new pathalgo(path);
-					vtest.start();
-				}else{
-					int[] path=new int[]{1, 0, 5, 6, 7, 8, 3, 2, 4, 1};
-					mz.array=path;
-					MonitorZones.flag=true;
-				}
-			}
-		});
-		btnNewButton_4.setBounds(119, 85, 87, 87);
-		panel_3.add(btnNewButton_4);
-		
-//		final JButton btnNewButton_5 = new JButton("0");
-		btnNewButton_5.setBackground(Color.WHITE);
-		btnNewButton_5.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				if( mode==0 ){
-					int[] path=fw.FindPathArray(Position.start,0);
-					vtest=new pathalgo(path);
-					vtest.start();
-				}else{
-					int[] path=new int[]{0, 5, 6, 7, 8, 3, 2, 4, 1, 0};
-					mz.array=path;
-					MonitorZones.flag=true;
-				}
-			}
-		});
-		btnNewButton_5.setBounds(216, 85, 87, 87);
-		panel_3.add(btnNewButton_5);
-		
-//		final JButton btnNewButton_6 = new JButton("3");
-		btnNewButton_6.setBackground(Color.WHITE);
-		btnNewButton_6.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				if( mode==0 ){
-					int[] path=fw.FindPathArray(Position.start,3);
-					vtest=new pathalgo(path);
-					vtest.start();
-				}else{
-					int[] path=new int[]{3, 8, 7, 6, 5, 0, 1, 2, 4, 3};
-					mz.array=path;
-					MonitorZones.flag=true;
-				}
-			}
-		});
-		btnNewButton_6.setBounds(22, 183, 87, 87);
-		panel_3.add(btnNewButton_6);
-		
-//		final JButton btnNewButton_7 = new JButton("4");
-		btnNewButton_7.setBackground(Color.WHITE);
-		btnNewButton_7.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				if( mode==0 ){
-					int[] path=fw.FindPathArray(Position.start,4);
-					vtest=new pathalgo(path);
-					vtest.start();
-				}else{
-					int[] path=new int[]{4, 7, 6, 5, 0, 1, 2, 3, 8, 4};
-					mz.array=path;
-					MonitorZones.flag=true;
-				}
-			}
-		});
-		btnNewButton_7.setBounds(119, 183, 87, 87);
-		panel_3.add(btnNewButton_7);
-		
-		
-//		final JButton btnNewButton_8 = new JButton("5");
-		btnNewButton_8.setBackground(Color.WHITE);
-		btnNewButton_8.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				if( mode==0 ){
-					int[] path=fw.FindPathArray(Position.start, 5);
-					vtest=new pathalgo(path);
-					vtest.start();
-				}else{
-					int[] path=new int[]{5, 0, 1, 4, 2, 3, 8, 7, 6, 5};
-					mz.array=path;
-					MonitorZones.flag=true;
-				}
-			}
-		});
-		btnNewButton_8.setBounds(216, 183, 87, 87);
-		panel_3.add(btnNewButton_8);
-		
-//		final JButton btnNewButton_9 = new JButton("8");
-		btnNewButton_9.setBackground(Color.WHITE);
-		btnNewButton_9.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				if( mode==0 ){
-					int[] path=fw.FindPathArray(Position.start,8);
-					vtest=new pathalgo(path);
-					vtest.start();
-				}else{
-					int[] path=new int[]{8, 7, 6, 5, 0, 1, 4, 2, 3, 8};
-					mz.array=path;
-					MonitorZones.flag=true;
-				}
-			}
-		});
-		btnNewButton_9.setBounds(22, 280, 87, 87);
-		panel_3.add(btnNewButton_9);
-		
-//		final JButton btnNewButton_10 = new JButton("7");
-		btnNewButton_10.setBackground(Color.WHITE);
-		btnNewButton_10.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				if( mode==0 ){
-					int[] path=fw.FindPathArray(Position.start,7);
-					vtest=new pathalgo(path);
-					vtest.start();
-				}else{
-					int[] path=new int[]{7, 6, 5, 0, 1, 4, 2, 3, 8, 7};
-					mz.array=path;
-					MonitorZones.flag=true;
-				}
-			}
-		});
-		btnNewButton_10.setBounds(119, 278, 87, 87);
-		panel_3.add(btnNewButton_10);
-		
-//		final JButton btnNewButton_11 = new JButton("6");
-		btnNewButton_11.setBackground(Color.WHITE);
-		btnNewButton_11.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				if( mode==0 ){
-					int[] path=fw.FindPathArray(Position.start, 6);
-					vtest=new pathalgo(path);
-					vtest.start();
-				}else{
-					int[] path=new int[]{6, 5, 0, 1, 4, 2, 3, 8, 7, 6};
-					mz.array=path;
-					MonitorZones.flag=true;
-				}
-			}
-		});
-		btnNewButton_11.setBounds(216, 278, 87, 87);
-		panel_3.add(btnNewButton_11);
-		
-		final JComboBox comboBox = new JComboBox();
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Best path", "Monitor zones"}));
-		comboBox.setBackground(Color.WHITE);
-		comboBox.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				if( comboBox.getSelectedIndex()==0 ) mode=0;
-				else if( comboBox.getSelectedIndex()==1 )mode=1;
-			}
-		});
-		comboBox.setBounds(324, 86, 112, 21);
-		panel_3.add(comboBox);
-		
-		JLabel lblMode = new JLabel("Mode :");
-		lblMode.setForeground(Color.GRAY);
-		lblMode.setFont(new Font("敺株�甇�擃�", Font.BOLD, 20));
-		lblMode.setBounds(324, 53, 76, 23);
-		panel_3.add(lblMode);
-		
-		JLabel lblCarInfo = new JLabel("Car Info:");
-		lblCarInfo.setForeground(Color.GRAY);
-		lblCarInfo.setFont(new Font("敺株�甇�擃�", Font.BOLD, 20));
-		lblCarInfo.setBounds(324, 183, 100, 21);
-		panel_3.add(lblCarInfo);
-		
-		JLabel lblWfiInfo = new JLabel("Wifi Info:");
-		lblWfiInfo.setForeground(Color.GRAY);
-		lblWfiInfo.setFont(new Font("敺株�甇�擃�", Font.BOLD, 20));
-		lblWfiInfo.setBounds(434, 183, 100, 21);
-		panel_3.add(lblWfiInfo);
 		
 		
 		
@@ -695,11 +404,16 @@ public class Server {
 		panel_2.add(btnNewButton_17);
 		
 		JButton btnNewButton_14 = new JButton("\uFF0B");
+		btnNewButton_14.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
 		btnNewButton_14.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				speed+=10;
 				set.Speed=speed;
+			
 				if(speed>1000){
 					speed=1000;
 					set.Speed=speed;
@@ -733,6 +447,293 @@ public class Server {
 		lblNewLabel_3.setFont(new Font("敺株�甇�擃�", Font.BOLD, 20));
 		lblNewLabel_3.setBounds(171, 369, 154, 23);
 		panel_2.add(lblNewLabel_3);
+		
+		Panel panel_3 = new Panel();
+		tabbedPane.addTab("Position & Go", null, panel_3, null);
+		panel_3.setLayout(null);
+		
+		final JTextArea textArea_2 = new JTextArea();
+		textArea_2.setBounds(388, 214, 145, 151);
+		panel_3.add(textArea_2);
+		
+		final Position position=new Position( btnNewButton_5, btnNewButton_4, btnNewButton_3, 
+				btnNewButton_6, btnNewButton_7, btnNewButton_8, btnNewButton_11, 
+				btnNewButton_10, btnNewButton_9, textArea_2 );
+		
+		final JButton btnNewButton_12 = new JButton("Position");
+	
+		btnNewButton_12.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if(_flag) {
+					position.start();
+					wifisgl.start();
+//					vpi=new vposini();
+//					vpi.start();
+					
+					btnNewButton_12.setText("Stop");
+					_flag=false;
+				}else {
+					if(positflag){
+						Position.flag=false;
+						WifiSignal.flag=false;
+						btnNewButton_12.setText("Position");
+						positflag=false;
+					}else{
+						Position.flag=true;
+						WifiSignal.flag=true;
+						btnNewButton_12.setText("Stop");
+						positflag=true;
+					}
+				}
+			}
+		});
+		btnNewButton_12.setBounds(388, 150, 112, 23);
+		panel_3.add(btnNewButton_12);
+		
+		
+		
+		btnNewButton_3.setBackground(Color.WHITE);
+		btnNewButton_3.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				if( mode==0 ){
+					int[] path;
+					if(info.secpo!=-1){
+						path=fw.FindPathArray(info.secpo, 2);
+					}else{path=fw.FindPathArray(Position.start, 2);}
+					
+					for(int i=0;i<path.length;i++){
+						System.out.print(path[i]+",");
+					}
+					vtest=new pathalgo(path);
+					vtest.start();
+				}else{
+					int[] path=new int[]{2, 3, 8, 7, 6, 5, 0, 1, 4, 2};
+					vtest=new pathalgo(path);
+					vtest.start();
+					mz.array=path;
+					MonitorZones.flag=true;
+				}
+			}
+		});
+		btnNewButton_3.setBounds(63, 86, 87, 87);
+		panel_3.add(btnNewButton_3);
+		
+//		final JButton btnNewButton_4 = new JButton("1");
+		btnNewButton_4.setBackground(Color.WHITE);
+		btnNewButton_4.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if( mode==0 ){
+					int[] path;
+					if(info.secpo!=-1){
+						
+						path=fw.FindPathArray(info.secpo, 1);
+					}else{path=fw.FindPathArray(Position.start, 1);}
+					
+					for(int i=0;i<path.length;i++){
+						System.out.println(path[i]);
+					}
+					vtest=new pathalgo(path);
+					vtest.start();
+				}else{
+					int[] path=new int[]{1, 0, 5, 6, 7, 8, 3, 2, 4, 1};
+					mz.array=path;
+					MonitorZones.flag=true;
+				}
+			}
+		});
+		btnNewButton_4.setBounds(160, 85, 87, 87);
+		panel_3.add(btnNewButton_4);
+		
+//		final JButton btnNewButton_5 = new JButton("0");
+		btnNewButton_5.setBackground(Color.WHITE);
+		btnNewButton_5.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if( mode==0 ){
+					int[] path;
+					if(info.secpo!=-1){
+						
+						path=fw.FindPathArray(info.secpo, 0);
+					}else{path=fw.FindPathArray(Position.start, 0);}
+					
+					vtest=new pathalgo(path);
+					vtest.start();
+				}else{
+					int[] path=new int[]{0, 5, 6, 7, 8, 3, 2, 4, 1, 0};
+					mz.array=path;
+					MonitorZones.flag=true;
+				}
+			}
+		});
+		btnNewButton_5.setBounds(257, 85, 87, 87);
+		panel_3.add(btnNewButton_5);
+		
+//		final JButton btnNewButton_6 = new JButton("3");
+		btnNewButton_6.setBackground(Color.WHITE);
+		btnNewButton_6.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if( mode==0 ){
+					int[] path;
+					if(info.secpo!=-1){
+						
+						path=fw.FindPathArray(info.secpo, 3);
+					}else{path=fw.FindPathArray(Position.start, 3);}
+					vtest=new pathalgo(path);
+					vtest.start();
+				}else{
+					int[] path=new int[]{3, 8, 7, 6, 5, 0, 1, 2, 4, 3};
+					mz.array=path;
+					MonitorZones.flag=true;
+				}
+			}
+		});
+		btnNewButton_6.setBounds(63, 183, 87, 87);
+		panel_3.add(btnNewButton_6);
+		
+//		final JButton btnNewButton_7 = new JButton("4");
+		btnNewButton_7.setBackground(Color.WHITE);
+		btnNewButton_7.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if( mode==0 ){
+					int[] path;
+					if(info.secpo!=-1){
+						
+						path=fw.FindPathArray(info.secpo, 4);
+					}else{path=fw.FindPathArray(Position.start, 4);}
+					vtest=new pathalgo(path);
+					vtest.start();
+				}else{
+					int[] path=new int[]{4, 7, 6, 5, 0, 1, 2, 3, 8, 4};
+					mz.array=path;
+					MonitorZones.flag=true;
+				}
+			}
+		});
+		btnNewButton_7.setBounds(160, 183, 87, 87);
+		panel_3.add(btnNewButton_7);
+		
+		
+//		final JButton btnNewButton_8 = new JButton("5");
+		btnNewButton_8.setBackground(Color.WHITE);
+		btnNewButton_8.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if( mode==0 ){
+					int[] path;
+					if(info.secpo!=-1){
+						
+						path=fw.FindPathArray(info.secpo, 5);
+					}else{path=fw.FindPathArray(Position.start, 5);}
+					vtest=new pathalgo(path);
+					vtest.start();
+				}else{
+					int[] path=new int[]{5, 0, 1, 4, 2, 3, 8, 7, 6, 5};
+					mz.array=path;
+					MonitorZones.flag=true;
+				}
+			}
+		});
+		btnNewButton_8.setBounds(257, 183, 87, 87);
+		panel_3.add(btnNewButton_8);
+		
+//		final JButton btnNewButton_9 = new JButton("8");
+		btnNewButton_9.setBackground(Color.WHITE);
+		btnNewButton_9.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if( mode==0 ){
+					int[] path;
+					if(info.secpo!=-1){
+						
+						path=fw.FindPathArray(info.secpo, 8);
+					}else{path=fw.FindPathArray(Position.start, 8);}
+					vtest=new pathalgo(path);
+					vtest.start();
+				}else{
+					int[] path=new int[]{8, 7, 6, 5, 0, 1, 4, 2, 3, 8};
+					mz.array=path;
+					MonitorZones.flag=true;
+				}
+			}
+		});
+		btnNewButton_9.setBounds(63, 280, 87, 87);
+		panel_3.add(btnNewButton_9);
+		
+//		final JButton btnNewButton_10 = new JButton("7");
+		btnNewButton_10.setBackground(Color.WHITE);
+		btnNewButton_10.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if( mode==0 ){
+					int[] path;
+					if(info.secpo!=-1){
+						
+						path=fw.FindPathArray(info.secpo, 7);
+					}else{path=fw.FindPathArray(Position.start, 7);}
+					vtest=new pathalgo(path);
+					vtest.start();
+				}else{
+					int[] path=new int[]{7, 6, 5, 0, 1, 4, 2, 3, 8, 7};
+					mz.array=path;
+					MonitorZones.flag=true;
+				}
+			}
+		});
+		btnNewButton_10.setBounds(160, 280, 87, 87);
+		panel_3.add(btnNewButton_10);
+		
+//		final JButton btnNewButton_11 = new JButton("6");
+		btnNewButton_11.setBackground(Color.WHITE);
+		btnNewButton_11.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if( mode==0 ){
+					int[] path;
+					if(info.secpo!=-6){
+						
+						path=fw.FindPathArray(info.secpo, 6);
+					}else{path=fw.FindPathArray(Position.start, 6);}
+					vtest=new pathalgo(path);
+					vtest.start();
+				}else{
+					int[] path=new int[]{6, 5, 0, 1, 4, 2, 3, 8, 7, 6};
+					mz.array=path;
+					MonitorZones.flag=true;
+				}
+			}
+		});
+		btnNewButton_11.setBounds(257, 280, 87, 87);
+		panel_3.add(btnNewButton_11);
+		
+		final JComboBox comboBox = new JComboBox();
+		comboBox.setModel(new DefaultComboBoxModel(new String[] {"Best path", "Monitor zones"}));
+		comboBox.setBackground(Color.WHITE);
+		comboBox.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				if( comboBox.getSelectedIndex()==0 ) mode=0;
+				else if( comboBox.getSelectedIndex()==1 )mode=1;
+			}
+		});
+		comboBox.setBounds(388, 119, 112, 21);
+		panel_3.add(comboBox);
+		
+		JLabel lblMode = new JLabel("Mode :");
+		lblMode.setForeground(Color.GRAY);
+		lblMode.setFont(new Font("敺株�甇�擃�", Font.BOLD, 20));
+		lblMode.setBounds(388, 86, 76, 23);
+		panel_3.add(lblMode);
+		
+		JLabel lblWfiInfo = new JLabel("Wifi Info:");
+		lblWfiInfo.setForeground(Color.GRAY);
+		lblWfiInfo.setFont(new Font("敺株�甇�擃�", Font.BOLD, 20));
+		lblWfiInfo.setBounds(388, 183, 100, 21);
+		panel_3.add(lblWfiInfo);
 		
 		
 		

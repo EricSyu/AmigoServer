@@ -16,6 +16,7 @@ public class Info extends Thread{
 	public static int x=0, y=0, theta=0, Motor=0, stall=0,comdeg=-1;
 	public static int[] sensor=new int[]{-100, -100, -100, -100, -100, -100, -100, -100};
 	static double carang=0;
+	public static int secpo=-1;
 	public void Initial( JTextArea _textArea, JButton _BTbtn, JButton _Amigobtn
 			, JButton _Wifibtn, JButton _Cambtn, JButton _OneClick ){
 		textArea=_textArea;
