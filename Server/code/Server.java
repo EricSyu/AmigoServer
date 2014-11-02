@@ -413,7 +413,10 @@ public class Server {
 			public void mouseClicked(MouseEvent arg0) {
 				speed+=10;
 				set.Speed=speed;
-			
+				int[] path=fw.FindPathArray(6, 7);
+				for(int i=0;i<path.length;i++){
+					System.out.print(path[i]+",");
+				}
 				if(speed>1000){
 					speed=1000;
 					set.Speed=speed;
@@ -558,7 +561,9 @@ public class Server {
 						
 						path=fw.FindPathArray(info.secpo, 0);
 					}else{path=fw.FindPathArray(Position.start, 0);}
-					
+					for(int i=0;i<path.length;i++){
+						System.out.print(path[i]+",");
+					}
 					vtest=new pathalgo(path);
 					vtest.start();
 				}else{
@@ -582,6 +587,9 @@ public class Server {
 						
 						path=fw.FindPathArray(info.secpo, 3);
 					}else{path=fw.FindPathArray(Position.start, 3);}
+					for(int i=0;i<path.length;i++){
+						System.out.print(path[i]+",");
+					}
 					vtest=new pathalgo(path);
 					vtest.start();
 				}else{
@@ -605,6 +613,9 @@ public class Server {
 						
 						path=fw.FindPathArray(info.secpo, 4);
 					}else{path=fw.FindPathArray(Position.start, 4);}
+					for(int i=0;i<path.length;i++){
+						System.out.print(path[i]+",");
+					}
 					vtest=new pathalgo(path);
 					vtest.start();
 				}else{
@@ -629,6 +640,9 @@ public class Server {
 						
 						path=fw.FindPathArray(info.secpo, 5);
 					}else{path=fw.FindPathArray(Position.start, 5);}
+					for(int i=0;i<path.length;i++){
+						System.out.print(path[i]+",");
+					}
 					vtest=new pathalgo(path);
 					vtest.start();
 				}else{
@@ -652,6 +666,9 @@ public class Server {
 						
 						path=fw.FindPathArray(info.secpo, 8);
 					}else{path=fw.FindPathArray(Position.start, 8);}
+					for(int i=0;i<path.length;i++){
+						System.out.print(path[i]+",");
+					}
 					vtest=new pathalgo(path);
 					vtest.start();
 				}else{
@@ -675,6 +692,9 @@ public class Server {
 						
 						path=fw.FindPathArray(info.secpo, 7);
 					}else{path=fw.FindPathArray(Position.start, 7);}
+					for(int i=0;i<path.length;i++){
+						System.out.print(path[i]+",");
+					}
 					vtest=new pathalgo(path);
 					vtest.start();
 				}else{
@@ -694,10 +714,13 @@ public class Server {
 			public void mouseClicked(MouseEvent e) {
 				if( mode==0 ){
 					int[] path;
-					if(info.secpo!=-6){
+					if(info.secpo!=-1){
 						
 						path=fw.FindPathArray(info.secpo, 6);
 					}else{path=fw.FindPathArray(Position.start, 6);}
+					for(int i=0;i<path.length;i++){
+						System.out.print(path[i]+",");
+					}
 					vtest=new pathalgo(path);
 					vtest.start();
 				}else{

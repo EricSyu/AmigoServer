@@ -36,12 +36,17 @@ public class pathalgo extends Thread implements MonitorProtocol{
 	}
 	@Override
 	public void run(){
-		int[] a={2,3,8,7,6,5,0,1,2};
-		int[] a1={2,1,0,5,6,7,8,3,2};
-		int[] b={2,1,0,5};
-		int[] c={0,1,2,3,8};
-		pathgo(path);
-		Info.secpo=path[path.length-1];
+//		int[] a={2,3,8,7,6,5,0,1,2};
+//		int[] a1={2,1,0,5,6,7,8,3,2};
+//		int[] b={2,1,0,5};
+//		int[] c={0,1,2,3,8};
+		if(Info.secpo==-1){
+			inipos();
+		}
+		else{
+			pathgo(path);
+		 Info.secpo=path[path.length-1];
+		}
 	}
 	public void inipos(){
 		//判斷一開始在第幾區  visual
@@ -59,11 +64,12 @@ public class pathalgo extends Thread implements MonitorProtocol{
 				e.printStackTrace();
 			}
 		}
-		if(ql2.uang>0||ql2.uang<0){
+		if(ql2.uang!=0&&ql2.uang!=360){
 			System.out.println("start point: "+path[0]);
 			pathgo(path);
+			Info.secpo=path[path.length-1];
 		}else{
-			System.out.println("start point: not 2");
+			System.out.println("start point: not "+path[0]);
 		}
 	
 	}
@@ -204,7 +210,7 @@ public class pathalgo extends Thread implements MonitorProtocol{
 		carx=now.x;
 	    cary=now.y;
 			setrotang(180);	
-			checkpath(327);
+			checkpath();
 			setgodis(300,250);			
 	}
 	if(now.no==1&&next.no==2){
@@ -967,7 +973,7 @@ public class pathalgo extends Thread implements MonitorProtocol{
 			}
 			else if(avoidbum2()==1){
 				double tdis=(dtime-xt)*(speed/10);
-				avotonext(tdis-22);
+				avotonext(tdis-18);
 				break;
 			}
 			Thread.sleep(100);
