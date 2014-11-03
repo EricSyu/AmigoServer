@@ -230,8 +230,14 @@ public class Server {
 			public void mouseClicked(MouseEvent arg0) {
 				if(btnStart.getText().equals("start")==true){
 					btnStart.setText("stop");
-//				vtest=new pathalgo();
-//				vtest.start();
+//					int[] path;
+//					
+//						path=fw.FindPathArray(6, 2);
+//					
+//					for (int j : path) {
+//						System.out.print(j+",");
+//					}
+					
 				}
 				else{
 					btnStart.setText("start");
@@ -498,10 +504,10 @@ public class Server {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				if( mode==0 ){
-					int[] path;
-					if(info.secpo!=-1){
-						path=fw.FindPathArray(info.secpo, 2);
-					}else{path=fw.FindPathArray(Position.start, 2);}
+					int[] path=null;
+					if(Info.secpo!=-1){
+						path=fw.FindPathArray(Info.secpo, 2);
+					}else{path=fw.FindPathArray(6, 2);}
 					
 					for(int i=0;i<path.length;i++){
 						System.out.print(path[i]+",");
@@ -530,9 +536,9 @@ public class Server {
 			public void mouseClicked(MouseEvent e) {
 				if( mode==0 ){
 					int[] path;
-					if(info.secpo!=-1){
+					if(Info.secpo!=-1){
 						
-						path=fw.FindPathArray(info.secpo, 1);
+						path=fw.FindPathArray(Info.secpo, 1);
 					}else{path=fw.FindPathArray(Position.start, 1);}
 					
 					for(int i=0;i<path.length;i++){
@@ -556,9 +562,9 @@ public class Server {
 			public void mouseClicked(MouseEvent e) {
 				if( mode==0 ){
 					int[] path;
-					if(info.secpo!=-1){
+					if(Info.secpo!=-1){
 						
-						path=fw.FindPathArray(info.secpo, 0);
+						path=fw.FindPathArray(Info.secpo, 0);
 					}else{path=fw.FindPathArray(Position.start, 0);}
 					for(int i=0;i<path.length;i++){
 						System.out.print(path[i]+",");
@@ -581,9 +587,9 @@ public class Server {
 			public void mouseClicked(MouseEvent e) {
 				if( mode==0 ){
 					int[] path;
-					if(info.secpo!=-1){
+					if(Info.secpo!=-1){
 						
-						path=fw.FindPathArray(info.secpo, 3);
+						path=fw.FindPathArray(Info.secpo, 3);
 					}else{path=fw.FindPathArray(Position.start, 3);}
 					for(int i=0;i<path.length;i++){
 						System.out.print(path[i]+",");
@@ -606,9 +612,9 @@ public class Server {
 			public void mouseClicked(MouseEvent e) {
 				if( mode==0 ){
 					int[] path;
-					if(info.secpo!=-1){
+					if(Info.secpo!=-1){
 						
-						path=fw.FindPathArray(info.secpo, 4);
+						path=fw.FindPathArray(Info.secpo, 4);
 					}else{path=fw.FindPathArray(Position.start, 4);}
 					for(int i=0;i<path.length;i++){
 						System.out.print(path[i]+",");
@@ -632,9 +638,9 @@ public class Server {
 			public void mouseClicked(MouseEvent e) {
 				if( mode==0 ){
 					int[] path;
-					if(info.secpo!=-1){
+					if(Info.secpo!=-1){
 						
-						path=fw.FindPathArray(info.secpo, 5);
+						path=fw.FindPathArray(Info.secpo, 5);
 					}else{path=fw.FindPathArray(Position.start, 5);}
 					for(int i=0;i<path.length;i++){
 						System.out.print(path[i]+",");
@@ -657,9 +663,9 @@ public class Server {
 			public void mouseClicked(MouseEvent e) {
 				if( mode==0 ){
 					int[] path;
-					if(info.secpo!=-1){
+					if(Info.secpo!=-1){
 						
-						path=fw.FindPathArray(info.secpo, 8);
+						path=fw.FindPathArray(Info.secpo, 8);
 					}else{path=fw.FindPathArray(Position.start, 8);}
 					for(int i=0;i<path.length;i++){
 						System.out.print(path[i]+",");
@@ -682,9 +688,9 @@ public class Server {
 			public void mouseClicked(MouseEvent e) {
 				if( mode==0 ){
 					int[] path;
-					if(info.secpo!=-1){
+					if(Info.secpo!=-1){
 						
-						path=fw.FindPathArray(info.secpo, 7);
+						path=fw.FindPathArray(Info.secpo, 7);
 					}else{path=fw.FindPathArray(Position.start, 7);}
 					for(int i=0;i<path.length;i++){
 						System.out.print(path[i]+",");
@@ -707,9 +713,9 @@ public class Server {
 			public void mouseClicked(MouseEvent e) {
 				if( mode==0 ){
 					int[] path;
-					if(info.secpo!=-1){
+					if(Info.secpo!=-1){
 						
-						path=fw.FindPathArray(info.secpo, 6);
+						path=fw.FindPathArray(Info.secpo, 6);
 					}else{path=fw.FindPathArray(Position.start, 6);}
 					for(int i=0;i<path.length;i++){
 						System.out.print(path[i]+",");

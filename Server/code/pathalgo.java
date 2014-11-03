@@ -10,16 +10,6 @@ import javax.swing.JButton;
 import javax.swing.JTextArea;
 
 
-
-
-
-
-
-
-
-
-
-
 import code.Setting;
 
 public class pathalgo extends Thread implements MonitorProtocol{
@@ -43,10 +33,11 @@ public class pathalgo extends Thread implements MonitorProtocol{
 //		int[] c={0,1,2,3,8};
 		if(Info.secpo==-1){
 			inipos();
+			
 		}
 		else{
 			pathgo(path);
-		 Info.secpo=path[path.length-1];
+		  Info.secpo=path[path.length-1];
 		}
 	}
 	public void inipos(){
@@ -129,7 +120,7 @@ public class pathalgo extends Thread implements MonitorProtocol{
 		try {int xxx=0;
 			while(ql.uang==360||ql.uang==370){
 				if(xxx%10==0)System.out.println(ql.uang);
-				Thread.sleep(100);xxx++;
+				Thread.sleep(1000);xxx++;
 				if(xxx==370){ql.uang=0;break;}
 				if(xxx>5)break;
 			}
@@ -412,7 +403,7 @@ public class pathalgo extends Thread implements MonitorProtocol{
 					}
 				
 				go(now,next);
-				
+				System.out.println( "now: "+now.no+"next: "+next.no);
 				Thread.sleep(1000);
 				
 			} catch (Exception e) {
@@ -867,7 +858,10 @@ public class pathalgo extends Thread implements MonitorProtocol{
 		System.out.println( "setrotang"+ang);
 		
 		int ttx=(int) (Math.abs(ang-Info.carang)/9);
-		if(ang==0)ttx=(int) (Math.abs(360-Info.carang)/9);
+	
+		if(ang==0){ttx=(int) (Math.abs(360-Info.carang)/9);
+		if(Info.carang<10){ttx=1;}
+		}
 		Socket socket=null;
 		 socket=Setting.server.accept();
 		out = new DataOutputStream(socket.getOutputStream());
