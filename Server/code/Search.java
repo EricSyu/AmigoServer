@@ -28,7 +28,7 @@ public class Search extends Thread{
 		try{
 			ServerSocket wifiSocket=new ServerSocket(Integer.parseInt(textField.getText()));
 			int text = Integer.parseInt(textField_1.getText());
-			int i, j, flag=0, loop=0;
+			int i, j, loop=0;
 			
 			while( text > loop ){
 				Socket wclient = wifiSocket.accept();
@@ -45,9 +45,11 @@ public class Search extends Thread{
 				}else{
 					for( i=1; i<wifi.length; i++ ){
 						for( j=0; j<15; j++ ){
-							if( record[j].equals(wifi[i].substring(0, 17)) ){
-								cnt[j]++;
-								break;
+							if( record[j]!=null ){
+								if( record[j].equals(wifi[i].substring(0, 17)) ){
+									cnt[j]++;
+									break;
+								}
 							}
 						}
 						if(j==15){
@@ -55,7 +57,6 @@ public class Search extends Thread{
 								if( cnt[j]==0 ){
 									record[j]=wifi[i].substring(0, 17);
 									cnt[j]++;
-									flag=0;
 									break;
 								}
 							}

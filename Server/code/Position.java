@@ -47,7 +47,7 @@ public class Position extends Thread{
 		params.means();
 		params.weights();
 		params.probs();
-		params.nclusters(3);
+		params.nclusters(4);
 		params.cov_mat_type(CvEM.COV_MAT_SPHERICAL);
 		params.start_step(CvEM.START_AUTO_STEP);
 		params.term_crit().max_iter(300);    // 嚙踝蕭嚙踐迭嚙瞇嚙諒堆蕭嚙踝蕭嚙踝蕭
@@ -290,8 +290,6 @@ public class Position extends Thread{
 					int[] level=new int[]{0, 0, 0, 0, 0, 0};
 					int[] _level=new int[]{-100, -100, -100, -100, -100, -100};
 					while(avg<5){
-						
-								
 						FileReader posfr = new FileReader("C://CamTest//Positioning.txt");
 						BufferedReader posbr = new BufferedReader(posfr);
 						synchronized(posbr){

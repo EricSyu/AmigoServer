@@ -140,9 +140,6 @@ public class Server {
 		speed=set.Speed;
 		
 		final Info info = new Info();
-		
-		carxy cxy=new carxy();
-		new Thread(cxy).start();
 		info.start();
 		
 		final JButton button_1 = new JButton("Initializing...");
@@ -223,26 +220,6 @@ public class Server {
 		info.Initial(textArea_1, btnNewButton_18, btnNewButton_19
 				, btnNewButton_20, btnNewButton_21, btnNewButton_23);
 		
-		final JButton btnStart = new JButton("start");
-		btnStart.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				if(btnStart.getText().equals("start")==true){
-					btnStart.setText("stop");
-				vtest=new pathalgo();
-				vtest.start();
-				}
-				else{
-					btnStart.setText("start");
-					vtest.setstop(true);
-				}
-				
-			}
-		});
-		
-		btnStart.setBounds(164, 81, 87, 23);
-		panel_1.add(btnStart);
-		
 		JLabel lblWandermode = new JLabel("WanderMode :");
 		lblWandermode.setForeground(Color.GRAY);
 		lblWandermode.setFont(new Font("Dialog", Font.BOLD, 20));
@@ -277,11 +254,6 @@ public class Server {
 		textArea_4.setBounds(226, 402, 32, 25);
 		panel_2.add(textArea_4);
 		textArea_4.setEditable(false);
-		
-		final Propel propel=new Propel();
-		final MonitorZones mz=new MonitorZones();
-		
-		
 		
 		final JLabel lblNewLabel_1 = new JLabel("");
 		lblNewLabel_1.setBackground(Color.BLUE);

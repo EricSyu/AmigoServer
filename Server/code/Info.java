@@ -28,7 +28,7 @@ public class Info extends Thread{
 	@Override
 	public void run(){
 		try {
-			int i, cnt=0;
+			int i;
 			Boolean initial=false;
 			ServerSocket server=new ServerSocket(200);
 			
@@ -50,7 +50,7 @@ public class Info extends Thread{
 				carang=theta+theta/35.0f;
 				
 			
-				for( i=0; i<8; i++ ) sensor[i]=Integer.parseInt(brin.readLine());
+				for( i=0; i<8; i++ ) sensor[i]=0;
 				
 				info+="Blustooth: "+BTstatus+"\nAmigostatus: "+Amigostatus+"\nWifistatus: "
 						+Wifistatus+"\nCamstatus: "+Camstatus+"\nMotor: "+Motor+"\nStall: "
