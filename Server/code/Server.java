@@ -493,7 +493,6 @@ public class Server {
 					int[] path=new int[]{2, 3, 8, 7, 6, 5, 0, 1, 4, 2};
 					vtest=new pathalgo(path);
 					vtest.start();
-					MonitorZones.flag=true;
 				}
 			}
 		});
@@ -521,7 +520,6 @@ public class Server {
 					int[] path=new int[]{1, 0, 5, 6, 7, 8, 3, 2, 4, 1};
 					vtest=new pathalgo(path);
 					vtest.start();
-					MonitorZones.flag=true;
 				}
 			}
 		});
@@ -546,7 +544,6 @@ public class Server {
 					int[] path=new int[]{0, 5, 6, 7, 8, 3, 2, 4, 1, 0};
 					vtest=new pathalgo(path);
 					vtest.start();
-					MonitorZones.flag=true;
 				}
 			}
 		});
@@ -570,7 +567,6 @@ public class Server {
 					int[] path=new int[]{3, 8, 7, 6, 5, 0, 1, 2, 4, 3};
 					vtest=new pathalgo(path);
 					vtest.start();
-					MonitorZones.flag=true;
 				}
 			}
 		});
@@ -594,7 +590,6 @@ public class Server {
 					int[] path=new int[]{4, 7, 6, 5, 0, 1, 2, 3, 8, 4};
 					vtest=new pathalgo(path);
 					vtest.start();
-					MonitorZones.flag=true;
 				}
 			}
 		});
@@ -619,7 +614,6 @@ public class Server {
 					int[] path=new int[]{5, 0, 1, 4, 2, 3, 8, 7, 6, 5};
 					vtest=new pathalgo(path);
 					vtest.start();
-					MonitorZones.flag=true;
 				}
 			}
 		});
@@ -643,7 +637,6 @@ public class Server {
 					int[] path=new int[]{8, 7, 6, 5, 0, 1, 4, 2, 3, 8};
 					vtest=new pathalgo(path);
 					vtest.start();
-					MonitorZones.flag=true;
 				}
 			}
 		});
@@ -667,7 +660,6 @@ public class Server {
 					int[] path=new int[]{7, 6, 5, 0, 1, 4, 2, 3, 8, 7};
 					vtest=new pathalgo(path);
 					vtest.start();
-					MonitorZones.flag=true;
 				}
 			}
 		});
@@ -691,7 +683,6 @@ public class Server {
 					int[] path=new int[]{6, 5, 0, 1, 4, 2, 3, 8, 7, 6};
 					vtest=new pathalgo(path);
 					vtest.start();
-					MonitorZones.flag=true;
 				}
 			}
 		});
