@@ -6,6 +6,11 @@ import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.Socket;
 
+
+import javax.swing.JButton;
+import javax.swing.JTextArea;
+
+
 import code.Setting;
 
 public class pathalgo extends Thread implements MonitorProtocol{
@@ -17,21 +22,29 @@ public class pathalgo extends Thread implements MonitorProtocol{
 	vec tnext=null;
 	static double carx=0;
 	static double cary=0;
+	public static int traposno=-1;
+	public static int traposne=-1;
 	int[] path=null;
 	pathalgo(int[] _path){
 		path=_path;
 	}
 	@Override
 	public void run(){
-		int[] a={2,3,8,7,6,5,0,1,2};
-		int[] a1={2,1,0,5,6,7,8,3,2};
-		int[] b={2,1,0,5};
-		int[] c={0,1,2,3,8};
-		pathgo(path);
-		Info.secpo=path[path.length-1];
+//		int[] a={2,3,8,7,6,5,0,1,2};
+//		int[] a1={2,1,0,5,6,7,8,3,2};
+//		int[] b={2,1,0,5};
+//		int[] c={0,1,2,3,8};
+		if(Info.secpo==-1){
+			inipos();
+			
+		}
+		else{
+			pathgo(path);
+		  Info.secpo=path[path.length-1];
+		}
 	}
 	public void inipos(){
-		//判斷一開始在第幾區  visual
+		//�斗銝��鲳��函洵撟曉�  visual
 		qtvisual2 ql2=new qtvisual2();
 		ql2.tochep=path[0];
 		new Thread(ql2).start();
@@ -46,11 +59,12 @@ public class pathalgo extends Thread implements MonitorProtocol{
 				e.printStackTrace();
 			}
 		}
-		if(ql2.uang>0||ql2.uang<0){
+		if(ql2.tang!=0&&ql2.tang!=360){
 			System.out.println("start point: "+path[0]);
 			pathgo(path);
+			Info.secpo=path[path.length-1];
 		}else{
-			System.out.println("start point: not 2");
+			System.out.println("start point: not "+path[0]);
 		}
 	
 	}
@@ -109,8 +123,9 @@ public class pathalgo extends Thread implements MonitorProtocol{
 		try {int xxx=0;
 			while(ql.uang==360||ql.uang==370){
 				if(xxx%10==0)System.out.println(ql.uang);
-				Thread.sleep(100);xxx++;
+				Thread.sleep(1000);xxx++;
 				if(xxx==370){ql.uang=0;break;}
+				if(xxx>5)break;
 			}
 			visfin=true;
 			if(ql.uang<=-6&&ql.uang>-10){
@@ -178,7 +193,7 @@ public class pathalgo extends Thread implements MonitorProtocol{
 		carx=now.x;
 	    cary=now.y;
 		setrotang(0);
-		checkpath(120);
+		checkpath();
 		if(po==true){
 		    reset0();
 		}
@@ -191,7 +206,7 @@ public class pathalgo extends Thread implements MonitorProtocol{
 		carx=now.x;
 	    cary=now.y;
 			setrotang(180);	
-			checkpath(327);
+			checkpath();
 			setgodis(300,250);			
 	}
 	if(now.no==1&&next.no==2){
@@ -199,7 +214,7 @@ public class pathalgo extends Thread implements MonitorProtocol{
 	    cary=now.y;
 		setrotang(0);
 		
-		checkpath(129);
+		checkpath();
 		setgodis(300,300);
 		reset0();
 	}
@@ -207,7 +222,7 @@ public class pathalgo extends Thread implements MonitorProtocol{
 		carx=now.x;
 	    cary=now.y;
 		setrotang(90);
-		checkpath(52);
+		checkpath();
 		setgodis(300,300);
 	}
 	
@@ -215,7 +230,7 @@ public class pathalgo extends Thread implements MonitorProtocol{
 		carx=now.x;
 	    cary=now.y;
 		setrotang(180);
-		checkpath(320);
+		checkpath();
 		setgodis(300,200);
 		
 	}
@@ -238,7 +253,7 @@ public class pathalgo extends Thread implements MonitorProtocol{
 	if(now.no==3&&next.no==2){
 		
 		setrotang(270);
-		checkpath(203);
+		checkpath();
 		setgodis(360,200);
 		
 	}
@@ -296,7 +311,7 @@ public class pathalgo extends Thread implements MonitorProtocol{
 	if(now.no==5&&next.no==4){
 		
 		setrotang(348);
-		checkpath(136);
+		checkpath();
 		setgodis(305,200);
 
 	}
@@ -306,7 +321,7 @@ public class pathalgo extends Thread implements MonitorProtocol{
 		carx=now.x;
 	    cary=now.y;
 		setrotang(90);
-		checkpath(37);
+		checkpath();
 		setgodis(360,200);
 	}
 	if(now.no==5&&next.no==0){
@@ -314,7 +329,7 @@ public class pathalgo extends Thread implements MonitorProtocol{
 	    cary=now.y;
 		setrotang(270);
 		
-		checkpath(223);
+		checkpath();
 		setgodis(360,200);
 		
 		
@@ -391,7 +406,9 @@ public class pathalgo extends Thread implements MonitorProtocol{
 					}
 				
 				go(now,next);
-				
+				traposno=now.no;
+				traposne=next.no;
+				System.out.println( "now: "+now.no+"next: "+next.no);
 				Thread.sleep(1000);
 				
 			} catch (Exception e) {
@@ -403,7 +420,8 @@ public class pathalgo extends Thread implements MonitorProtocol{
 			}
 
 		}
-	
+		traposno=-1;
+		traposne=-1;
 		
 	}
 	public class qtvisual implements Runnable{
@@ -471,6 +489,7 @@ public class pathalgo extends Thread implements MonitorProtocol{
 	
 	public class qtvisual2 implements Runnable{
 		int uang=360;
+		double tang=-1;
 		int tochep=-1;
 		boolean qtfin=false;
 		@Override
@@ -487,7 +506,8 @@ public class pathalgo extends Thread implements MonitorProtocol{
 					byte[] receiveData = new byte[1024];       
 					  
 					boolean avoid=true;
-					String sentence =  ""+tochep;   				
+					String sentence =  ""+tochep;
+					if(tochep==0){sentence="00";}
 					sendData = sentence.getBytes();       
 					DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, IPAddress, 1023);       
 					ds.send(sendPacket); 
@@ -519,7 +539,7 @@ public class pathalgo extends Thread implements MonitorProtocol{
 					}else{
 						
 						double tan=Double.parseDouble(modifiedSentence.substring(xx+3, xx+7));
-						
+						tang=tan;
 						if((tan*10)%10>5){
 							if(tan<0)dan=(int) (tan-1);
 							else dan=(int) (tan+1);
@@ -673,7 +693,7 @@ public class pathalgo extends Thread implements MonitorProtocol{
 				return 1;
 			}
 			
-			if(Info.sensor[1]*si41<180||Info.sensor[2]*co75<150){
+			if(Info.sensor[1]*si41<190||Info.sensor[2]*co75<160){
 				forward(0);
 				relrot(-49);
 				x=0;		
@@ -755,12 +775,28 @@ public class pathalgo extends Thread implements MonitorProtocol{
 		}
 	}
 	public void avotonext(double tdis){
-		int nang=(int)(Math.atan2(tnext.y-cary, tnext.x-carx)*180/Math.PI);
-		System.out.println( "avotonext: next"+tnext.no+" x:"+ tnext.x+" nexty "+ cary+" nang "+nang);
-		if(Math.abs(tnext.y-cary)<10&&Math.abs(tnext.x-carx)<10)return;
+//		int nang=(int)(Math.atan2(tnext.y-cary, tnext.x-carx)*180/Math.PI);
+		System.out.println( "avotonext: next"+tnext.no);
+//		if(Math.abs(tnext.y-cary)<10&&Math.abs(tnext.x-carx)<10)return;
 		try {
 //			setrotang((360+nang)%360);
 			//avoidcheckpath();
+			qtvisual2 qv2=new qtvisual2();
+			qv2.tochep=tnow.no*10+0;
+			new Thread(qv2).start();
+			int st=0;
+			while(qv2.qtfin==false){
+				try {
+					Thread.sleep(1000);
+					st++;
+					if(st>6)break;
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			relrot(qv2.uang);
+			relrot(0);
 //			double tdis=Math.sqrt(Math.pow(tnext.y-cary, 2)+Math.pow(tnext.x-carx,2) );
 			setgodis(tdis, 150);
 			
@@ -828,7 +864,10 @@ public class pathalgo extends Thread implements MonitorProtocol{
 		System.out.println( "setrotang"+ang);
 		
 		int ttx=(int) (Math.abs(ang-Info.carang)/9);
-		if(ang==0)ttx=(int) (Math.abs(360-Info.carang)/9);
+	
+		if(ang==0){ttx=(int) (Math.abs(360-Info.carang)/9);
+		if(Info.carang<10){ttx=1;}
+		}
 		Socket socket=null;
 		 socket=Setting.server.accept();
 		out = new DataOutputStream(socket.getOutputStream());
@@ -948,13 +987,13 @@ public class pathalgo extends Thread implements MonitorProtocol{
 				
 				if(avoidbum38()==1||avoidbum38()==-1){
 					double tdis=(dtime-xt)*(speed/10);
-					avotonext(tdis-32);
+					avotonext(tdis-25);
 					break;
 				}
 			}
 			else if(avoidbum2()==1){
 				double tdis=(dtime-xt)*(speed/10);
-				avotonext(tdis-22);
+				avotonext(tdis-15);
 				break;
 			}
 			Thread.sleep(100);
@@ -987,9 +1026,7 @@ public class pathalgo extends Thread implements MonitorProtocol{
 		}
 	
 	}
-	public void pickrule(int x){
-		
-	}
+	
 	public class vec{
 		int x=0;
 		int y=0;

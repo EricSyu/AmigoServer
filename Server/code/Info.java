@@ -48,7 +48,7 @@ public class Info extends Thread{
 				x=(Integer.parseInt(brin.readLine()));
 				y=(Integer.parseInt(brin.readLine()));
 				theta=Integer.parseInt(brin.readLine());
-				comdeg=(int) Double.parseDouble(brin.readLine());
+//				comdeg=(int) Double.parseDouble(brin.readLine());
 				if(pathalgo.po==true){
 					if(pathalgo.status==0) {
 						carang=theta+theta/29.0f;
@@ -72,7 +72,7 @@ public class Info extends Thread{
 				
 				info+="Blustooth: "+BTstatus+"\nAmigostatus: "+Amigostatus+"\nWifistatus: "
 						+Wifistatus+"\nCamstatus: "+Camstatus+"\nMotor: "+Motor+"\nStall: "
-						+stall+"\n("+x+", "+y+")\n"+"Angle: "+theta+"\n"+"compassdegree: "+comdeg+"\n";
+						+stall+"\n("+x+", "+y+")\n"+"Angle: "+theta+"\n"+"compassdegree: ";
 				for( i=0; i<8; i++ ) info+="Sensor "+i+": "+sensor[i]+"\n";
 				
 				textArea.setText(info);

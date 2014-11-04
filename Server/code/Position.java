@@ -60,33 +60,59 @@ public class Position extends Thread{
 		int _zone=0, m=1, n=1, i, j;
 		
 		reset++;
-		
-		for( i=1; i<gmm_model.length; i++){
-			if( gmm_model[i].calcLikelihood(TestFeature)>result ){
-				result = gmm_model[i].calcLikelihood(TestFeature);
-				_zone=i;
-			}
-		}
-
-		if( reset<100 ){
-			reset=0;
-			zone=-1;
-		}
-
-		if( zone==-1 ) zone=_zone;
-		else{
-			for( i=1; i<4; i++ ){
-				for( j=1; j<4; j++ ){
-					if( _zone==LockZone[i][j] ){
-						m=i;
-						n=j;
-						break;
-					}
+		if( pathalgo.traposno!=-1 ){
+			int next=0, now=0;
+			switch(pathalgo.traposno){
+		    case 0: now=6;
+		    case 1: now=3;
+		    case 2: now=0;
+		    case 3: now=1;
+		    case 5: now=7;
+		    case 6: now=8;
+		    case 7: now=5;
+		    case 8: now=2;
+		    }
+			switch(pathalgo.traposne){
+	        case 0: next=6;
+	        case 1: next=3;
+	        case 2: next=0;
+	        case 3: next=1;
+	        case 5: next=7;
+	        case 6: next=8;
+	        case 7: next=5;
+	        case 8: next=2;
+	        }
+			if( gmm_model[now].calcLikelihood(TestFeature)>gmm_model[next].calcLikelihood(TestFeature) )
+				zone=now;
+			else zone=next;
+		}else{
+			for( i=1; i<gmm_model.length; i++){
+				if( gmm_model[i].calcLikelihood(TestFeature)>result ){
+					result = gmm_model[i].calcLikelihood(TestFeature);
+					_zone=i;
 				}
 			}
-			if( _zone==LockZone[m][n] || _zone==LockZone[m+1][n] || _zone==LockZone[m-1][n] 
-					|| _zone==LockZone[m][n+1] || _zone==LockZone[m][n-1])
-				zone=_zone;
+
+			if( reset<100 ){
+				reset=0;
+				zone=-1;
+			}
+
+			if( zone==-1 ) zone=_zone;
+			else{
+				for( i=1; i<4; i++ ){
+					for( j=1; j<4; j++ ){
+						if( _zone==LockZone[i][j] ){
+							m=i;
+							n=j;
+							break;
+						}
+					}
+				}
+				if( _zone==LockZone[m][n] || _zone==LockZone[m+1][n] || _zone==LockZone[m-1][n] 
+						|| _zone==LockZone[m][n+1] || _zone==LockZone[m][n-1])
+					zone=_zone;
+			}
 		}
 		
 		switch(zone){
@@ -304,12 +330,15 @@ public class Position extends Thread{
 							reg=posbr.readLine();
 							_str=reg;
 
-
 							if( _str!=null ){
 								if( _str.indexOf("SSID")>-1 ){
 									String[] wifi = _str.split("BSSID: ");
 									
+
 									FileReader macfr = new FileReader("D:/CamTest/database/Wifimac.txt");
+
+
+
 									BufferedReader macbr = new BufferedReader(macfr);
 									String str=macbr.readLine();
 									String[] mac = str.split("__");

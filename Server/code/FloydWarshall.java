@@ -59,16 +59,20 @@ public class FloydWarshall {
 		
 		public int[] FindPathArray( int s, int d ){
 			FindPath(s,d);
+			int ttemp=temp[0];
 			temp[0]=s;
 			int[] respath = null;
 			int t=0;
 			while( temp[t]!=-1 ) t++;
+			int ttemp2=temp[t];
 			temp[t]=d;
 			for( int i=0; i<=t; i++){
 				if( i==0 ) respath=new int[t+1];
 				respath[i]=temp[i];
 			}
-			
+			x=1;
+			temp[0]=ttemp;
+			temp[t]=ttemp2;
 			return respath;
 		}
 	}

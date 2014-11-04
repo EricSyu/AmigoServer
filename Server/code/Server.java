@@ -225,6 +225,7 @@ public class Server {
 				, btnNewButton_20, btnNewButton_21, btnNewButton_23);
 		
 
+
 		JLabel lblWandermode = new JLabel("WanderMode :");
 		lblWandermode.setForeground(Color.GRAY);
 		lblWandermode.setFont(new Font("Dialog", Font.BOLD, 20));
@@ -261,6 +262,7 @@ public class Server {
 		panel_2.add(textArea_4);
 		textArea_4.setEditable(false);
 		
+
 		final JLabel lblNewLabel_1 = new JLabel("");
 		lblNewLabel_1.setBackground(Color.BLUE);
 		lblNewLabel_1.setBounds(36, 29, 517, 309);
@@ -394,7 +396,7 @@ public class Server {
 			public void mouseClicked(MouseEvent arg0) {
 				speed+=10;
 				set.Speed=speed;
-			
+				
 				if(speed>1000){
 					speed=1000;
 					set.Speed=speed;
@@ -479,10 +481,12 @@ public class Server {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				if( mode==0 ){
+
 					int[] path;
 					if(Info.secpo!=-1){
 						path=fw.FindPathArray(Info.secpo, 2);
 					}else{path=fw.FindPathArray(Position.start, 2);}
+
 					
 					for(int i=0;i<path.length;i++){
 						System.out.print(path[i]+",");
@@ -490,9 +494,11 @@ public class Server {
 					vtest=new pathalgo(path);
 					vtest.start();
 				}else{
-					int[] path=new int[]{2, 3, 8, 7, 6, 5, 0, 1, 4, 2};
+					
+					int[] path=new int[]{2, 3, 8, 7, 6, 5, 0, 1, 2};
 					vtest=new pathalgo(path);
 					vtest.start();
+
 				}
 			}
 		});
@@ -518,8 +524,10 @@ public class Server {
 					vtest.start();
 				}else{
 					int[] path=new int[]{1, 0, 5, 6, 7, 8, 3, 2, 4, 1};
+
 					vtest=new pathalgo(path);
 					vtest.start();
+
 				}
 			}
 		});
@@ -537,13 +545,17 @@ public class Server {
 						
 						path=fw.FindPathArray(Info.secpo, 0);
 					}else{path=fw.FindPathArray(Position.start, 0);}
-					
+					for(int i=0;i<path.length;i++){
+						System.out.print(path[i]+",");
+					}
 					vtest=new pathalgo(path);
 					vtest.start();
 				}else{
-					int[] path=new int[]{0, 5, 6, 7, 8, 3, 2, 4, 1, 0};
+					int[] path=new int[]{0, 5, 6, 7, 8, 3, 2, 1, 0};
+
 					vtest=new pathalgo(path);
 					vtest.start();
+
 				}
 			}
 		});
@@ -561,12 +573,20 @@ public class Server {
 						
 						path=fw.FindPathArray(Info.secpo, 3);
 					}else{path=fw.FindPathArray(Position.start, 3);}
+					for(int i=0;i<path.length;i++){
+						System.out.print(path[i]+",");
+					}
 					vtest=new pathalgo(path);
 					vtest.start();
 				}else{
-					int[] path=new int[]{3, 8, 7, 6, 5, 0, 1, 2, 4, 3};
+
+				
+					
+
+					int[] path=new int[]{3, 8, 7, 6, 5, 0, 1, 2, 3};
 					vtest=new pathalgo(path);
 					vtest.start();
+
 				}
 			}
 		});
@@ -584,12 +604,20 @@ public class Server {
 						
 						path=fw.FindPathArray(Info.secpo, 4);
 					}else{path=fw.FindPathArray(Position.start, 4);}
+					for(int i=0;i<path.length;i++){
+						System.out.print(path[i]+",");
+					}
 					vtest=new pathalgo(path);
 					vtest.start();
 				}else{
-					int[] path=new int[]{4, 7, 6, 5, 0, 1, 2, 3, 8, 4};
+
+					int[] path=new int[]{4, 5, 6, 7, 8, 3, 2, 1,0};
+					
+
+					
 					vtest=new pathalgo(path);
 					vtest.start();
+
 				}
 			}
 		});
@@ -608,12 +636,18 @@ public class Server {
 						
 						path=fw.FindPathArray(Info.secpo, 5);
 					}else{path=fw.FindPathArray(Position.start, 5);}
+					for(int i=0;i<path.length;i++){
+						System.out.print(path[i]+",");
+					}
 					vtest=new pathalgo(path);
 					vtest.start();
 				}else{
-					int[] path=new int[]{5, 0, 1, 4, 2, 3, 8, 7, 6, 5};
+
+					int[] path=new int[]{5, 0, 1, 2, 3, 8, 7, 6, 5};
+					
 					vtest=new pathalgo(path);
 					vtest.start();
+
 				}
 			}
 		});
@@ -631,12 +665,18 @@ public class Server {
 						
 						path=fw.FindPathArray(Info.secpo, 8);
 					}else{path=fw.FindPathArray(Position.start, 8);}
+					for(int i=0;i<path.length;i++){
+						System.out.print(path[i]+",");
+					}
 					vtest=new pathalgo(path);
 					vtest.start();
 				}else{
-					int[] path=new int[]{8, 7, 6, 5, 0, 1, 4, 2, 3, 8};
+
+					int[] path=new int[]{8, 7, 6, 5, 0, 1, 2, 3, 8};
+					
 					vtest=new pathalgo(path);
 					vtest.start();
+
 				}
 			}
 		});
@@ -654,12 +694,19 @@ public class Server {
 						
 						path=fw.FindPathArray(Info.secpo, 7);
 					}else{path=fw.FindPathArray(Position.start, 7);}
+					for(int i=0;i<path.length;i++){
+						System.out.print(path[i]+",");
+					}
 					vtest=new pathalgo(path);
 					vtest.start();
 				}else{
-					int[] path=new int[]{7, 6, 5, 0, 1, 4, 2, 3, 8, 7};
+
+					int[] path=new int[]{7, 6, 5, 0, 1, 2, 3, 8, 7};
+					
+
 					vtest=new pathalgo(path);
 					vtest.start();
+
 				}
 			}
 		});
@@ -673,16 +720,25 @@ public class Server {
 			public void mouseClicked(MouseEvent e) {
 				if( mode==0 ){
 					int[] path;
-					if(Info.secpo!=-6){
+
+					if(Info.secpo!=-1){
+
 						
 						path=fw.FindPathArray(Info.secpo, 6);
 					}else{path=fw.FindPathArray(Position.start, 6);}
+					for(int i=0;i<path.length;i++){
+						System.out.print(path[i]+",");
+					}
 					vtest=new pathalgo(path);
 					vtest.start();
 				}else{
-					int[] path=new int[]{6, 5, 0, 1, 4, 2, 3, 8, 7, 6};
+
+					int[] path=new int[]{6, 5, 0, 1,  2, 3, 8, 7, 6};
+				
+
 					vtest=new pathalgo(path);
 					vtest.start();
+
 				}
 			}
 		});
@@ -716,6 +772,7 @@ public class Server {
 		
 		
 		
+
 		JPanel panel = new JPanel();
 		tabbedPane.addTab("Build", null, panel, null);
 		panel.setLayout(null);
