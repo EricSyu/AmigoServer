@@ -147,6 +147,10 @@ public class Server {
 		
 		
 		final JButton button_1 = new JButton("Initializing...");
+		button_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
 		
 		final JButton btnNewButton_18 = new JButton("Initializing...");
 		btnNewButton_18.addMouseListener(new MouseAdapter() {
@@ -237,10 +241,14 @@ public class Server {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				if(button_1.getText().equals("Start")){
-					Setting.WanderOpen=true;
+//					Setting.WanderOpen=true;
+				
+					
 					button_1.setText("Stop");
+					
 				}else{
-					Setting.WanderClose=true;
+//					Setting.WanderClose=true;
+				
 					button_1.setText("Start");
 				}
 			}
@@ -396,7 +404,7 @@ public class Server {
 			public void mouseClicked(MouseEvent arg0) {
 				speed+=10;
 				set.Speed=speed;
-				
+			
 				if(speed>1000){
 					speed=1000;
 					set.Speed=speed;
@@ -527,7 +535,7 @@ public class Server {
 
 					vtest=new pathalgo(path);
 					vtest.start();
-					MonitorZones.flag=true;
+				
 
 				}
 			}
@@ -556,7 +564,7 @@ public class Server {
 
 					vtest=new pathalgo(path);
 					vtest.start();
-					MonitorZones.flag=true;
+					
 
 				}
 			}
@@ -588,7 +596,7 @@ public class Server {
 					int[] path=new int[]{3, 8, 7, 6, 5, 0, 1, 2, 3};
 					vtest=new pathalgo(path);
 					vtest.start();
-					MonitorZones.flag=true;
+					
 
 				}
 			}
@@ -620,7 +628,7 @@ public class Server {
 					
 					vtest=new pathalgo(path);
 					vtest.start();
-					MonitorZones.flag=true;
+					
 
 				}
 			}
@@ -651,7 +659,7 @@ public class Server {
 					
 					vtest=new pathalgo(path);
 					vtest.start();
-					MonitorZones.flag=true;
+					
 
 				}
 			}
@@ -681,7 +689,7 @@ public class Server {
 					
 					vtest=new pathalgo(path);
 					vtest.start();
-					MonitorZones.flag=true;
+				
 
 				}
 			}
@@ -712,7 +720,7 @@ public class Server {
 
 					vtest=new pathalgo(path);
 					vtest.start();
-					MonitorZones.flag=true;
+					
 
 				}
 			}
@@ -745,8 +753,7 @@ public class Server {
 
 					vtest=new pathalgo(path);
 					vtest.start();
-					MonitorZones.flag=true;
-
+				
 				}
 			}
 		});

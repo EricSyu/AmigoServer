@@ -21,4 +21,6 @@ public interface MonitorProtocol {
 	public static final int Connected = 4;
 	public static final int Search= 5;
 	public static final int ResetPotition=10;
+	public static final int PlayMusic1 = 101;
+	public static final int PlayMusic2 =102;
 }
