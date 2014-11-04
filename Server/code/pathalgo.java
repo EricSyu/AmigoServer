@@ -981,7 +981,7 @@ public class pathalgo extends Thread implements MonitorProtocol{
 				
 				if(avoidbum38()==1||avoidbum38()==-1){
 					double tdis=(dtime-xt)*(speed/10);
-					avotonext(tdis-30);
+					avotonext(tdis-25);
 					break;
 				}
 			}
