@@ -9,6 +9,7 @@ public class OneClickConnect extends Thread{
 		BTButton=_BTButton;
 		WanderMode=_WanderMode;
 	}
+	@Override
 	public void run(){
 		if(OneClick.getText().equals("OneClickConnect")){
 			Setting.BTSwitchopen=true;

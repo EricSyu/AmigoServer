@@ -16,6 +16,7 @@ public class BTButton extends Thread{
 		OneClick=_OneClick;
 		WanderMode=_WanderMode;
 	}
+	@Override
 	public void run(){
 		if(Blutooth.getText().equals("Open")){
 			Setting.BTSwitchopen=true;

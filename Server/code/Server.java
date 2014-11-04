@@ -125,7 +125,7 @@ public class Server {
 		JTextArea textArea_1 = new JTextArea();
 		textArea_1.setFont(new Font("微軟正黑體", Font.BOLD, 15));
 		textArea_1.setBackground(Color.WHITE);
-		textArea_1.setBounds(319, 54, 184, 342);
+		textArea_1.setBounds(355, 77, 184, 342);
 		panel_1.add(textArea_1);
 		
 		final JComboBox comboBox_1 = new JComboBox();
@@ -166,7 +166,7 @@ public class Server {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				btnNewButton_19.setEnabled(false);
-				set.Amigoconnect=true;
+				Setting.Amigoconnect=true;
 				button_1.setEnabled(true);
 				button_1.setText("Start");;
 			}
@@ -179,10 +179,10 @@ public class Server {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				if(btnNewButton_20.getText().equals("Send")){
-					set.Wificonnect=true;
+					Setting.Wificonnect=true;
 					btnNewButton_20.setText("Stop");
 				}else{
-					set.Wifiunconnect=true;
+					Setting.Wifiunconnect=true;
 					btnNewButton_20.setText("Send");
 				}
 			}
@@ -196,10 +196,10 @@ public class Server {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				if(btnNewButton_21.getText().equals("Connect")){
-					set.MobileCamcon=true;
+					Setting.MobileCamcon=true;
 					btnNewButton_21.setText("Stop");
 				}else{
-					set.MobileCamuncon=true;
+					Setting.MobileCamuncon=true;
 					btnNewButton_21.setText("Connect");
 				}
 			}
@@ -224,43 +224,23 @@ public class Server {
 		info.Initial(textArea_1, btnNewButton_18, btnNewButton_19
 				, btnNewButton_20, btnNewButton_21, btnNewButton_23);
 		
-		final JButton btnStart = new JButton("start");
-		btnStart.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				if(btnStart.getText().equals("start")==true){
-					btnStart.setText("stop");
-//					int[] path;
-//					
-//						path=fw.FindPathArray(6, 2);
-//					
-//					for (int j : path) {
-//						System.out.print(j+",");
-//					}
-					
-				}
-				else{
-					btnStart.setText("start");
-					vtest.setstop(true);
-				}
-				
-			}
-		});
-		
-		btnStart.setBounds(164, 81, 87, 23);
-		panel_1.add(btnStart);
-		
 
+
+		JLabel lblWandermode = new JLabel("WanderMode :");
+		lblWandermode.setForeground(Color.GRAY);
+		lblWandermode.setFont(new Font("Dialog", Font.BOLD, 20));
+		lblWandermode.setBounds(24, 328, 138, 28);
+		panel_1.add(lblWandermode);
 
 		
 		button_1.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				if(button_1.getText().equals("Start")){
-					set.WanderOpen=true;
+					Setting.WanderOpen=true;
 					button_1.setText("Stop");
 				}else{
-					set.WanderClose=true;
+					Setting.WanderClose=true;
 					button_1.setText("Start");
 				}
 			}
@@ -282,12 +262,7 @@ public class Server {
 		panel_2.add(textArea_4);
 		textArea_4.setEditable(false);
 		
-		final Propel propel=new Propel();
-		final MonitorZones mz=new MonitorZones();
-		
 
-		
-		
 		final JLabel lblNewLabel_1 = new JLabel("");
 		lblNewLabel_1.setBackground(Color.BLUE);
 		lblNewLabel_1.setBounds(36, 29, 517, 309);
@@ -350,12 +325,12 @@ public class Server {
 		btnNewButton_15.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent arg0) {
-				set.Forward=true;
+				Setting.Forward=true;
 				set.Speed=Integer.parseInt(textArea_4.getText());
 			}
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
-				set.Forward=true;
+				Setting.Forward=true;
 				set.Speed=0;
 			}
 		});
@@ -366,12 +341,12 @@ public class Server {
 		btnNewButton_16.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent arg0) {
-				set.Forward=true;
+				Setting.Forward=true;
 				set.Speed=-Integer.parseInt(textArea_4.getText());
 			}
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
-				set.Forward=true;
+				Setting.Forward=true;
 				set.Speed=0;
 			}
 		});
@@ -382,12 +357,12 @@ public class Server {
 		button.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent arg0) {
-				set.Turn=true;
+				Setting.Turn=true;
 				set.Speed=Integer.parseInt(textArea_4.getText());
 			}
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
-				set.Turn=true;
+				Setting.Turn=true;
 				set.Speed=0;
 			}
 		});
@@ -398,12 +373,12 @@ public class Server {
 		btnNewButton_17.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent arg0) {
-				set.Turn=true;
+				Setting.Turn=true;
 				set.Speed=-Integer.parseInt(textArea_4.getText());
 			}
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
-				set.Turn=true;
+				Setting.Turn=true;
 				set.Speed=0;
 			}
 		});
@@ -412,6 +387,7 @@ public class Server {
 		
 		JButton btnNewButton_14 = new JButton("\uFF0B");
 		btnNewButton_14.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent arg0) {
 			}
 		});
@@ -426,7 +402,7 @@ public class Server {
 					set.Speed=speed;
 				}
 				textArea_4.setText(speed+"");
-				set.SetAddSpeed=true;
+				Setting.SetAddSpeed=true;
 			}
 		});
 		btnNewButton_14.setBounds(160, 403, 56, 23);
@@ -443,7 +419,7 @@ public class Server {
 					set.Speed=speed;
 				}
 				textArea_4.setText(speed+"");
-				set.SetSubtractSpeed=true;
+				Setting.SetSubtractSpeed=true;
 			}
 		});
 		button_2.setBounds(268, 403, 56, 23);
@@ -505,10 +481,12 @@ public class Server {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				if( mode==0 ){
-					int[] path=null;
+
+					int[] path;
 					if(Info.secpo!=-1){
 						path=fw.FindPathArray(Info.secpo, 2);
-					}else{path=fw.FindPathArray(6, 2);}
+					}else{path=fw.FindPathArray(Position.start, 2);}
+
 					
 					for(int i=0;i<path.length;i++){
 						System.out.print(path[i]+",");
@@ -520,10 +498,7 @@ public class Server {
 					int[] path=new int[]{2, 3, 8, 7, 6, 5, 0, 1, 2};
 					vtest=new pathalgo(path);
 					vtest.start();
-					
-					
-				
-					
+
 				}
 			}
 		});
@@ -549,7 +524,11 @@ public class Server {
 					vtest.start();
 				}else{
 					int[] path=new int[]{1, 0, 5, 6, 7, 8, 3, 2, 4, 1};
-					
+
+					vtest=new pathalgo(path);
+					vtest.start();
+					MonitorZones.flag=true;
+
 				}
 			}
 		});
@@ -574,7 +553,11 @@ public class Server {
 					vtest.start();
 				}else{
 					int[] path=new int[]{0, 5, 6, 7, 8, 3, 2, 4, 1, 0};
-					
+
+					vtest=new pathalgo(path);
+					vtest.start();
+					MonitorZones.flag=true;
+
 				}
 			}
 		});
@@ -598,8 +581,15 @@ public class Server {
 					vtest=new pathalgo(path);
 					vtest.start();
 				}else{
-					int[] path=new int[]{3, 8, 7, 6, 5, 0, 1, 2, 3};
+
+				
 					
+
+					int[] path=new int[]{3, 8, 7, 6, 5, 0, 1, 2, 3};
+					vtest=new pathalgo(path);
+					vtest.start();
+					MonitorZones.flag=true;
+
 				}
 			}
 		});
@@ -623,8 +613,15 @@ public class Server {
 					vtest=new pathalgo(path);
 					vtest.start();
 				}else{
+
 					int[] path=new int[]{4, 5, 6, 7, 8, 3, 2, 1,0};
 					
+
+					
+					vtest=new pathalgo(path);
+					vtest.start();
+					MonitorZones.flag=true;
+
 				}
 			}
 		});
@@ -649,8 +646,13 @@ public class Server {
 					vtest=new pathalgo(path);
 					vtest.start();
 				}else{
+
 					int[] path=new int[]{5, 0, 1, 2, 3, 8, 7, 6, 5};
 					
+					vtest=new pathalgo(path);
+					vtest.start();
+					MonitorZones.flag=true;
+
 				}
 			}
 		});
@@ -674,8 +676,13 @@ public class Server {
 					vtest=new pathalgo(path);
 					vtest.start();
 				}else{
+
 					int[] path=new int[]{8, 7, 6, 5, 0, 1, 2, 3, 8};
 					
+					vtest=new pathalgo(path);
+					vtest.start();
+					MonitorZones.flag=true;
+
 				}
 			}
 		});
@@ -699,8 +706,14 @@ public class Server {
 					vtest=new pathalgo(path);
 					vtest.start();
 				}else{
+
 					int[] path=new int[]{7, 6, 5, 0, 1, 2, 3, 8, 7};
 					
+
+					vtest=new pathalgo(path);
+					vtest.start();
+					MonitorZones.flag=true;
+
 				}
 			}
 		});
@@ -714,7 +727,9 @@ public class Server {
 			public void mouseClicked(MouseEvent e) {
 				if( mode==0 ){
 					int[] path;
+
 					if(Info.secpo!=-1){
+
 						
 						path=fw.FindPathArray(Info.secpo, 6);
 					}else{path=fw.FindPathArray(Position.start, 6);}
@@ -724,8 +739,14 @@ public class Server {
 					vtest=new pathalgo(path);
 					vtest.start();
 				}else{
+
 					int[] path=new int[]{6, 5, 0, 1,  2, 3, 8, 7, 6};
 				
+
+					vtest=new pathalgo(path);
+					vtest.start();
+					MonitorZones.flag=true;
+
 				}
 			}
 		});
@@ -778,7 +799,7 @@ public class Server {
 		panel.add(lblData);
 		lblData.setFont(new Font("敺株�甇�擃�", Font.BOLD, 16));
 		
-		textField_1 = new JTextField("250");
+		textField_1 = new JTextField("62");
 		textField_1.setFont(new Font("敺株�甇�擃�", Font.BOLD, 12));
 		textField_1.setBounds(112, 81, 96, 21);
 		panel.add(textField_1);

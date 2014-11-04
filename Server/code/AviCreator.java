@@ -15,6 +15,7 @@ public class AviCreator extends Thread{
 		Header=_Header;
 		Pictures=_pics;
 	}
+	@Override
 	public void run(){
 		try {
 			int i;

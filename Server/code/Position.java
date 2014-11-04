@@ -299,9 +299,7 @@ public class Position extends Thread{
 					int[] level=new int[]{0, 0, 0, 0, 0, 0};
 					int[] _level=new int[]{-100, -100, -100, -100, -100, -100};
 					while(avg<5){
-						
-								
-						FileReader posfr = new FileReader("D:/CamTest/database/Positioning.txt");
+						FileReader posfr = new FileReader("C://CamTest//Positioning.txt");
 						BufferedReader posbr = new BufferedReader(posfr);
 						synchronized(posbr){
 							String reg="0";
@@ -339,6 +337,7 @@ public class Position extends Thread{
 							}
 						}
 					}
+					int g=0;
 					avg=0;
 					for( i=0; i<6; i++ ){ 
 						level[i]/=5;
