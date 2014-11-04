@@ -31,15 +31,17 @@ public class Server {
 	static Boolean flag=true, _flag=true, posflag=true, monflag=true, positflag=true, conflag=false, Infoflag=false;
 	int mode=0, speed=0;
 	String BTname="";
-	JButton btnNewButton_3 = new JButton("0");
+	JButton btnNewButton_3 = new JButton("2");
 	JButton btnNewButton_4 = new JButton("1");
-	JButton btnNewButton_5 = new JButton("2");
+	JButton btnNewButton_5 = new JButton("0");
 	JButton btnNewButton_6 = new JButton("3");
 	JButton btnNewButton_7 = new JButton("4");
 	JButton btnNewButton_8 = new JButton("5");
-	JButton btnNewButton_9 = new JButton("6");
+	JButton btnNewButton_9 = new JButton("8");
 	JButton btnNewButton_10 = new JButton("7");
-	JButton btnNewButton_11 = new JButton("8");
+	JButton btnNewButton_11 = new JButton("6");
+	FloydWarshall fw=new FloydWarshall();
+	 vposini vpi=null;
 	private JTextField txtWifisignal;
 	pathalgo vtest=null;
 	/**
@@ -123,7 +125,7 @@ public class Server {
 		JTextArea textArea_1 = new JTextArea();
 		textArea_1.setFont(new Font("微軟正黑體", Font.BOLD, 15));
 		textArea_1.setBackground(Color.WHITE);
-		textArea_1.setBounds(337, 76, 184, 342);
+		textArea_1.setBounds(355, 77, 184, 342);
 		panel_1.add(textArea_1);
 		
 		final JComboBox comboBox_1 = new JComboBox();
@@ -141,6 +143,8 @@ public class Server {
 		
 		final Info info = new Info();
 		info.start();
+		
+		
 		
 		final JButton button_1 = new JButton("Initializing...");
 		
@@ -162,7 +166,7 @@ public class Server {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				btnNewButton_19.setEnabled(false);
-				set.Amigoconnect=true;
+				Setting.Amigoconnect=true;
 				button_1.setEnabled(true);
 				button_1.setText("Start");;
 			}
@@ -175,10 +179,10 @@ public class Server {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				if(btnNewButton_20.getText().equals("Send")){
-					set.Wificonnect=true;
+					Setting.Wificonnect=true;
 					btnNewButton_20.setText("Stop");
 				}else{
-					set.Wifiunconnect=true;
+					Setting.Wifiunconnect=true;
 					btnNewButton_20.setText("Send");
 				}
 			}
@@ -192,10 +196,10 @@ public class Server {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				if(btnNewButton_21.getText().equals("Connect")){
-					set.MobileCamcon=true;
+					Setting.MobileCamcon=true;
 					btnNewButton_21.setText("Stop");
 				}else{
-					set.MobileCamuncon=true;
+					Setting.MobileCamuncon=true;
 					btnNewButton_21.setText("Connect");
 				}
 			}
@@ -220,20 +224,22 @@ public class Server {
 		info.Initial(textArea_1, btnNewButton_18, btnNewButton_19
 				, btnNewButton_20, btnNewButton_21, btnNewButton_23);
 		
+
 		JLabel lblWandermode = new JLabel("WanderMode :");
 		lblWandermode.setForeground(Color.GRAY);
 		lblWandermode.setFont(new Font("Dialog", Font.BOLD, 20));
 		lblWandermode.setBounds(24, 328, 138, 28);
 		panel_1.add(lblWandermode);
+
 		
 		button_1.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				if(button_1.getText().equals("Start")){
-					set.WanderOpen=true;
+					Setting.WanderOpen=true;
 					button_1.setText("Stop");
 				}else{
-					set.WanderClose=true;
+					Setting.WanderClose=true;
 					button_1.setText("Start");
 				}
 			}
@@ -317,12 +323,12 @@ public class Server {
 		btnNewButton_15.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent arg0) {
-				set.Forward=true;
+				Setting.Forward=true;
 				set.Speed=Integer.parseInt(textArea_4.getText());
 			}
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
-				set.Forward=true;
+				Setting.Forward=true;
 				set.Speed=0;
 			}
 		});
@@ -333,12 +339,12 @@ public class Server {
 		btnNewButton_16.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent arg0) {
-				set.Forward=true;
+				Setting.Forward=true;
 				set.Speed=-Integer.parseInt(textArea_4.getText());
 			}
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
-				set.Forward=true;
+				Setting.Forward=true;
 				set.Speed=0;
 			}
 		});
@@ -349,12 +355,12 @@ public class Server {
 		button.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent arg0) {
-				set.Turn=true;
+				Setting.Turn=true;
 				set.Speed=Integer.parseInt(textArea_4.getText());
 			}
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
-				set.Turn=true;
+				Setting.Turn=true;
 				set.Speed=0;
 			}
 		});
@@ -365,12 +371,12 @@ public class Server {
 		btnNewButton_17.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent arg0) {
-				set.Turn=true;
+				Setting.Turn=true;
 				set.Speed=-Integer.parseInt(textArea_4.getText());
 			}
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
-				set.Turn=true;
+				Setting.Turn=true;
 				set.Speed=0;
 			}
 		});
@@ -378,17 +384,23 @@ public class Server {
 		panel_2.add(btnNewButton_17);
 		
 		JButton btnNewButton_14 = new JButton("\uFF0B");
+		btnNewButton_14.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
 		btnNewButton_14.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				speed+=10;
 				set.Speed=speed;
+			
 				if(speed>1000){
 					speed=1000;
 					set.Speed=speed;
 				}
 				textArea_4.setText(speed+"");
-				set.SetAddSpeed=true;
+				Setting.SetAddSpeed=true;
 			}
 		});
 		btnNewButton_14.setBounds(160, 403, 56, 23);
@@ -405,7 +417,7 @@ public class Server {
 					set.Speed=speed;
 				}
 				textArea_4.setText(speed+"");
-				set.SetSubtractSpeed=true;
+				Setting.SetSubtractSpeed=true;
 			}
 		});
 		button_2.setBounds(268, 403, 56, 23);
@@ -430,12 +442,16 @@ public class Server {
 				btnNewButton_10, btnNewButton_9, textArea_2 );
 		
 		final JButton btnNewButton_12 = new JButton("Position");
+	
 		btnNewButton_12.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				if(_flag) {
 					position.start();
 					wifisgl.start();
+//					vpi=new vposini();
+//					vpi.start();
+					
 					btnNewButton_12.setText("Stop");
 					_flag=false;
 				}else {
@@ -455,25 +471,30 @@ public class Server {
 		});
 		btnNewButton_12.setBounds(388, 150, 112, 23);
 		panel_3.add(btnNewButton_12);
-		btnNewButton_3.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-			}
-		});
+		
+		
 		
 		btnNewButton_3.setBackground(Color.WHITE);
 		btnNewButton_3.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-//				if( mode==0 ){
-//					Propel.start=Position.start;
-//					Propel.end=2;
-//					Propel.flag=true;
-//				}else{
-//					int[] path=new int[]{2, 3, 8, 7, 6, 5, 0, 1, 4, 2};
-//					mz.array=path;
-//					MonitorZones.flag=true;
-//				}
+				if( mode==0 ){
+					int[] path;
+					if(Info.secpo!=-1){
+						path=fw.FindPathArray(Info.secpo, 2);
+					}else{path=fw.FindPathArray(Position.start, 2);}
+					
+					for(int i=0;i<path.length;i++){
+						System.out.print(path[i]+",");
+					}
+					vtest=new pathalgo(path);
+					vtest.start();
+				}else{
+					int[] path=new int[]{2, 3, 8, 7, 6, 5, 0, 1, 4, 2};
+					vtest=new pathalgo(path);
+					vtest.start();
+					MonitorZones.flag=true;
+				}
 			}
 		});
 		btnNewButton_3.setBounds(63, 86, 87, 87);
@@ -484,15 +505,24 @@ public class Server {
 		btnNewButton_4.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-//				if( mode==0 ){
-//					Propel.start=Position.start;
-//					Propel.end=1;
-//					Propel.flag=true;
-//				}else{
-//					int[] path=new int[]{1, 0, 5, 6, 7, 8, 3, 2, 4, 1};
-//					mz.array=path;
-//					MonitorZones.flag=true;
-//				}
+				if( mode==0 ){
+					int[] path;
+					if(Info.secpo!=-1){
+						
+						path=fw.FindPathArray(Info.secpo, 1);
+					}else{path=fw.FindPathArray(Position.start, 1);}
+					
+					for(int i=0;i<path.length;i++){
+						System.out.println(path[i]);
+					}
+					vtest=new pathalgo(path);
+					vtest.start();
+				}else{
+					int[] path=new int[]{1, 0, 5, 6, 7, 8, 3, 2, 4, 1};
+					vtest=new pathalgo(path);
+					vtest.start();
+					MonitorZones.flag=true;
+				}
 			}
 		});
 		btnNewButton_4.setBounds(160, 85, 87, 87);
@@ -503,15 +533,21 @@ public class Server {
 		btnNewButton_5.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-//				if( mode==0 ){
-//					Propel.start=Position.start;
-//					Propel.end=0;
-//					Propel.flag=true;
-//				}else{
-//					int[] path=new int[]{0, 5, 6, 7, 8, 3, 2, 4, 1, 0};
-//					mz.array=path;
-//					MonitorZones.flag=true;
-//				}
+				if( mode==0 ){
+					int[] path;
+					if(Info.secpo!=-1){
+						
+						path=fw.FindPathArray(Info.secpo, 0);
+					}else{path=fw.FindPathArray(Position.start, 0);}
+					
+					vtest=new pathalgo(path);
+					vtest.start();
+				}else{
+					int[] path=new int[]{0, 5, 6, 7, 8, 3, 2, 4, 1, 0};
+					vtest=new pathalgo(path);
+					vtest.start();
+					MonitorZones.flag=true;
+				}
 			}
 		});
 		btnNewButton_5.setBounds(257, 85, 87, 87);
@@ -522,15 +558,20 @@ public class Server {
 		btnNewButton_6.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-//				if( mode==0 ){
-//					Propel.start=Position.start;
-//					Propel.end=3;
-//					Propel.flag=true;
-//				}else{
-//					int[] path=new int[]{3, 8, 7, 6, 5, 0, 1, 2, 4, 3};
-//					mz.array=path;
-//					MonitorZones.flag=true;
-//				}
+				if( mode==0 ){
+					int[] path;
+					if(Info.secpo!=-1){
+						
+						path=fw.FindPathArray(Info.secpo, 3);
+					}else{path=fw.FindPathArray(Position.start, 3);}
+					vtest=new pathalgo(path);
+					vtest.start();
+				}else{
+					int[] path=new int[]{3, 8, 7, 6, 5, 0, 1, 2, 4, 3};
+					vtest=new pathalgo(path);
+					vtest.start();
+					MonitorZones.flag=true;
+				}
 			}
 		});
 		btnNewButton_6.setBounds(63, 183, 87, 87);
@@ -541,39 +582,45 @@ public class Server {
 		btnNewButton_7.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-//				if( mode==0 ){
-//					Propel.start=Position.start;
-//					Propel.end=4;
-//					Propel.flag=true;
-//				}else{
-//					int[] path=new int[]{4, 7, 6, 5, 0, 1, 2, 3, 8, 4};
-//					mz.array=path;
-//					MonitorZones.flag=true;
-//				}
+				if( mode==0 ){
+					int[] path;
+					if(Info.secpo!=-1){
+						
+						path=fw.FindPathArray(Info.secpo, 4);
+					}else{path=fw.FindPathArray(Position.start, 4);}
+					vtest=new pathalgo(path);
+					vtest.start();
+				}else{
+					int[] path=new int[]{4, 7, 6, 5, 0, 1, 2, 3, 8, 4};
+					vtest=new pathalgo(path);
+					vtest.start();
+					MonitorZones.flag=true;
+				}
 			}
 		});
 		btnNewButton_7.setBounds(160, 183, 87, 87);
 		panel_3.add(btnNewButton_7);
-		btnNewButton_8.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-			}
-		});
+		
 		
 //		final JButton btnNewButton_8 = new JButton("5");
 		btnNewButton_8.setBackground(Color.WHITE);
 		btnNewButton_8.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-//				if( mode==0 ){
-//					Propel.start=Position.start;
-//					Propel.end=5;
-//					Propel.flag=true;
-//				}else{
-//					int[] path=new int[]{5, 0, 1, 4, 2, 3, 8, 7, 6, 5};
-//					mz.array=path;
-//					MonitorZones.flag=true;
-//				}
+				if( mode==0 ){
+					int[] path;
+					if(Info.secpo!=-1){
+						
+						path=fw.FindPathArray(Info.secpo, 5);
+					}else{path=fw.FindPathArray(Position.start, 5);}
+					vtest=new pathalgo(path);
+					vtest.start();
+				}else{
+					int[] path=new int[]{5, 0, 1, 4, 2, 3, 8, 7, 6, 5};
+					vtest=new pathalgo(path);
+					vtest.start();
+					MonitorZones.flag=true;
+				}
 			}
 		});
 		btnNewButton_8.setBounds(257, 183, 87, 87);
@@ -584,15 +631,20 @@ public class Server {
 		btnNewButton_9.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-//				if( mode==0 ){
-//					Propel.start=Position.start;
-//					Propel.end=8;
-//					Propel.flag=true;
-//				}else{
-//					int[] path=new int[]{8, 7, 6, 5, 0, 1, 4, 2, 3, 8};
-//					mz.array=path;
-//					MonitorZones.flag=true;
-//				}
+				if( mode==0 ){
+					int[] path;
+					if(Info.secpo!=-1){
+						
+						path=fw.FindPathArray(Info.secpo, 8);
+					}else{path=fw.FindPathArray(Position.start, 8);}
+					vtest=new pathalgo(path);
+					vtest.start();
+				}else{
+					int[] path=new int[]{8, 7, 6, 5, 0, 1, 4, 2, 3, 8};
+					vtest=new pathalgo(path);
+					vtest.start();
+					MonitorZones.flag=true;
+				}
 			}
 		});
 		btnNewButton_9.setBounds(63, 280, 87, 87);
@@ -603,15 +655,20 @@ public class Server {
 		btnNewButton_10.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-//				if( mode==0 ){
-//					Propel.start=Position.start;
-//					Propel.end=7;
-//					Propel.flag=true;
-//				}else{
-//					int[] path=new int[]{7, 6, 5, 0, 1, 4, 2, 3, 8, 7};
-//					mz.array=path;
-//					MonitorZones.flag=true;
-//				}
+				if( mode==0 ){
+					int[] path;
+					if(Info.secpo!=-1){
+						
+						path=fw.FindPathArray(Info.secpo, 7);
+					}else{path=fw.FindPathArray(Position.start, 7);}
+					vtest=new pathalgo(path);
+					vtest.start();
+				}else{
+					int[] path=new int[]{7, 6, 5, 0, 1, 4, 2, 3, 8, 7};
+					vtest=new pathalgo(path);
+					vtest.start();
+					MonitorZones.flag=true;
+				}
 			}
 		});
 		btnNewButton_10.setBounds(160, 280, 87, 87);
@@ -622,15 +679,20 @@ public class Server {
 		btnNewButton_11.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-//				if( mode==0 ){
-//					Propel.start=Position.start;
-//					Propel.end=6;
-//					Propel.flag=true;
-//				}else{
-//					int[] path=new int[]{6, 5, 0, 1, 4, 2, 3, 8, 7, 6};
-//					mz.array=path;
-//					MonitorZones.flag=true;
-//				}
+				if( mode==0 ){
+					int[] path;
+					if(Info.secpo!=-6){
+						
+						path=fw.FindPathArray(Info.secpo, 6);
+					}else{path=fw.FindPathArray(Position.start, 6);}
+					vtest=new pathalgo(path);
+					vtest.start();
+				}else{
+					int[] path=new int[]{6, 5, 0, 1, 4, 2, 3, 8, 7, 6};
+					vtest=new pathalgo(path);
+					vtest.start();
+					MonitorZones.flag=true;
+				}
 			}
 		});
 		btnNewButton_11.setBounds(257, 280, 87, 87);
@@ -681,7 +743,7 @@ public class Server {
 		panel.add(lblData);
 		lblData.setFont(new Font("敺株�甇�擃�", Font.BOLD, 16));
 		
-		textField_1 = new JTextField("250");
+		textField_1 = new JTextField("62");
 		textField_1.setFont(new Font("敺株�甇�擃�", Font.BOLD, 12));
 		textField_1.setBounds(112, 81, 96, 21);
 		panel.add(textField_1);

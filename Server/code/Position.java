@@ -59,16 +59,20 @@ public class Position extends Thread{
 		double result=gmm_model[0].calcLikelihood(TestFeature);
 		int _zone=0, m=1, n=1, i, j;
 		
+		reset++;
+		
 		for( i=1; i<gmm_model.length; i++){
 			if( gmm_model[i].calcLikelihood(TestFeature)>result ){
 				result = gmm_model[i].calcLikelihood(TestFeature);
 				_zone=i;
 			}
 		}
+
 		if( reset<100 ){
 			reset=0;
 			zone=-1;
 		}
+
 		if( zone==-1 ) zone=_zone;
 		else{
 			for( i=1; i<4; i++ ){
@@ -200,7 +204,7 @@ public class Position extends Thread{
 	public void FindMaxMin() throws IOException{
 		int i, j, cnt=0;
 		while( cnt<9 ){
-			FileReader fr = new FileReader("C://CamTest//"+(cnt+1)+".txt");
+			FileReader fr = new FileReader("D:/CamTest/database/"+(cnt+1)+".txt");
 			BufferedReader br = new BufferedReader(fr);
 			String ln;
 			for( i=0; i<248; i++ ){
@@ -236,6 +240,9 @@ public class Position extends Thread{
 		}
 	}
 	
+	
+	
+	
 	@Override
 	public void run(){
 
@@ -260,7 +267,7 @@ public class Position extends Thread{
 			FindMaxMin();
 			
 			while( cnt<9 ){
-				FileReader fr = new FileReader("C://CamTest//"+(cnt+1)+".txt");
+				FileReader fr = new FileReader("D:/CamTest/database/"+(cnt+1)+".txt");
 				BufferedReader br = new BufferedReader(fr);
 				String ln;
 				for( i=0; i<248; i++ ){
@@ -293,13 +300,16 @@ public class Position extends Thread{
 						FileReader posfr = new FileReader("C://CamTest//Positioning.txt");
 						BufferedReader posbr = new BufferedReader(posfr);
 						synchronized(posbr){
-							String reg=posbr.readLine();
+							String reg="0";
+							reg=posbr.readLine();
 							_str=reg;
+
+
 							if( _str!=null ){
 								if( _str.indexOf("SSID")>-1 ){
 									String[] wifi = _str.split("BSSID: ");
 									
-									FileReader macfr = new FileReader("C://CamTest//Wifimac.txt");
+									FileReader macfr = new FileReader("D:/CamTest/database/Wifimac.txt");
 									BufferedReader macbr = new BufferedReader(macfr);
 									String str=macbr.readLine();
 									String[] mac = str.split("__");
@@ -313,6 +323,7 @@ public class Position extends Thread{
 												_level[j]=Integer.parseInt(wifi[i].substring(
 														wifi[i].indexOf("level: -")+7, wifi[i].indexOf("level: -")+10));
 										}
+
 									}
 									for( i=0; i<mac.length; i++ ) level[i]+=_level[i];
 									Thread.sleep(10);
@@ -321,6 +332,7 @@ public class Position extends Thread{
 							}
 						}
 					}
+					int g=0;
 					avg=0;
 					for( i=0; i<6; i++ ){ 
 						level[i]/=5;
@@ -337,7 +349,7 @@ public class Position extends Thread{
 						matTestFeature.put(0, i, tmpVal);
 					}
 					
-					FileReader fr = new FileReader("C://CamTest//Wifimac.txt");
+					FileReader fr = new FileReader("D:/CamTest/database/Wifimac.txt");
 					BufferedReader br = new BufferedReader(fr);
 					String str=br.readLine();
 					String[] mac = str.split("__");
@@ -353,9 +365,11 @@ public class Position extends Thread{
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
+					continue;
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
+					continue;
 				}
 			}
 		}
