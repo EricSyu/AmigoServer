@@ -58,8 +58,10 @@ public class Position extends Thread{
 	public void PredictZones(int zone, Mat TestFeature, CvEM [] gmm_model){
 		double result=gmm_model[0].calcLikelihood(TestFeature);
 		int _zone=0, m=1, n=1, i, j;
+
 		
 		reset++;
+
 		
 		for( i=1; i<gmm_model.length; i++){
 			if( gmm_model[i].calcLikelihood(TestFeature)>result ){
@@ -306,12 +308,15 @@ public class Position extends Thread{
 							reg=posbr.readLine();
 							_str=reg;
 
-
 							if( _str!=null ){
 								if( _str.indexOf("SSID")>-1 ){
 									String[] wifi = _str.split("BSSID: ");
 									
+
 									FileReader macfr = new FileReader("D:/CamTest/database/Wifimac.txt");
+
+
+
 									BufferedReader macbr = new BufferedReader(macfr);
 									String str=macbr.readLine();
 									String[] mac = str.split("__");

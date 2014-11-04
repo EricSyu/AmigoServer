@@ -1020,9 +1020,7 @@ public class pathalgo extends Thread implements MonitorProtocol{
 		}
 	
 	}
-	public void pickrule(int x){
-		
-	}
+	
 	public class vec{
 		int x=0;
 		int y=0;

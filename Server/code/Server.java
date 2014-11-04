@@ -285,6 +285,7 @@ public class Server {
 		final Propel propel=new Propel();
 		final MonitorZones mz=new MonitorZones();
 		
+
 		
 		
 		final JLabel lblNewLabel_1 = new JLabel("");
@@ -758,6 +759,7 @@ public class Server {
 		
 		
 		
+
 		JPanel panel = new JPanel();
 		tabbedPane.addTab("Build", null, panel, null);
 		panel.setLayout(null);
