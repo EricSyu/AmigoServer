@@ -77,12 +77,12 @@ public class Search extends Thread{
 					_wrt+=record[i]+"__";
 				}
 			}
-			FileWriter fw = new FileWriter("C://CamTest//Wifi.txt");
+			FileWriter fw = new FileWriter("D://CamTest//Wifi.txt");
 			fw.write(wrt);
 			fw.flush();
 			fw.close();
 			
-			FileWriter _fw = new FileWriter("C://CamTest//Wifimac.txt");
+			FileWriter _fw = new FileWriter("D://CamTest//Wifimac.txt");
 			_fw.write(_wrt);
 			_fw.flush();
 			_fw.close();

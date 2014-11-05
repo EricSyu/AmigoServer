@@ -81,7 +81,7 @@ public class Monitor extends Thread{
 							bigbuf[offset++] = buf[i];
 						}
 					}
-					System.out.println("null:"+buf);
+
 					if(firstSend){
 						CamSendThread CamSend=new CamSendThread(bigbuf);
 						CamSend.start();

@@ -44,10 +44,12 @@ public class pathalgo extends Thread implements MonitorProtocol{
 		}
 	}
 	public void inipos(){
-		//判斷一開始在第幾區  visual
+		//�斗銝��鲳��函洵撟曉�  visual
+		playmusico(1);
 		qtvisual2 ql2=new qtvisual2();
 		ql2.tochep=path[0];
 		new Thread(ql2).start();
+		visfin=false;
 		int st=0;
 		while(ql2.qtfin==false){
 			try {
@@ -59,6 +61,8 @@ public class pathalgo extends Thread implements MonitorProtocol{
 				e.printStackTrace();
 			}
 		}
+		visfin=true;
+		playmusicc(2);
 		if(ql2.tang!=0&&ql2.tang!=360){
 			System.out.println("start point: "+path[0]);
 			pathgo(path);
@@ -70,52 +74,52 @@ public class pathalgo extends Thread implements MonitorProtocol{
 	}
 	 
 	 static boolean visfin=true;
-	public void checkpath(int ang) throws InterruptedException, IOException{
-		int case2=0;
-		if(ang<15)ang+=360;
-		Thread.sleep(2000);
-		int cd=Info.comdeg;
-		
-			if(cd>=ang+15){
-				relrot(-15);
-				relrot(0);
-			}else if(cd<=ang-15){
-				relrot(15);
-				relrot(0);
-			}
-			playmusico(1);
-		qtvisual ql=new qtvisual();
-		new Thread(ql).start();
-		visfin=false;
-		try {int xxx=0;
-			while(ql.uang==360||ql.uang==370){
-				if(xxx%10==0)System.out.println(ql.uang);
-				Thread.sleep(100);xxx++;
-				if(xxx==370){ql.uang=0;break;}
-			}
-			visfin=true;
-			if(ql.uang<=-6&&ql.uang>-10){
-				ql.uang=-10;
-			}
-			if(ql.uang<10&&ql.uang>=6){
-				ql.uang=10;
-			}
-			if(ql.uang<-3&&ql.uang>=-5){
-				ql.uang=-6;
-			}
-			if(ql.uang<6&&ql.uang>=3){
-				ql.uang=6;
-			}
-			playmusicc(1);
-			relrot(ql.uang);
-			relrot(0);
-		} catch (NumberFormatException | IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	return;
-	
-	}
+//	public void checkpath(int ang) throws InterruptedException, IOException{
+//		int case2=0;
+//		if(ang<15)ang+=360;
+//		Thread.sleep(2000);
+//		int cd=Info.comdeg;
+//		
+//			if(cd>=ang+15){
+//				relrot(-15);
+//				relrot(0);
+//			}else if(cd<=ang-15){
+//				relrot(15);
+//				relrot(0);
+//			}
+//			playmusico(1);
+//		qtvisual ql=new qtvisual();
+//		new Thread(ql).start();
+//		visfin=false;
+//		try {int xxx=0;
+//			while(ql.fin==false&&ql!uang==360){
+//				if(xxx%10==0)System.out.println(ql.uang);
+//				Thread.sleep(1000);xxx++;
+//				if(xxx==370){ql.uang=0;break;}
+//			}
+//			visfin=true;
+//			if(ql.uang<=-6&&ql.uang>-10){
+//				ql.uang=-10;
+//			}
+//			if(ql.uang<10&&ql.uang>=6){
+//				ql.uang=10;
+//			}
+//			if(ql.uang<-3&&ql.uang>=-5){
+//				ql.uang=-6;
+//			}
+//			if(ql.uang<6&&ql.uang>=3){
+//				ql.uang=6;
+//			}
+//			playmusicc(1);
+//			relrot(ql.uang);
+//			relrot(0);
+//		} catch (NumberFormatException | IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//	return;
+//	
+//	}
 	public void checkpath() throws InterruptedException, IOException{
 		playmusico(1);
 		qtvisual ql=new qtvisual();
@@ -123,12 +127,12 @@ public class pathalgo extends Thread implements MonitorProtocol{
 		
 		visfin=false;
 		try {int xxx=0;
-			while(ql.uang==360||ql.uang==370){
-				if(xxx%10==0)System.out.println(ql.uang);
+			while(ql.fin==false||(ql.uang==360||ql.uang==370)){
+				System.out.println(ql.uang);
 				Thread.sleep(1000);xxx++;
-				if(xxx==370){ql.uang=0;break;}
 				if(xxx>5)break;
 			}
+			if(xxx==360||ql.uang==370)ql.uang=0;
 			visfin=true;
 			if(ql.uang<=-6&&ql.uang>-10){
 				ql.uang=-10;
@@ -142,10 +146,10 @@ public class pathalgo extends Thread implements MonitorProtocol{
 			if(ql.uang<6&&ql.uang>=3){
 				ql.uang=6;
 			}
-			playmusicc(1);
+			
 			relrot(ql.uang);
 			relrot(0);
-			
+			playmusicc(1);
 		} catch (NumberFormatException | IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -307,16 +311,22 @@ public class pathalgo extends Thread implements MonitorProtocol{
 	
 	if(now.no==4&&next.no==5){
 		
-		setrotang(168);
+//		setrotang(168);
+//		checkpath();
+//		setgodis(305,200);
+		setrotang(180);
 		checkpath();
-		setgodis(305,200);
+		setgodis(300,200);
 
 	}
 	if(now.no==5&&next.no==4){
 		
-		setrotang(348);
+//		setrotang(348);
+//		checkpath();
+//		setgodis(305,200);
+		setrotang(0);
 		checkpath();
-		setgodis(305,200);
+		setgodis(300,200);
 
 	}
 	
@@ -326,7 +336,7 @@ public class pathalgo extends Thread implements MonitorProtocol{
 	    cary=now.y;
 		setrotang(90);
 		checkpath();
-		setgodis(360,200);
+		setgodis(300,200);
 	}
 	if(now.no==5&&next.no==0){
 		carx=now.x;
@@ -334,7 +344,7 @@ public class pathalgo extends Thread implements MonitorProtocol{
 		setrotang(270);
 		
 		checkpath();
-		setgodis(360,200);
+		setgodis(300,200);
 		
 		
 	}
@@ -342,7 +352,7 @@ public class pathalgo extends Thread implements MonitorProtocol{
 		
 		setrotang(90);
 		checkpath();
-		setgodis(360,200);
+		setgodis(420,200);
 		
 	}
 	if(now.no==6&&next.no==5){
@@ -352,7 +362,7 @@ public class pathalgo extends Thread implements MonitorProtocol{
 		setrotang(270);
 		
 		checkpath();
-		setgodis(360,200);
+		setgodis(420,200);
 		
 	}
 	if(now.no==8&&next.no==7){
@@ -433,7 +443,7 @@ public class pathalgo extends Thread implements MonitorProtocol{
 	public class qtvisual implements Runnable{
 //		public String path="";
 		int uang=360;
-		
+		boolean fin=false;
 		@Override
 		public void run() {
 			// TODO Auto-generated method stub
@@ -482,6 +492,7 @@ public class pathalgo extends Thread implements MonitorProtocol{
 					else dan=(int)(tan);
 					System.out.println(xx+" :" + modifiedSentence.substring(xx+3, xx+7)+" dan "+dan);
 					uang=dan;
+					fin=true;
 				}
 				ds.close();
 					
@@ -808,9 +819,10 @@ public class pathalgo extends Thread implements MonitorProtocol{
 			//avoidcheckpath();
 			qtvisual2 qv2=new qtvisual2();
 			qv2.tochep=tnow.no*10+0;
+			playmusico(1);
 			new Thread(qv2).start();
 			int st=0;
-			while(qv2.qtfin==false){
+			while(qv2.qtfin==false||qv2.uang==360){
 				try {
 					Thread.sleep(1000);
 					st++;
@@ -820,8 +832,22 @@ public class pathalgo extends Thread implements MonitorProtocol{
 					e.printStackTrace();
 				}
 			}
+			if(qv2.uang==360)qv2.uang=0;
+			if(qv2.uang<=-6&&qv2.uang>-10){
+				qv2.uang=-10;
+			}
+			if(qv2.uang<10&&qv2.uang>=6){
+				qv2.uang=10;
+			}
+			if(qv2.uang<-3&&qv2.uang>=-5){
+				qv2.uang=-6;
+			}
+			if(qv2.uang<6&&qv2.uang>=3){
+				qv2.uang=6;
+			}
 			relrot(qv2.uang);
 			relrot(0);
+			playmusicc(1);
 //			double tdis=Math.sqrt(Math.pow(tnext.y-cary, 2)+Math.pow(tnext.x-carx,2) );
 			setgodis(tdis, 150);
 			
@@ -881,16 +907,18 @@ public class pathalgo extends Thread implements MonitorProtocol{
 		
 	}
 	public  void playmusico(int m){
-		Socket socket=null;
+	
+		System.out.println( "playmusico");
 		if(m==1){//視覺校正
 		 try {
-			socket=Setting.server.accept();
+			 socket=null;
+		     socket=Setting.server.accept();
 			 DataOutputStream out2 = new DataOutputStream(socket.getOutputStream());
 			 out2.writeInt(PlayMusic1);
 			 out2.flush();
 			 out2.writeInt(Open);
 			 out2.flush();
-//			 socket.close();
+			 socket.close();
 			 socket=null;
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -898,13 +926,14 @@ public class pathalgo extends Thread implements MonitorProtocol{
 		}
 	}else{
 		try {//避障
+			 socket=null;
 		socket=Setting.server.accept();
-		DataOutputStream out2 = new DataOutputStream(socket.getOutputStream());
+	    DataOutputStream out2 = new DataOutputStream(socket.getOutputStream());
 		 out2.writeInt(PlayMusic2);
 		 out2.flush();
 		 out2.writeInt(Open);
 		 out2.flush();
-//		 socket.close();
+		 socket.close();
 		 socket=null;
 		} catch (IOException e) {
 		// TODO Auto-generated catch block
@@ -913,41 +942,47 @@ public class pathalgo extends Thread implements MonitorProtocol{
 		
 	}
 		
-		
-	 }
-	public static void playmusicc(int m){
-		Socket socket=null;
+   }
+	public   void playmusicc(int m){
+	
+		 
 		if(m==1){
-		 try {
-			socket=Setting.server.accept();
-			DataOutputStream out2 = new DataOutputStream(socket.getOutputStream());
+			try {
+			 socket=null;
+			 socket=Setting.server.accept();
+			 DataOutputStream out2 = new DataOutputStream(socket.getOutputStream());
 			 out2.writeInt(PlayMusic1);
 			 out2.flush();
 			 out2.writeInt(Close);
 			 out2.flush();
-//			 out2.close();
+			 out2.close();
 			 socket=null;
-		} catch (IOException e) {
+		
+	    }catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	  }else{
-		  try {
+	 }
+	   else{
+		   try {
+			   socket=null;
 				socket=Setting.server.accept();
 				DataOutputStream out2 = new DataOutputStream(socket.getOutputStream());
-				 out2.writeInt(PlayMusic1);
+				 out2.writeInt(PlayMusic2);
 				 out2.flush();
 				 out2.writeInt(Close);
 				 out2.flush();
-//				 out2.close();
+				 out2.close();
 				 socket=null;
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			 
 	  }
+	  catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	 }
+   }
 	static int rotc=0;
 	static boolean po=false;
 	static int ta=0;
@@ -957,7 +992,7 @@ public class pathalgo extends Thread implements MonitorProtocol{
 		System.out.println( "setrotang"+ang);
 		
 		int ttx=(int) (Math.abs(ang-Info.carang)/9);
-	
+		if(Info.carang<90&&ang>270){ttx=(int) (ang-Info.carang)/9;}
 		if(ang==0){ttx=(int) (Math.abs(360-Info.carang)/9);
 		if(Info.carang<10){ttx=1;}
 		}
@@ -1075,19 +1110,26 @@ public class pathalgo extends Thread implements MonitorProtocol{
 		
 		forward(speed);
 		double ttdis=0;
+		double safedistime=60/(speed/10);
 		while(xt<dtime&&fin==false){
+		   if(dtime-xt>safedistime){
 			if(tnow.no==3&&tnext.no==8){
-				if(avoidbum38()==1||avoidbum38()==-1){
+				if((avoidbum38()==1||avoidbum38()==-1)){
+					
 					double tdis=(dtime-xt)*(speed/10);
+					System.out.println( "remaindis: "+tdis);
 					avotonext(tdis-25);
 					break;
 				}
 			}
 			else if(avoidbum2()==1){
+				
 				double tdis=(dtime-xt)*(speed/10);
+				System.out.println( "remaindis: "+tdis);
 				avotonext(tdis-15);
-				break;
+				break;				
 			}
+		   }
 			Thread.sleep(100);
 //			carx=carx+(0.1*speed/10)*Math.cos(Math.PI/180*Info.carang);
 //			cary=cary+(0.1*speed/10)*Math.sin(Math.PI/180*Info.carang);

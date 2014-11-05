@@ -68,11 +68,11 @@ public class Info extends Thread{
 				
 				
 			
-				for( i=0; i<8; i++ ) sensor[i]=0;
+				for( i=0; i<8; i++ ) sensor[i]=Integer.parseInt(brin.readLine());
 				
 				info+="Blustooth: "+BTstatus+"\nAmigostatus: "+Amigostatus+"\nWifistatus: "
 						+Wifistatus+"\nCamstatus: "+Camstatus+"\nMotor: "+Motor+"\nStall: "
-						+stall+"\n("+x+", "+y+")\n"+"Angle: "+theta+"\n"+"compassdegree: ";
+						+stall+"\n("+x+", "+y+")\n"+"Angle: "+theta+"\n";
 				for( i=0; i<8; i++ ) info+="Sensor "+i+": "+sensor[i]+"\n";
 				
 				textArea.setText(info);

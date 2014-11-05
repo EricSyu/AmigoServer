@@ -72,6 +72,8 @@ public class Server {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
+		
+		Info.secpo=2;
 		frmServer = new JFrame();
 		frmServer.getContentPane().setBackground(UIManager.getColor("Button.background"));
 		frmServer.setBackground(Color.BLACK);
@@ -422,6 +424,7 @@ public class Server {
 			public void mouseClicked(MouseEvent arg0) {
 				speed-=10;
 				set.Speed=speed;
+				
 				if(speed<0){
 					speed=0;
 					set.Speed=speed;
@@ -483,7 +486,7 @@ public class Server {
 		panel_3.add(btnNewButton_12);
 		
 		
-		
+	
 		btnNewButton_3.setBackground(Color.WHITE);
 		btnNewButton_3.addMouseListener(new MouseAdapter() {
 			@Override
@@ -493,7 +496,10 @@ public class Server {
 					int[] path;
 					if(Info.secpo!=-1){
 						path=fw.FindPathArray(Info.secpo, 2);
-					}else{path=fw.FindPathArray(Position.start, 2);}
+					}else{
+//						path=fw.FindPathArray(Position.start, 2);
+						path=fw.FindPathArray(Position.start, 2);
+					}
 
 					
 					for(int i=0;i<path.length;i++){
@@ -535,7 +541,7 @@ public class Server {
 
 					vtest=new pathalgo(path);
 					vtest.start();
-				
+
 
 				}
 			}
@@ -560,11 +566,11 @@ public class Server {
 					vtest=new pathalgo(path);
 					vtest.start();
 				}else{
-					int[] path=new int[]{0, 5, 6, 7, 8, 3, 2, 4, 1, 0};
+					int[] path=new int[]{0, 5, 6, 7, 8, 3, 2, 1, 0};
 
 					vtest=new pathalgo(path);
 					vtest.start();
-					
+
 
 				}
 			}
@@ -596,7 +602,7 @@ public class Server {
 					int[] path=new int[]{3, 8, 7, 6, 5, 0, 1, 2, 3};
 					vtest=new pathalgo(path);
 					vtest.start();
-					
+
 
 				}
 			}
@@ -628,7 +634,7 @@ public class Server {
 					
 					vtest=new pathalgo(path);
 					vtest.start();
-					
+
 
 				}
 			}
@@ -659,7 +665,7 @@ public class Server {
 					
 					vtest=new pathalgo(path);
 					vtest.start();
-					
+
 
 				}
 			}
@@ -689,7 +695,7 @@ public class Server {
 					
 					vtest=new pathalgo(path);
 					vtest.start();
-				
+
 
 				}
 			}
@@ -720,7 +726,7 @@ public class Server {
 
 					vtest=new pathalgo(path);
 					vtest.start();
-					
+
 
 				}
 			}
@@ -753,7 +759,7 @@ public class Server {
 
 					vtest=new pathalgo(path);
 					vtest.start();
-				
+
 				}
 			}
 		});

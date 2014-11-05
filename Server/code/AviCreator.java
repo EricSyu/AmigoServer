@@ -31,7 +31,7 @@ public class AviCreator extends Thread{
 	        
 	        for( i=1; i<=Pictures; i++ ){
 	        	aviout.writeFrame( ImageIO.read(new File( "D:/CamTest/"+Header+"_"+i+".jpeg" ) ) );
-	        	File file=new File("C:/CamTest/"+Header+"_"+i+".jpeg");
+	        	File file=new File("D:/CamTest/"+Header+"_"+i+".jpeg");
 	        	file.delete();
 	        }
 	        aviout.close();

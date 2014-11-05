@@ -8,13 +8,13 @@ public class FloydWarshall {
 	
 		int[][] zone404={
 				 //	 0   1   2    3    4     5   6    7     8
-					{0, 300, ini, ini, ini, 360, ini, ini, ini},//0
+					{0, 300, ini, ini, ini, 300, ini, ini, ini},//0
 					{300, 0, 300, ini, 300, ini, ini, ini, ini},//1
 					{ini, 300, 0, 360, 423, ini, ini, ini, ini},//2
 					{ini, ini, 360, 0, ini, ini, ini, ini, 360},//3
-					{ini, 300, 423, ini, 0, 305, ini, ini, ini},//4
-					{360, ini, ini, ini, 305, 0, 360, ini, ini},//5
-					{ini, ini, ini, ini, ini, 360, 0, 350, ini},//6
+					{ini, 300, 423, ini, 0, 300, ini, ini, ini},//4
+					{300, ini, ini, ini, 300, 0, 420, ini, ini},//5
+					{ini, ini, ini, ini, ini, 420, 0, 350, ini},//6
 					{ini, ini, ini, ini, ini, ini, 350, 0, 350},//7
 					{ini, ini, ini, 360, ini, ini, ini, 350, 0},//8
 			};
