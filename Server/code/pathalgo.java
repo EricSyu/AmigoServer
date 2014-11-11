@@ -134,12 +134,12 @@ public class pathalgo extends Thread implements MonitorProtocol{
 			}
 			if(xxx==360||ql.uang==370)ql.uang=0;
 			visfin=true;
-			if(ql.uang<=-6&&ql.uang>-10){
-				ql.uang=-10;
-			}
-			if(ql.uang<10&&ql.uang>=6){
-				ql.uang=10;
-			}
+//			if(ql.uang<=-6&&ql.uang>-10){
+//				ql.uang=-10;
+//			}
+//			if(ql.uang<10&&ql.uang>=6){
+//				ql.uang=10;
+//			}
 			if(ql.uang<-3&&ql.uang>=-5){
 				ql.uang=-6;
 			}
@@ -833,12 +833,7 @@ public class pathalgo extends Thread implements MonitorProtocol{
 				}
 			}
 			if(qv2.uang==360)qv2.uang=0;
-			if(qv2.uang<=-6&&qv2.uang>-10){
-				qv2.uang=-10;
-			}
-			if(qv2.uang<10&&qv2.uang>=6){
-				qv2.uang=10;
-			}
+			
 			if(qv2.uang<-3&&qv2.uang>=-5){
 				qv2.uang=-6;
 			}
