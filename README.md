@@ -16,5 +16,5 @@ The server can send command package to our Amigo app to control the AmigoBot via
 * The "Monitor" page can let our server control the AmigoBot completely.
 
 ## Screenshot
-![Image01](http://imgur.com/k0RPWsR?raw=true)
-![Image02](http://imgur.com/oMKSl33?raw=true)
+![Image01](http://imgur.com/k0RPWsR)
+![Image02](http://imgur.com/oMKSl33)
