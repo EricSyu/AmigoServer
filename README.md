@@ -1,6 +1,6 @@
 # AmigoServer
 A control interface of controling the AmigoBot.<br>
-The server must use with our Amigo app and the AmigoBot.<br>
+The server must work with the [AmigoApp](https://github.com/EricSyu/Amigo) and the AmigoBot.<br>
 The server can send command package to our Amigo app to control the AmigoBot via mobile network.
 
 **AmigoBot :**<br>
